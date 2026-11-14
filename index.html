@@ -247,7 +247,7 @@ intro.addEventListener("touchend",e=>{if(touchY!==null&&touchY-e.changedTouches[
 
 /* ===== Invitation ===== */
 function invite(){
- const n=toName();$("#gname").textContent=n||"Tamu Undangan";$("#gn2").textContent=n||"Tamu Undangan";$("#venue").href=CFG.mapUrl;
+ const n=toName();$("#gname").textContent=n||"Tetamu Undangan";$("#gn2").textContent=n||"Tetamu Undangan";$("#venue").href=CFG.mapUrl;
  const pv=!!window.__to;$("#pvbar").style.display=pv?"block":"none";$("#pvbar").innerHTML=`Pratonton untuk: <b>${esc(window.__to||"")}</b> · <a href="#admin" id="bk" style="color:inherit">Kembali ke admin</a>`;$("#bk").onclick=()=>{window.__to=""};
  if(opened||pv){$("#intro").style.display="none";$("#main").classList.add("show");document.body.classList.remove("lock");$("#mus").style.display="block"}
  else{$("#intro").style.display="flex";$("#intro").classList.remove("gone","open");busy=false;$("#main").classList.remove("show");document.body.classList.add("lock")}
