@@ -40,7 +40,7 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
 .t-script{font-family:'Great Vibes',cursive;font-size:clamp(3.4rem,17vw,5.2rem);line-height:1;color:var(--wine)}
 .t-caps{font-family:'Playfair Display',Georgia,serif;font-weight:700;letter-spacing:.3em;margin-right:-.3em;font-size:clamp(1.15rem,5.6vw,1.7rem);line-height:1.2;color:var(--wine)}
 .sealwrap{display:grid;place-items:center;transition:transform .9s,opacity .9s}#intro.open .sealwrap{transform:scale(1.25);opacity:0}
-.seal-img{display:block;width:min(58vw,230px);max-height:34vh;object-fit:contain;mix-blend-mode:multiply;animation:float 4s ease-in-out infinite}
+.seal-img{display:block;width:min(58vw,230px);max-height:34vh;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(60,10,15,.35));animation:float 4s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-6px)}}
 .to{text-shadow:0 1px 2px rgba(255,248,235,.55)}.to p{margin:0;font-size:1.05rem}.to .script{font-size:clamp(1.9rem,9vw,2.5rem);line-height:1.2;overflow-wrap:anywhere}
 .open-btn{border:1px solid var(--gold);border-radius:999px;background:var(--wine);color:var(--parch);padding:.85rem 2.2rem;font:600 .95rem 'Cormorant Garamond',Georgia,serif;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 20px rgba(60,10,15,.35);transition:transform .15s,background .2s}
@@ -81,8 +81,8 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
 .wish{background:#fbf4e6;border:1px solid var(--gold);border-radius:3px;padding:.7rem 1rem;margin-bottom:.7rem;text-align:left}.wish b{color:var(--wine2)}
 .closing{display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center;color:var(--parch);padding:.5rem 0 0}.closing>*{margin:0}
 .closing .fbsvg{width:120px;color:var(--gold-l)}
-.ini{display:block;width:140px;max-width:60%;height:auto;object-fit:contain}
-.ini.sm{width:48px;max-width:none;flex:none}
+.ini{display:block;width:128px;height:128px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);box-shadow:0 0 0 5px var(--parch2),0 0 0 6px var(--gold)}
+.ini.sm{width:48px;height:48px;box-shadow:0 0 0 2px var(--wine),0 0 0 3px var(--gold);flex:none}
 .mus{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;z-index:70;width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);background:var(--wine2);color:var(--gold-l);cursor:pointer;font-size:1.2rem;display:none}
 .mus.on{animation:spin 7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 #pvbar{display:none;position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:var(--gold);color:#2a0a0c;text-align:center;padding:.3rem;font-weight:600}
@@ -108,7 +108,7 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
 <section id="intro" aria-label="Pintu masuk undangan">
  <div class="ic">
   <h1 class="ttl"><span class="t-script">Undangan</span><span class="t-caps">PERKAHWINAN</span></h1>
-  <div class="sealwrap"><img class="seal-img" src="image1.jpeg" alt="Meterai lilin berbentuk hati" onerror="monoFb(this)"></div>
+  <div class="sealwrap"><img class="seal-img" src="image1.png" alt="Meterai lilin berbentuk hati" onerror="monoFb(this)"></div>
   <div class="to"><p>Kepada Yang Dihormati</p><p id="gname" class="script"></p></div>
   <button class="open-btn" id="openBtn" type="button">BUKA JEMPUTAN</button>
  </div>
@@ -122,7 +122,7 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
  <!-- 1. Cover card -->
  <section class="frame" id="cover">
   <h2>WALIMATULURUS</h2>
-  <img class="ini" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)">
+  <img class="ini" src="initial.jpeg" alt="Monogram S &amp; N" onerror="monoFb(this)">
   <p class="script names">Syazwan &amp; Nazura</p>
   <p class="lead">Ahad | 29 Ogos 2027</p>
   <div class="rule"></div>
@@ -222,7 +222,7 @@ $("#mus").onclick=()=>music(!playing);
 function gate(next){let ok=false;try{ok=sessionStorage.getItem("wed_admin")==="1"}catch(e){ok=!!mem.adm}
  if(ok){next();return}
  const who=location.hash==="#checkin"?"Check-in":"Admin";
- $("#tool").innerHTML=`<div class="flex" style="min-height:90vh;align-items:center;justify-content:center"><form id="lg" class="pc pop" style="width:100%;max-width:380px;text-align:center;display:grid;gap:.8rem;padding:1.6rem"><img class="ini" style="margin:0 auto" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1 style="color:var(--wine2)">${who}</h1><p style="margin:0;font-size:1rem">Sila masukkan kata laluan admin untuk meneruskan.</p>
+ $("#tool").innerHTML=`<div class="flex" style="min-height:90vh;align-items:center;justify-content:center"><form id="lg" class="pc pop" style="width:100%;max-width:380px;text-align:center;display:grid;gap:.8rem;padding:1.6rem"><img class="ini" style="margin:0 auto" src="initial.jpeg" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1 style="color:var(--wine2)">${who}</h1><p style="margin:0;font-size:1rem">Sila masukkan kata laluan admin untuk meneruskan.</p>
   <div style="position:relative"><input class="inp" type="password" id="pw" placeholder="Kata laluan" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" style="padding-right:3rem"><button type="button" id="eye" aria-label="Tunjuk kata laluan" aria-pressed="false" style="position:absolute;right:.35rem;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;color:var(--wine2);padding:.4rem;line-height:0"></button></div>
   <p id="e" style="color:#8a1c1c;min-height:1.2em;margin:0"></p><button class="btn">Log masuk</button><a href="#" style="font-size:1rem;color:var(--ink)">Kembali ke kad jemputan</a></form></div>`;
  const EO='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',EC='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.2 3.9M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a10 10 0 0 0 4.2-.9M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
@@ -274,7 +274,7 @@ function thanks(g){const y=g.status==="yes";
  $("#chg").onclick=()=>form(g.name,g)}
 
 /* ===== Admin ===== */
-const hdr=(t,a)=>`<div class="flex items-center justify-between gap-2 flex-wrap mb-4"><div class="flex items-center gap-3"><img class="ini sm" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1>${t}</h1></div><div class="flex gap-2">${a}</div></div>`;
+const hdr=(t,a)=>`<div class="flex items-center justify-between gap-2 flex-wrap mb-4"><div class="flex items-center gap-3"><img class="ini sm" src="initial.jpeg" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1>${t}</h1></div><div class="flex gap-2">${a}</div></div>`;
 function admin(){const T=$("#tool");
  let q="",fs="all",ft="all";
  T.innerHTML=hdr("Tetamu &amp; Tempat Duduk",`<a class="btn hd sm" href="#checkin">Check-in</a><a class="btn hd sm" href="#">Kad</a><button class="btn hd sm" id="out">Log keluar</button>`)+`
@@ -347,9 +347,9 @@ function checkin(){let q="";const T=$("#tool");
   ["note","Nota",()=>{const m=modal(`<h2>${esc(CFG.note.title)}</h2><p style="margin:.8rem 0 1rem;line-height:1.7;font-size:1.15rem">${esc(CFG.note.text)}</p><button class="btn ghost" id="cl">Tutup</button>`);closer(m)}]];
  $("#nav").innerHTML=items.map(([k,l],i)=>`<button data-i="${i}" aria-label="${l}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg><span>${l}</span></button>`).join("");
  $$("#nav button").forEach(b=>b.onclick=items[b.dataset.i][2])})();
-/* Probe which frame file exists (image2.jpg or image2.jpeg) and expose it to CSS as --frame */
+/* Probe which frame file exists (image2.jpeg or image2.jpg) and expose it to CSS as --frame */
 (()=>{const probe=(list,ok,fail)=>{const f=list.shift();if(!f){fail();return}const im=new Image();im.onload=()=>ok(f);im.onerror=()=>probe(list,ok,fail);im.src=f};
- probe(["image2.jpg","image2.jpeg"],f=>document.documentElement.style.setProperty("--frame",'url("'+f+'")'),()=>$$(".frame").forEach(x=>x.classList.add("nofr")))})();
+ probe(["image2.jpeg","image2.jpg"],f=>document.documentElement.style.setProperty("--frame",'url("'+f+'")'),()=>$$(".frame").forEach(x=>x.classList.add("nofr")))})();
 route();
 </script>
 </body>
