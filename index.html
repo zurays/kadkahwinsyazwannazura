@@ -58,22 +58,28 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
 /* gambar2.jpg as 9-slice frame; content flows inside it */
 .frame{border:solid transparent;border-width:9rem 4.1rem 11.5rem;border-image:url("gambar2.jpg") 330 130 380 fill/9rem 4.1rem 11.5rem stretch;padding:.4rem .3rem .6rem;background:linear-gradient(160deg,var(--parch),var(--parch2))}
 .frame.nofr{border:1.5px solid var(--gold);border-image:none;border-radius:6px;padding:2.2rem 1.4rem}
-.frame .bis{font-size:2rem;line-height:1.7;color:var(--wine2)}.frame .sm{font-size:.95rem}
-.frame .gn{font-size:2.1rem;line-height:1.2;color:var(--wine2);overflow-wrap:anywhere}
-.frame .n{font-size:1.45rem;font-weight:600;line-height:1.25}.frame .par{font-size:1rem;line-height:1.4}
-.frame .amp{font-size:3rem;line-height:1;color:var(--gold)}.frame .nm{display:flex;flex-direction:column;gap:.3rem}
+/* One type scale for every card: title 2rem script / lead 1.3rem 600 / body 1.1rem 500 / small 1rem */
+.frame{font-size:1.1rem;font-weight:500;line-height:1.5}
+.frame h2{font-size:2rem;line-height:1.2}
+.frame .lead{font-size:1.3rem;font-weight:600;line-height:1.3}
+.frame .sm{font-size:1rem;font-weight:500;line-height:1.4}
+.frame .bis{font-size:2rem;font-weight:400;line-height:1.7;color:var(--wine2)}
+.frame .gn{font-size:2rem;line-height:1.2;color:var(--wine2);overflow-wrap:anywhere}
+.frame .amp{font-size:2.4rem;line-height:1;color:var(--gold)}.frame .nm{display:flex;flex-direction:column;gap:.3rem}
 .fdiv{width:32px;height:32px;color:var(--rose);flex:none}
 .orn{display:flex;align-items:center;gap:.7rem;width:78%;margin:.3rem auto}.orn::before,.orn::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}.orn::after{background:linear-gradient(270deg,transparent,var(--gold))}.orn .fdiv{width:26px;height:26px}
-.cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem}.cd div{padding:.5rem 0;text-align:center;border:1px solid var(--gold);border-radius:3px;background:#fbf4e6}.cd b{display:block;font-size:1.8rem;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--wine2)}.cd span{font-size:.85rem}
+.cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem}.cd div{padding:.5rem 0;text-align:center;border:1px solid var(--gold);border-radius:3px;background:#fbf4e6}.cd b{display:block;font-size:1.8rem;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--wine2)}.cd span{font-size:.9rem}
 .tl{position:relative;text-align:left;padding-left:1rem}.tl::before{content:"";position:absolute;left:.3rem;top:.5rem;bottom:.5rem;width:1px;background:var(--gold)}
-.ti{position:relative;padding:0 0 1rem 1.6rem}.ti:last-child{padding-bottom:0}.ti::before{content:"";position:absolute;left:0;top:.5rem;width:.65rem;height:.65rem;background:var(--parch);border:1.5px solid var(--gold);border-radius:50%}.ti b{display:block;color:var(--wine2);font-size:1.25rem}
-.rc{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.6rem;letter-spacing:.2em;font-weight:600}
+.ti{position:relative;padding:0 0 1rem 1.6rem}.ti:last-child{padding-bottom:0}.ti::before{content:"";position:absolute;left:0;top:.5rem;width:.65rem;height:.65rem;background:var(--parch);border:1.5px solid var(--gold);border-radius:50%}.ti b{display:block;color:var(--wine2);font-size:1.2rem;font-weight:600}
+
+.frame h2.rc{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;letter-spacing:.2em;font-weight:600}
 .wall{height:19rem;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(transparent,#000 10%,#000 90%,transparent)}
 .track.scroll{animation:roll linear infinite}.wall:hover .track{animation-play-state:paused}@keyframes roll{to{transform:translateY(-50%)}}
 .wish{background:#fbf4e6;border:1px solid var(--gold);border-radius:3px;padding:.7rem 1rem;margin-bottom:.7rem;text-align:left}.wish b{color:var(--wine2)}
 .closing{display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center;color:var(--parch);padding:.5rem 0 0}.closing>*{margin:0}
 .closing .fbsvg{width:120px;color:var(--gold-l)}
 .ini{width:128px;height:128px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);box-shadow:0 0 0 5px var(--wine),0 0 0 6px var(--gold);display:block}
+.ini.sm{width:48px;height:48px;box-shadow:0 0 0 2px var(--wine),0 0 0 3px var(--gold);flex:none}
 .mus{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;z-index:70;width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);background:var(--wine2);color:var(--gold-l);cursor:pointer;font-size:1.2rem;display:none}
 .mus.on{animation:spin 7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 #pvbar{display:none;position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:var(--gold);color:#2a0a0c;text-align:center;padding:.3rem;font-weight:600}
@@ -94,11 +100,8 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
 </style>
 </head>
 <body class="lock">
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<symbol id="mono" viewBox="0 0 200 150"><g fill="currentColor" font-family="'Cormorant Garamond',Georgia,serif" font-size="140"><text x="34" y="116" opacity=".92">S</text><text x="84" y="116" opacity=".92">N</text></g><path d="M128 100Q146 122 190 124" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol></defs></svg>
-
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="fl" viewBox="0 0 100 100"><g fill="currentColor"><ellipse cx="50" cy="26" rx="11" ry="22"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(72 50 50)"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(144 50 50)"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(216 50 50)"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(288 50 50)"/></g><circle cx="50" cy="50" r="7" fill="#b8963e"/></symbol></defs></svg>
-<script>function monoFb(i){var d=document.createElement("div");d.innerHTML='<svg class="fbsvg" viewBox="0 0 200 150"><use href="#mono"/></svg>';i.replaceWith(d.firstChild)}</script>
+<script>function monoFb(i){i.style.visibility="hidden"}</script>
 <section id="intro" role="button" tabindex="0" aria-label="Sentuh skrin untuk masuk">
  <svg class="fl a" viewBox="0 0 100 100"><use href="#fl"/></svg><svg class="fl b" viewBox="0 0 100 100"><use href="#fl"/></svg><svg class="fl c" viewBox="0 0 100 100"><use href="#fl"/></svg><svg class="fl d" viewBox="0 0 100 100"><use href="#fl"/></svg>
  <div class="ic">
@@ -118,23 +121,23 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
  <section class="frame" id="salam">
   <p class="ar bis" dir="rtl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
   <p><i>Bismillahirrahmanirrahim</i></p><div class="rule"></div>
-  <p><b>Assalamu’alaikum Warahmatullahi Wabarakatuh</b></p>
+  <p class="lead">Assalamu’alaikum Warahmatullahi Wabarakatuh</p>
   <div><p class="sm">Kepada</p><p class="script gn" id="gn2"></p></div>
   <p>Dengan penuh kesyukuran, kami menjemput YBhg. Tan Sri/ Puan Sri/ Dato’ Seri/ Datin Seri/ Dato’/ Datin/ Tuan/ Puan/ Encik/ Cik sekeluarga ke majlis perkahwinan anakanda kami</p>
   <svg class="fdiv" viewBox="0 0 100 100"><use href="#fl"/></svg>
-  <div class="nm"><p class="n">Mohd Asriq Syazwan bin Abdellah</p><p class="par">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p></div>
+  <div class="nm"><p class="lead">Mohd Asriq Syazwan bin Abdellah</p><p class="sm">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p></div>
   <p class="script amp">&amp;</p>
-  <div class="nm"><p class="n">Mumtaz Nazura binti Yusof</p><p class="par">Puteri kepada<br>Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p></div>
+  <div class="nm"><p class="lead">Mumtaz Nazura binti Yusof</p><p class="sm">Puteri kepada<br>Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p></div>
  </section>
 
  <section class="frame" id="lokasi">
   <h2>Menghitung Hari</h2>
   <div class="cd" id="cd"></div>
-  <p style="font-size:1rem">menuju 29 Ogos 2027</p>
+  <p class="sm">menuju 29 Ogos 2027</p>
   <div class="orn" aria-hidden="true"><svg class="fdiv" viewBox="0 0 100 100"><use href="#fl"/></svg></div>
   <h2>Majlis Perkahwinan</h2>
-  <p style="font-size:1.5rem"><b>Ahad, 29 Ogos 2027</b></p><p>10:00 pagi - 12:00 tengah hari</p>
-  <p style="font-size:1.3rem"><b>Arcum Tent Baitulmal</b></p>
+  <p class="lead">Ahad, 29 Ogos 2027</p><p>10:00 pagi - 12:00 tengah hari</p>
+  <p class="lead">Arcum Tent Baitulmal</p>
   <a class="btn" id="map" target="_blank" rel="noopener">Buka Google Maps</a>
  </section>
 
@@ -156,6 +159,7 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
   <p class="script" style="font-size:2.2rem">Terima Kasih</p>
   <p style="max-width:320px;opacity:.85">Kehadiran dan doa restu anda amat kami hargai. Semoga Allah membalas kebaikan anda.</p>
   <p class="script" style="font-size:2.6rem;color:var(--gold-l)">Syazwan &amp; Nazura</p>
+  <p style="font-size:1rem;opacity:.9">Hubungi kami:<br>Pengantin Lelaki <a href="tel:+60164607883" style="color:var(--gold-l)">+60 16-460 7883</a><br>Pengantin Perempuan <a href="tel:+60136155625" style="color:var(--gold-l)">+60 13-615 5625</a></p>
   <p style="opacity:.7;font-size:1rem">Wassalam<br><a href="#admin" style="color:inherit">Admin</a> · <a href="#checkin" style="color:inherit">Check-in</a></p>
  </footer>
 </div></main>
@@ -166,9 +170,8 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
 /* ===== CONFIG: edit these ===== */
 const CFG={date:new Date(2027,7,29,10,0,0),
  mapUrl:"https://www.google.com/maps/search/?api=1&query=Arcum+Tent+Baitulmal", /* exact Google Maps link */
- whatsapp:"60100000000", /* GANTI: nombor WhatsApp pengantin/keluarga, format 60… tanpa + */
-   contacts:[["Keluarga Pengantin Lelaki","60100000000"],["Keluarga Pengantin Perempuan","60100000000"]], /* replace with real numbers, format 60… */
- notes:["Sila hadir mengikut masa yang ditetapkan.","Kehadiran adalah untuk tetamu yang dijemput sahaja.","Sila nyatakan nama anda di meja pendaftaran."],
+ contacts:[["Pengantin Lelaki · Mohd Asriq Syazwan","60164607883"],["Pengantin Perempuan · Mumtaz Nazura","60136155625"]],
+  notes:["Sila hadir mengikut masa yang ditetapkan.","Kehadiran adalah untuk tetamu yang dijemput sahaja.","Sila nyatakan nama anda di meja pendaftaran."],
  baseUrl:"",   /* your site, e.g. https://domain.com/ ; blank = this page */
  adminPassword:"admin2027",KEY:"wedding_guests_v3"};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -195,10 +198,21 @@ function music(on){playing=on;const b=$("#mus");b.classList.toggle("on",on);b.se
  if(on){const r=bgm.play();if(r&&r.catch)r.catch(()=>{playing=false;b.classList.remove("on");b.setAttribute("aria-pressed","false");noFile()})}else bgm.pause()}
 $("#mus").onclick=()=>music(!playing);
 
+/* ===== Password gate: guards BOTH #admin and #checkin ===== */
+function gate(next){let ok=false;try{ok=sessionStorage.getItem("wed_admin")==="1"}catch(e){ok=!!mem.adm}
+ if(ok){next();return}
+ const who=location.hash==="#checkin"?"Check-in":"Admin";
+ $("#tool").innerHTML=`<div class="flex" style="min-height:90vh;align-items:center;justify-content:center"><form id="lg" class="pc pop" style="width:100%;max-width:380px;text-align:center;display:grid;gap:.8rem;padding:1.6rem"><img class="ini" style="margin:0 auto;box-shadow:0 0 0 3px var(--parch2),0 0 0 4px var(--gold)" src="initial.jpeg" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1 style="color:var(--wine2)">${who}</h1><p style="margin:0;font-size:1rem">Sila masukkan kata laluan admin untuk meneruskan.</p>
+  <div style="position:relative"><input class="inp" type="password" id="pw" placeholder="Kata laluan" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" style="padding-right:3rem"><button type="button" id="eye" aria-label="Tunjuk kata laluan" aria-pressed="false" style="position:absolute;right:.35rem;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;color:var(--wine2);padding:.4rem;line-height:0"></button></div>
+  <p id="e" style="color:#8a1c1c;min-height:1.2em;margin:0"></p><button class="btn">Log masuk</button><a href="#" style="font-size:1rem;color:var(--ink)">Kembali ke kad jemputan</a></form></div>`;
+ const EO='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',EC='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.2 3.9M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a10 10 0 0 0 4.2-.9M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
+ const eye=$("#eye");eye.innerHTML=EO;eye.onclick=()=>{const pw=$("#pw"),show=pw.type==="password";pw.type=show?"text":"password";eye.innerHTML=show?EC:EO;eye.setAttribute("aria-pressed",show);eye.setAttribute("aria-label",show?"Sembunyi kata laluan":"Tunjuk kata laluan");pw.focus()};
+ $("#lg").onsubmit=e=>{e.preventDefault();if($("#pw").value.trim()===CFG.adminPassword){try{sessionStorage.setItem("wed_admin","1")}catch(x){mem.adm=1}next()}else{$("#e").textContent="Kata laluan salah.";$("#lg").classList.remove("shake");void $("#lg").offsetWidth;$("#lg").classList.add("shake")}};
+ $("#pw").focus()}
 /* ===== Router ===== */
 let opened=false,cdT;
 function route(){const h=location.hash.slice(1);clearInterval(cdT);scrollTo(0,0);
- if(h==="admin"||h==="checkin"){$("#intro").style.display="none";$("#main").classList.remove("show");$("#mus").style.display="none";music(false);document.body.classList.remove("lock");const t=$("#tool");t.style.display="block";h==="admin"?admin():checkin();return}
+ if(h==="admin"||h==="checkin"){$("#intro").style.display="none";$("#main").classList.remove("show");$("#mus").style.display="none";music(false);document.body.classList.remove("lock");const t=$("#tool");t.style.display="block";gate(h==="admin"?admin:checkin);return}
  $("#tool").style.display="none";invite()}
 addEventListener("hashchange",route);
 const intro=$("#intro");let busy=false;
@@ -224,28 +238,20 @@ function form(n,g){
  <div class="grid grid-cols-2 gap-2"><label><input type="radio" name="at" value="yes" class="sr-only" checked><span class="pill">Hadir</span></label><label><input type="radio" name="at" value="no" class="sr-only"><span class="pill">Tidak Hadir</span></label></div>
  <div id="paxw"><label for="px" style="font-size:1rem">Jumlah pax</label><select class="inp" style="text-align:center" id="px"><option>1</option><option>2</option><option>3</option></select></div>
  <div><label for="wi" style="font-size:1rem">Ucapan untuk pengantin</label><textarea class="inp" style="text-align:center" id="wi" rows="3" maxlength="240" placeholder="Tulis ucapan anda"></textarea></div>
- <p id="er" style="color:#8a1c1c;min-height:1.3em;margin:0;font-size:1rem"></p><p class="sm" style="font-size:.95rem;opacity:.85;margin:0">Jawapan anda akan dihantar terus melalui WhatsApp.</p><button class="btn" id="sb">Hantar melalui WhatsApp</button></form>`;
+ <p id="er" style="color:#8a1c1c;min-height:1.3em;margin:0;font-size:1rem"></p><button class="btn" id="sb">Confirm</button></form>`;
  if(g&&g.pax<=3)$("#px").value=g.pax;
  const sync=()=>$("#paxw").style.display=$("[name=at]:checked").value==="yes"?"":"none";$$("[name=at]").forEach(r=>r.onchange=sync);
  $("#rf").onsubmit=e=>{e.preventDefault();const name=$("#rn").value.trim(),st=$("[name=at]:checked").value,w=$("#wi").value.trim();
   if(!name){$("#er").textContent="Sila isi nama anda.";return}
   let x=guests.find(y=>same(y.name,name));if(!x){x={id:uid(),name,table:"",arrived:null,pax:1,status:"pending",wish:"",wishAt:0};guests.push(x)}
-  x.status=st;if(st==="yes")x.pax=+$("#px").value;if(w){x.wish=w;x.wishAt=Date.now()}save();wall();thanks(x);waOpen(x,w)}}
-function waText(g,w){return["Assalamu’alaikum, saya "+g.name+".","Kehadiran: "+(g.status==="yes"?"Hadir":"Tidak Hadir"),g.status==="yes"?"Jumlah pax: "+g.pax:"","Ucapan: "+((w!==undefined?w:g.wish)||"-")].filter(Boolean).join("\n")}
-const waUrl=(g,w)=>"https://wa.me/"+CFG.whatsapp+"?text="+encodeURIComponent(waText(g,w));
-function waOpen(g,w){const u=waUrl(g,w);const x=window.open(u,"_blank");if(!x)location.href=u}
+  x.status=st;if(st==="yes")x.pax=+$("#px").value;if(w){x.wish=w;x.wishAt=Date.now()}save();wall();thanks(x);toast("✓ RSVP anda telah disahkan. Terima kasih!")}}
 function thanks(g){const y=g.status==="yes";
- $("#rbox").innerHTML=`<div class="flex flex-col gap-3" style="align-items:center"><p style="font-size:1.4rem;margin:0"><b>${y?"Terima kasih, kami nantikan kehadiran anda":"Terima kasih atas doa anda"}</b></p><p style="margin:0">${esc(g.name)} · ${SL[g.status]}${y?" · "+g.pax+" pax":""}</p><a class="btn" href="${waUrl(g)}" target="_blank" rel="noopener">Hantar semula melalui WhatsApp</a><button class="btn ghost" id="chg">Ubah jawapan</button></div>`;
+ $("#rbox").innerHTML=`<div class="flex flex-col gap-3" style="align-items:center"><p class="lead" style="margin:0">${y?"Terima kasih, kami nantikan kehadiran anda":"Terima kasih atas doa anda"}</p><span class="bdg b-yes" style="align-self:center">✓ RSVP disahkan</span><p style="margin:0">${esc(g.name)} · ${SL[g.status]}${y?" · "+g.pax+" pax":""}</p><button class="btn ghost" id="chg">Ubah jawapan</button></div>`;
  $("#chg").onclick=()=>form(g.name,g)}
 
 /* ===== Admin ===== */
-const hdr=(t,a)=>`<div class="flex items-center justify-between gap-2 flex-wrap mb-4"><div class="flex items-center gap-3"><div style="color:var(--gold-l)"><svg viewBox="0 0 200 150" width="56" height="42"><use href="#mono"/></svg></div><h1>${t}</h1></div><div class="flex gap-2">${a}</div></div>`;
-function admin(){let ok=false;try{ok=sessionStorage.getItem("wed_admin")==="1"}catch(e){ok=!!mem.adm}
- const T=$("#tool");
- if(!ok){T.innerHTML=`<div class="min-h-screen flex items-center justify-center"><form id="lg" class="pc p-8 w-full max-w-sm text-center grid gap-3 pop"><div style="color:var(--wine2);margin:0 auto"><svg viewBox="0 0 200 150" width="84" height="63"><use href="#mono"/></svg></div><h1 style="color:var(--wine2)">Admin</h1><div style="position:relative"><input class="inp" type="password" id="pw" placeholder="Kata laluan" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" style="padding-right:3rem"><button type="button" id="eye" aria-label="Tunjuk kata laluan" aria-pressed="false" style="position:absolute;right:.35rem;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;color:var(--wine2);padding:.4rem;line-height:0"></button></div><p id="e" style="color:#8a1c1c;min-height:1.2em;margin:0"></p><button class="btn">Log masuk</button><a href="#" style="font-size:1rem">Kembali ke kad jemputan</a></form></div>`;
-  const EO='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',EC='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.2 3.9M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a10 10 0 0 0 4.2-.9M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
-  const eye=$("#eye");eye.innerHTML=EO;eye.onclick=()=>{const pw=$("#pw"),show=pw.type==="password";pw.type=show?"text":"password";eye.innerHTML=show?EC:EO;eye.setAttribute("aria-pressed",show);eye.setAttribute("aria-label",show?"Sembunyi kata laluan":"Tunjuk kata laluan");pw.focus()};
-  $("#lg").onsubmit=e=>{e.preventDefault();if($("#pw").value.trim()===CFG.adminPassword){try{sessionStorage.setItem("wed_admin","1")}catch(x){mem.adm=1}admin()}else{$("#e").textContent="Kata laluan salah.";$("#lg").classList.remove("shake");void $("#lg").offsetWidth;$("#lg").classList.add("shake")}};return}
+const hdr=(t,a)=>`<div class="flex items-center justify-between gap-2 flex-wrap mb-4"><div class="flex items-center gap-3"><img class="ini sm" src="initial.jpeg" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1>${t}</h1></div><div class="flex gap-2">${a}</div></div>`;
+function admin(){const T=$("#tool");
  let q="",fs="all",ft="all";
  T.innerHTML=hdr("Tetamu &amp; Tempat Duduk",`<a class="btn hd sm" href="#checkin">Check-in</a><a class="btn hd sm" href="#">Kad</a><button class="btn hd sm" id="out">Log keluar</button>`)+`
   <div id="sum" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4"></div>
@@ -274,7 +280,7 @@ function admin(){let ok=false;try{ok=sessionStorage.getItem("wed_admin")==="1"}c
   if(guests.some(g=>same(g.name,n))){toast("Nama ini sudah ada");return}
   const g={id:uid(),name:n,pax:Math.max(1,+f.get("p")||1),status:"pending",table:f.get("t").trim(),wish:"",wishAt:0,arrived:null};guests.push(g);save();e.target.reset();e.target.p.value=1;draw();copy(linkFor(g))};
  $("#q").oninput=e=>{q=e.target.value.toLowerCase();draw()};$("#fs").onchange=e=>{fs=e.target.value;draw()};$("#ft").onchange=e=>{ft=e.target.value;draw()};
- $("#out").onclick=()=>{try{sessionStorage.removeItem("wed_admin")}catch(e){delete mem.adm}admin()};
+ $("#out").onclick=()=>{try{sessionStorage.removeItem("wed_admin")}catch(e){delete mem.adm}route()};
  $("#rst").onclick=()=>{if(confirm("Ganti semua data dengan data demo?")){guests=seed();save();draw()}};
  $("#exp").onclick=()=>{const qt=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
   const csv=[["Nama","Pax","Status","Meja","Pautan","Ucapan","Tiba"].join(",")].concat(guests.map(g=>[g.name,g.pax,SL[g.status],g.table,linkFor(g),g.wish,g.arrived?new Date(g.arrived).toLocaleString():""].map(qt).join(","))).join("\n");
@@ -305,7 +311,7 @@ function checkin(){let q="";const T=$("#tool");
    const m=modal(`<h2>Simpan tarikh</h2><p>Ahad, 29 Ogos 2027<br>10:00 pagi - 12:00 tengah hari</p><div class="grid gap-2"><a class="btn" href="${g}" target="_blank" rel="noopener">Google Calendar</a><button class="btn ghost" id="ics">Muat turun .ics</button><button class="btn ghost" id="cl">Tutup</button></div>`);closer(m);
    $("#ics",m).onclick=()=>{const t=["BEGIN:VCALENDAR","VERSION:2.0","BEGIN:VEVENT","DTSTART:20270829T020000Z","DTEND:20270829T040000Z","SUMMARY:Majlis Perkahwinan Syazwan & Nazura","LOCATION:Arcum Tent Baitulmal","END:VEVENT","END:VCALENDAR"].join("\r\n");
     try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/calendar"}));a.download="majlis-syazwan-nazura.ics";document.body.appendChild(a);a.click();a.remove()}catch(e){}}}],
-  ["tel","Hubungi",()=>{const m=modal(`<h2>Hubungi kami</h2><div class="grid gap-3">${CFG.contacts.map(c=>`<div><b>${esc(c[0])}</b><div class="flex gap-2 mt-1"><a class="btn sm" href="tel:+${c[1]}">Panggil</a><a class="btn ghost sm" href="https://wa.me/${c[1]}" target="_blank" rel="noopener">WhatsApp</a></div></div>`).join("")}<button class="btn ghost" id="cl">Tutup</button></div>`);closer(m)}],
+  ["tel","Hubungi",()=>{const m=modal(`<h2>Hubungi kami</h2><div class="grid gap-3">${CFG.contacts.map(c=>`<div><b>${esc(c[0])}</b><div>${c[1].replace(/^60(\d{2})(\d{3})(\d+)$/,"+60 $1-$2 $3")}</div><div class="flex gap-2 mt-1"><a class="btn sm" href="tel:+${c[1]}">Panggil</a><a class="btn ghost sm" href="https://wa.me/${c[1]}" target="_blank" rel="noopener">WhatsApp</a></div></div>`).join("")}<button class="btn ghost" id="cl">Tutup</button></div>`);closer(m)}],
   ["pin","Lokasi",()=>window.open(CFG.mapUrl,"_blank")],
   ["mail","RSVP",()=>$("#rsvp").scrollIntoView({behavior:"smooth"})],
   ["heart","Salam",()=>$("#salam").scrollIntoView({behavior:"smooth"})],
