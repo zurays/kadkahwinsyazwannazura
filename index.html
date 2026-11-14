@@ -189,7 +189,8 @@ function toast(m){$$(".toast").forEach(t=>t.remove());const t=document.createEle
 function modal(h){const b=document.createElement("div");b.className="modal-bg";b.innerHTML=`<div class="modal pc" role="dialog" aria-modal="true">${h}</div>`;b.onclick=e=>{if(e.target===b)b.remove()};document.body.appendChild(b);return b}
 const toName=()=>{if(window.__to)return window.__to;try{const v=new URLSearchParams(location.search).get("to");if(v&&v.trim())return v.replace(/_/g," ").trim()}catch(e){}return""};
 const linkFor=g=>(CFG.baseUrl||location.href.split(/[?#]/)[0])+"?to="+encodeURIComponent(g.name.trim().replace(/\s+/g,"_"));
-function copy(t){const fb=()=>{const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();toast("Pautan disalin")};try{navigator.clipboard.writeText(t).then(()=>toast("Pautan disalin"),fb)}catch(e){fb()}}
+function copy(t,msg){const ok=msg||"Pautan disalin";const fb=()=>{const a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(a);a.select();let done=false;try{done=document.execCommand("copy")}catch(e){}a.remove();toast(done?ok:"Tidak dapat menyalin automatik. Sila salin secara manual.")};
+ try{navigator.clipboard.writeText(t).then(()=>toast(ok),fb)}catch(e){fb()}}
 
 /* ===== Music: local file "lagu.mp3" (same folder as this HTML) ===== */
 const bgm=$("#bgm");let playing=false,warned=false;
@@ -267,10 +268,11 @@ function admin(){const T=$("#tool");
   $("#list").innerHTML=R.length?R.map(g=>`<div class="pc grid gap-2 items-center md:grid-cols-[1.6fr_.5fr_1fr_1fr_auto]" data-id="${g.id}"><div><b>${esc(g.name)}</b><div class="break-all" style="font-size:.8rem;opacity:.75">${esc(linkFor(g))}</div></div>
    <div>${g.pax} pax</div><div>${bdg(g.status)}${g.arrived?` <span class="bdg b-yes">${fmtT(g.arrived)}</span>`:""}</div>
    <input class="inp tb" list="tbls" value="${esc(g.table)}" placeholder="Tetapkan meja" aria-label="Meja ${esc(g.name)}">
-   <div class="flex gap-1 flex-wrap"><button class="btn sm cp">Salin pautan</button><button class="btn ghost sm pv">Pratonton</button><button class="btn ghost sm ed">Edit</button><button class="btn ghost sm dl" style="color:#8a2a1f">Padam</button></div></div>`).join(""):`<div class="pc text-center">Tiada tetamu sepadan. Tambah tetamu di atas atau kosongkan penapis.</div>`;
+   <div class="flex gap-1 flex-wrap"><button class="btn sm cp">Salin pautan</button><button class="btn ghost sm pv">Pratonton</button><button class="btn ghost sm ed">Edit</button>${g.arrived?`<button class="btn ghost sm un">Batal tiba</button>`:""}<button class="btn ghost sm dl" style="color:#8a2a1f">Padam</button></div></div>`).join(""):`<div class="pc text-center">Tiada tetamu sepadan. Tambah tetamu di atas atau kosongkan penapis.</div>`;
   $$("#list [data-id]").forEach(r=>{const g=guests.find(x=>x.id===r.dataset.id);
    $(".tb",r).onchange=e=>{g.table=e.target.value.trim();save();draw();toast("Meja disimpan")};
    $(".cp",r).onclick=()=>copy(linkFor(g));$(".pv",r).onclick=()=>{window.__to=g.name;if(location.hash)location.hash="";else route()};
+   const un=$(".un",r);if(un)un.onclick=()=>{g.arrived=null;save();draw();toast("Check-in dibatalkan")};
    $(".dl",r).onclick=()=>{if(confirm("Padam "+g.name+"?")){guests=guests.filter(x=>x!==g);save();draw()}};
    $(".ed",r).onclick=()=>{const m=modal(`<h2>Edit tetamu</h2><form id="ef" class="grid gap-3"><div><label style="font-size:1rem">Nama</label><input class="inp" name="n" value="${esc(g.name)}"></div><div class="grid grid-cols-2 gap-3"><div><label style="font-size:1rem">Pax</label><input class="inp" type="number" min="1" max="20" name="p" value="${g.pax}"></div><div><label style="font-size:1rem">Status</label><select class="inp" name="s"><option value="pending">Belum jawab</option><option value="yes">Hadir</option><option value="no">Tidak hadir</option></select></div></div><div class="flex gap-2"><button class="btn">Simpan</button><button type="button" class="btn ghost" id="cx">Batal</button></div></form>`);
     $("[name=s]",m).value=g.status;$("#cx",m).onclick=()=>m.remove();
@@ -285,7 +287,7 @@ function admin(){const T=$("#tool");
  $("#exp").onclick=()=>{const qt=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
   const csv=[["Nama","Pax","Status","Meja","Pautan","Ucapan","Tiba"].join(",")].concat(guests.map(g=>[g.name,g.pax,SL[g.status],g.table,linkFor(g),g.wish,g.arrived?new Date(g.arrived).toLocaleString():""].map(qt).join(","))).join("\n");
   const m=modal(`<h2>Eksport senarai tetamu</h2><p style="font-size:1rem">Salin ke Excel atau Google Sheets, atau muat turun fail CSV.</p><textarea class="inp" rows="8" readonly style="font-family:monospace;font-size:.75rem">${esc(csv)}</textarea><div class="flex gap-2 mt-3"><button class="btn" id="cp">Salin</button><button class="btn ghost" id="dc">Muat turun CSV</button><button class="btn ghost" id="cl">Tutup</button></div>`);
-  $("#cl",m).onclick=()=>m.remove();$("#cp",m).onclick=()=>{const t=$("textarea",m);t.select();try{navigator.clipboard.writeText(csv)}catch(e){document.execCommand("copy")}toast("Disalin")};
+  $("#cl",m).onclick=()=>m.remove();$("#cp",m).onclick=()=>copy(csv,"Disalin");
   $("#dc",m).onclick=()=>{try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="senarai-tetamu.csv";document.body.appendChild(a);a.click();a.remove()}catch(e){}}}}
 
 /* ===== Check-in ===== */
