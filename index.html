@@ -57,7 +57,7 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
 .frame.reveal{opacity:0;transform:translateY(32px);transition:opacity .9s ease,transform .9s ease}.frame.reveal.in{opacity:1;transform:none}
 /* Optional literal mode: stretch the frame image to the card (CFG.frameMode = "stretch") */
 .frame.stretch{border:0;border-image:none;padding:3.2rem 1.8rem;background:var(--frame) center/100% 100% no-repeat,linear-gradient(160deg,var(--parch),var(--parch2))}
-/* image2.jpg as a 9-slice frame; content flows inside it */
+/* image2.jpg as a 10-slice frame; content flows inside it */
 .frame{border:solid transparent;border-width:9rem 4.1rem 11.5rem;border-image:var(--frame,none) 330 130 380 fill/9rem 4.1rem 11.5rem stretch;padding:.4rem .3rem .6rem;background:linear-gradient(160deg,var(--parch),var(--parch2))}
 .frame.nofr{border:1.5px solid var(--gold);border-image:none;border-radius:6px;padding:2.2rem 1.4rem}
 /* One type scale for every card: title 2rem script / lead 1.3rem 600 / body 1.1rem 500 / small 1rem */
@@ -438,7 +438,7 @@ function checkin(){let q="";const T=$("#tool");
  $("#nav").innerHTML=items.map(([k,l],i)=>`<button data-i="${i}" aria-label="${l}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg><span>${l}</span></button>`).join("");
  $$("#nav button").forEach(b=>b.onclick=items[b.dataset.i][2])})();
 
-/* ===== Per-card frame images: image2.jpg ... image9.jpg (also accepts .jpeg) ===== */
+/* ===== Per-card frame images: image2.jpg ... image10.jpg (also accepts .jpeg) ===== */
 (()=>{const probe=(list,ok,fail)=>{const f=list.shift();if(!f){fail();return}const im=new Image();im.onload=()=>ok(f);im.onerror=()=>probe(list,ok,fail);im.src=f};
  $$(".frame[data-frame]").forEach(el=>{const n=el.dataset.frame;
   probe(["image"+n+".jpg","image"+n+".jpeg"],f=>{el.style.setProperty("--frame",'url("'+f+'")');if(CFG.frameMode==="stretch")el.classList.add("stretch")},()=>el.classList.add("nofr"))})})();
