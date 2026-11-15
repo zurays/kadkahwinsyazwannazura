@@ -111,8 +111,8 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
 <main id="main"><div class="stack">
  <div id="pvbar"></div>
 
- <!-- Section 1: cover -->
- <section class="sec" id="cover" data-bg="2">
+ <!-- Card 1 (image2): cover -->
+ <section class="frame" id="cover" data-frame="2">
   <h2>WALIMATULURUS</h2>
   <img class="mono" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)">
   <p class="script names">Syazwan &amp; Nazura</p>
@@ -121,14 +121,14 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
   <p class="sm"><i>Surah An-Naba’ [78.8]</i></p>
  </section>
 
- <!-- Section 2: greeting and guest name -->
- <section class="sec" id="salam" data-bg="3">
+ <!-- Card 2 (image3): greeting and guest name -->
+ <section class="frame" id="salam" data-frame="3">
   <p><i>Assalamualaikum &amp; Selamat Sejahtera,</i></p>
   <p>Dengan penuh kesyukuran, kami ingin menjemput Tuan/Puan/Encik/Cik</p>
   <p class="script gn" id="gn2"></p>
  </section>
 
- <!-- Section 3: couple and parents -->
+ <!-- Card 3 (image4): couple and parents -->
  <section class="sec" id="ibubapa" data-bg="4">
   <p>ke Majlis Perkahwinan anakanda kami</p>
   <div class="nm"><p class="person">Mohd Asriq Syazwan bin Abdellah</p><p class="sm">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p></div>
@@ -136,8 +136,8 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
   <div class="nm"><p class="person">Mumtaz Nazura binti Yusof</p><p class="sm">Puteri kepada<br>Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p></div>
  </section>
 
- <!-- Section 4: date, venue, action buttons, countdown -->
- <section class="sec" id="majlis" data-bg="5">
+ <!-- Card 4 (image5): date, venue (Google Maps link) and countdown -->
+ <section class="frame" id="majlis" data-frame="5">
   <p>Majlis perkahwinan akan berlangsung pada</p>
   <p class="day">A H A D</p>
   <p class="date-big">29.08.2027</p>
@@ -149,8 +149,8 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
   <div class="cd" id="cd"></div>
  </section>
 
- <!-- Section 5: programme -->
- <section class="sec" id="aturcara" data-bg="6,7">
+ <!-- Card 5 (image6): programme -->
+ <section class="frame" id="aturcara" data-frame="6">
   <h2>ATURCARA MAJLIS</h2>
   <div class="tl">
    <div class="ti"><b>10:00 pagi</b>Kehadiran Tetamu</div>
@@ -159,19 +159,26 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
   </div>
  </section>
 
- <!-- Section 6: RSVP form and wish form -->
+ <!-- Card 6 (image7): RSVP form -->
  <section class="sec" id="rsvp" data-bg="8">
   <h2>MAKLUMAT KEHADIRAN RSVP</h2><div id="rbox"></div>
   <div class="rule"></div>
   <div id="wbox"></div>
  </section>
 
- <!-- Section 7: auto-scrolling wall of wishes -->
- <section class="sec" id="ucapan" data-bg="9">
-  <h2>UCAPAN</h2><div id="wishes"></div>
+ <!-- Card 7 (image8): RSVP form -->
+ <section class="frame" id="rsvp" data-frame="7">
+  <h2>Maklumat Kehadiran RSVP</h2><div id="rbox"></div>
  </section>
 
- <!-- Section 8: closing blessings -->
+ <!-- Card 8 (image9): auto-scrolling wishes + wish form -->
+ <section class="frame" id="ucapan" data-frame="8">
+  <h2>Ucapan</h2><div id="wishes"></div>
+  <div class="rule"></div>
+  <div id="wbox"></div>
+ </section>
+
+ <!-- Card 9 (image10): closing blessings -->
  <section class="sec" id="penutup" data-bg="10">
   <p class="lead closing-text">Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih</p>
  </section>
@@ -184,7 +191,7 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
 <script>
 /* ===== CONFIG: edit these ===== */
 /* Paste your Google Apps Script Web App URL (ends with /exec). Leave empty for demo mode (data stays in this browser only). */
-const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxwCaP7_81U9jZHs8aFgaaZdG5MNF63jTCEDFiJFoHbI8PbyQHLNG_xxMfBHbiFjBr36A/exec";
+const GOOGLE_SCRIPT_URL="";
 const CFG={date:new Date(2027,7,29,10,0,0),
  venue:"Arcum Tent, Majma",
  mapUrl:"https://www.google.com/maps/search/?api=1&query=Arcum+Tent+Majma", /* replace with the exact Google Maps link */
