@@ -4,102 +4,94 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Walimatulurus · Syazwan &amp; Nazura</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
-:root{--brown:#4a3728;--bronze:#6e4f33;--parch:#f4efe6;--parch2:#e9e0d0;--taupe:#a8957d;--taupe-l:#cbbba3;--ink:#4b3a2e;--cream:#fbf8f2;color-scheme:light;
+:root{--burgundy:#5c1d24;--parch:#f4efe6;--parch2:#e9e0d0;--taupe:#5c1d24;--taupe-l:#c9a8ab;--cream:#fbf8f2;--card:#efe6d6;color-scheme:light;
 padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--parch:#eadbc0;--parch2:#dcc9a6;color-scheme:dark}}
-:root[data-theme="dark"]{--parch:#eadbc0;--parch2:#dcc9a6;color-scheme:dark}
 *,*::before,*::after{box-sizing:border-box}
-html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;min-height:100%;background:var(--wine);color:var(--ink);font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-size:1.1rem;line-height:1.55;overflow-wrap:break-word;-webkit-tap-highlight-color:transparent}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--wine);z-index:90}
+html,body{margin:0;padding:0;width:100%;background-color:#f4efe6}
+html{min-height:100%;overflow-x:hidden;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{min-height:100%;overflow-x:clip;color:var(--burgundy);font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-size:1.1rem;font-weight:500;line-height:1.55;overflow-wrap:break-word;-webkit-tap-highlight-color:transparent}
 body.lock{overflow:hidden}
 img,svg{max-width:100%}
-.script{font-family:'Great Vibes','Snell Roundhand',cursive;font-weight:400}.ar{font-family:'Amiri','Traditional Arabic',serif}
-h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.2rem;letter-spacing:.14em;text-transform:uppercase;line-height:1.35;margin:0;color:var(--wine2);overflow-wrap:normal}
+.script{font-family:'Great Vibes','Snell Roundhand',cursive;font-weight:400}
+h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.2rem;letter-spacing:.16em;text-transform:uppercase;line-height:1.4;margin:0;color:var(--burgundy);overflow-wrap:normal}
 .grid{display:grid}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex{display:flex}.flex-col{flex-direction:column}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-6{gap:1.5rem}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.rule{width:70px;height:1px;background:var(--gold);position:relative;margin:.2rem auto}.rule::after{content:"";position:absolute;left:50%;top:-3px;width:7px;height:7px;background:var(--gold);transform:translateX(-50%) rotate(45deg)}
-.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--gold);border-radius:3px;padding:.65rem 1.6rem;font:600 1.05rem 'Cormorant Garamond',Georgia,serif;cursor:pointer;background:var(--wine2);color:var(--parch);transition:transform .15s,background .2s;text-decoration:none}
-.btn:hover{background:var(--wine)}.btn:active{transform:scale(.96)}.btn.sm{padding:.3rem .8rem;font-size:.95rem}
-.btn.ghost{background:transparent;color:var(--ink)}.btn.hd{background:transparent;color:var(--parch)}.btn.ok{background:#2f6a3d;border-color:#2f6a3d;color:#fff}.btn[disabled]{opacity:.6}
-.inp{display:block;width:100%;background:#fbf4e6;color:var(--ink);border:1px solid var(--gold);border-radius:3px;padding:.65rem .8rem;font:inherit;text-align:center}
-.inp:focus{outline:2px solid var(--wine2);outline-offset:1px}
-.pill{display:block;padding:.6rem .4rem;border:1px solid var(--gold);border-radius:3px;cursor:pointer;background:#fbf4e6;transition:all .2s}
-input:checked+.pill{background:var(--wine2);color:var(--parch)}
-.fbsvg{width:72%;height:auto;display:block;margin:0 auto}
-/* ===== Intro: full-viewport photo background, flex column (no overlapping text) ===== */
-#intro{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:80;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;overflow:hidden;text-align:center;color:var(--wine);
+.rule{width:70px;height:1px;background:var(--taupe);position:relative;margin:.2rem auto}.rule::after{content:"";position:absolute;left:50%;top:-3px;width:7px;height:7px;background:var(--taupe);transform:translateX(-50%) rotate(45deg)}
+.sm{font-size:1rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:1px solid var(--taupe);border-radius:4px;padding:.65rem 1.5rem;font:600 1.05rem 'Cormorant Garamond',Georgia,serif;cursor:pointer;background:var(--burgundy);color:var(--parch);transition:transform .15s,background .2s;text-decoration:none}
+.btn:hover{filter:brightness(1.18)}.btn:active{transform:scale(.96)}.btn.sm{padding:.3rem .8rem;font-size:.95rem}
+.btn.ghost{background:transparent;color:var(--burgundy)}.btn.hd{background:transparent;color:var(--burgundy)}.btn.ok{background:#2f6a3d;border-color:#2f6a3d;color:#fff}.btn[disabled]{opacity:.6}
+.inp{display:block;width:100%;background:var(--cream);color:var(--burgundy);border:1px solid var(--taupe);border-radius:4px;padding:.65rem .8rem;font:inherit;text-align:center}
+.inp:focus{outline:2px solid var(--burgundy);outline-offset:1px}
+.pill{display:block;padding:.6rem .4rem;border:1px solid var(--taupe);border-radius:4px;cursor:pointer;background:var(--cream);transition:all .2s}
+input:checked+.pill{background:var(--burgundy);color:var(--parch)}
+/* ===== Intro: fixed full-viewport photo ===== */
+#intro{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;overflow:hidden;text-align:center;color:var(--burgundy);
  background-color:var(--parch2);background-image:url("background1.jpg");background-size:cover;background-position:center;background-repeat:no-repeat;transition:opacity 1s,transform 1s}
 #intro.gone{opacity:0;transform:scale(1.06);pointer-events:none}
 #intro .ic{display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;gap:1rem;width:100%;max-width:420px;height:min(100%,720px)}
 #intro .ic>*{margin:0;max-width:100%}
-.ttl{display:flex;flex-direction:column;align-items:center;gap:.3rem;text-shadow:0 1px 2px rgba(255,248,235,.55)}
-.t-script{font-family:'Great Vibes',cursive;font-size:clamp(3.4rem,17vw,5.2rem);line-height:1;color:var(--wine)}
-.t-caps{font-family:'Playfair Display',Georgia,serif;font-weight:700;letter-spacing:.3em;margin-right:-.3em;font-size:clamp(1.15rem,5.6vw,1.7rem);line-height:1.2;color:var(--wine)}
+.ttl{display:flex;flex-direction:column;align-items:center;gap:.3rem;text-shadow:0 1px 2px rgba(255,250,240,.6)}
+.t-script{font-family:'Great Vibes',cursive;font-size:clamp(3.4rem,17vw,5.2rem);line-height:1;color:var(--burgundy)}
+.t-caps{font-family:'Playfair Display',Georgia,serif;font-weight:700;letter-spacing:.3em;margin-right:-.3em;font-size:clamp(1.15rem,5.6vw,1.7rem);line-height:1.2;color:var(--burgundy)}
 .sealwrap{display:grid;place-items:center;transition:transform .9s,opacity .9s}#intro.open .sealwrap{transform:scale(1.25);opacity:0}
-.seal-img{display:block;width:min(58vw,230px);max-height:34vh;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(60,10,15,.35));animation:float 4s ease-in-out infinite}
+.seal-img{display:block;width:min(58vw,230px);max-height:34vh;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(74,55,40,.35));animation:float 4s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-6px)}}
-.to{text-shadow:0 1px 2px rgba(255,248,235,.55)}.to p{margin:0;font-size:1.05rem}.to .script{font-size:clamp(1.9rem,9vw,2.5rem);line-height:1.2;overflow-wrap:anywhere}
-.open-btn{border:1px solid var(--gold);border-radius:999px;background:var(--wine);color:var(--parch);padding:.85rem 2.2rem;font:600 .95rem 'Cormorant Garamond',Georgia,serif;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 20px rgba(60,10,15,.35);transition:transform .15s,background .2s}
-.open-btn:hover{background:var(--wine2)}.open-btn:active{transform:scale(.96)}
-/* ===== Main: one vertical stack ===== */
-#main{display:none;padding:1.25rem 1rem 7.5rem;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cg fill='%23dcc27e' fill-opacity='.08' transform='translate(70 70)'%3E%3Cellipse cy='-14' rx='6' ry='13'/%3E%3Cellipse cy='-14' rx='6' ry='13' transform='rotate(72)'/%3E%3Cellipse cy='-14' rx='6' ry='13' transform='rotate(144)'/%3E%3Cellipse cy='-14' rx='6' ry='13' transform='rotate(216)'/%3E%3Cellipse cy='-14' rx='6' ry='13' transform='rotate(288)'/%3E%3Ccircle r='4'/%3E%3C/g%3E%3C/svg%3E") 0 0/140px,radial-gradient(900px 500px at 50% 0,var(--wine2),transparent 70%),var(--wine)}
+.to{text-shadow:0 1px 2px rgba(255,250,240,.6)}.to p{margin:0;font-size:1.05rem}.to .script{font-size:clamp(1.9rem,9vw,2.5rem);line-height:1.2;overflow-wrap:anywhere}
+.open-btn{border:1px solid var(--taupe);border-radius:999px;background:var(--burgundy);color:var(--parch);padding:.85rem 2.2rem;font:600 .95rem 'Cormorant Garamond',Georgia,serif;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 20px rgba(74,55,40,.3);transition:transform .15s,background .2s}
+.open-btn:hover{filter:brightness(1.18)}.open-btn:active{transform:scale(.96)}
+/* ===== Main page: one continuous parchment background, sections flow in a single column ===== */
+#main{display:none;padding:1rem 1rem 7.5rem;background:#f4efe6}
 #main.show{display:block;animation:in 1.2s ease both}@keyframes in{from{opacity:0}}
-.stack{display:flex;flex-direction:column;align-items:stretch;gap:1.5rem;width:100%;max-width:440px;margin:0 auto}
+.stack{display:flex;flex-direction:column;align-items:stretch;gap:0;width:100%;max-width:520px;margin:0 auto}
 .stack>*{min-width:0}
-.frame{display:flex;flex-direction:column;align-items:center;gap:.8rem;text-align:center;color:var(--ink)}
-.frame>*{margin:0;max-width:100%;min-width:0}
-.frame #cd,.frame #rbox,.frame #wishes,.frame .tl{width:100%}
-/* image2.jpg as a 9-slice frame; content flows inside it */
-.frame{border:solid transparent;border-width:9rem 4.1rem 11.5rem;border-image:var(--frame,none) 330 130 380 fill/9rem 4.1rem 11.5rem stretch;padding:.4rem .3rem .6rem;background:linear-gradient(160deg,var(--parch),var(--parch2))}
-.frame.nofr{border:1.5px solid var(--gold);border-image:none;border-radius:6px;padding:2.2rem 1.4rem}
-/* One type scale for every card: title 2rem script / lead 1.3rem 600 / body 1.1rem 500 / small 1rem */
-.frame{font-size:1.1rem;font-weight:500;line-height:1.5}
-.frame h2{font-size:clamp(.9rem,4.4vw,1.15rem);letter-spacing:.16em;line-height:1.4}
-.frame .person{font-size:1.6rem;font-weight:700;line-height:1.25;color:var(--wine2)}
-.frame .lead{font-size:1.3rem;font-weight:600;line-height:1.3}
-.frame .sm{font-size:1rem;font-weight:500;line-height:1.4}
-.frame .bis{font-size:2rem;font-weight:400;line-height:1.7;color:var(--wine2)}
-.frame .gn{font-size:2rem;line-height:1.2;color:var(--wine2);overflow-wrap:anywhere}
-.frame .amp{font-size:2.4rem;line-height:1;color:var(--gold)}.frame .nm{display:flex;flex-direction:column;gap:.3rem}
-.fdiv{width:32px;height:32px;color:var(--rose);flex:none}
-.orn{display:flex;align-items:center;gap:.7rem;width:78%;margin:.3rem auto}.orn::before,.orn::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}.orn::after{background:linear-gradient(270deg,transparent,var(--gold))}.orn .fdiv{width:26px;height:26px}
+.sec{display:flex;flex-direction:column;align-items:center;gap:.8rem;text-align:center;padding:50px 25px;margin-bottom:40px;color:var(--burgundy);border-radius:6px;
+ background-color:var(--card);background-image:var(--bg,none);background-size:cover;background-position:center;background-repeat:no-repeat}
+.ar{font-family:'Amiri','Traditional Arabic',serif;font-size:1.8rem;line-height:1.9;font-weight:400}
+.sec>*{margin:0;max-width:100%;min-width:0}
+.sec #cd,.sec #rbox,.sec #wishes,.sec #wbox,.sec .rule{width:100%}.sec .rule{width:70px}
+.sec.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}.sec.reveal.in{opacity:1;transform:none}
+.sec h2{font-size:clamp(.95rem,4.6vw,1.2rem)}
+.lead{font-size:1.3rem;font-weight:600;line-height:1.3}
+.person{font-size:1.6rem;font-weight:700;line-height:1.25;color:var(--burgundy)}
+.names{font-size:2.6rem;line-height:1.1;color:var(--burgundy)}.verse{font-style:italic}
+.gn{font-size:2.2rem;line-height:1.2;color:var(--burgundy);overflow-wrap:anywhere}
+.amp{font-size:2.4rem;line-height:1;color:var(--taupe)}.nm{display:flex;flex-direction:column;gap:.3rem}
+.mono{display:block;width:140px;max-width:60%;height:auto;object-fit:contain;border:0;border-radius:0}.mono.sm{width:48px;max-width:none;flex:none}
+.day{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.5rem;letter-spacing:.35em;margin-right:-.35em;color:var(--burgundy)}
+.date-big{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:2.2rem;letter-spacing:.06em;line-height:1.2;color:var(--burgundy)}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;width:100%}
+.btn.act{border-radius:999px;font-size:.95rem;letter-spacing:.12em;padding:.7rem 1.3rem}
+.tl{position:relative;text-align:left;padding-left:1rem;width:100%;max-width:300px}.tl::before{content:"";position:absolute;left:.3rem;top:.5rem;bottom:.5rem;width:1px;background:var(--taupe)}
+.ti{position:relative;padding:0 0 1rem 1.6rem}.ti:last-child{padding-bottom:0}.ti::before{content:"";position:absolute;left:0;top:.5rem;width:.65rem;height:.65rem;background:var(--parch);border:1.5px solid var(--taupe);border-radius:50%}.ti b{display:block;color:var(--burgundy);font-size:1.2rem;font-weight:600}
 .cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem}
-.cd div{padding:.55rem 0 .45rem;text-align:center;border:1px solid var(--gold);border-radius:4px;background:linear-gradient(160deg,var(--wine2),var(--wine));box-shadow:inset 0 0 0 2px rgba(220,194,126,.18)}
-.cd b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.55rem;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--gold-l)}
-.cd span{display:block;font-size:.85rem;color:var(--parch);letter-spacing:.06em}
-.tl{position:relative;text-align:left;padding-left:1rem}.tl::before{content:"";position:absolute;left:.3rem;top:.5rem;bottom:.5rem;width:1px;background:var(--gold)}
-.ti{position:relative;padding:0 0 1rem 1.6rem}.ti:last-child{padding-bottom:0}.ti::before{content:"";position:absolute;left:0;top:.5rem;width:.65rem;height:.65rem;background:var(--parch);border:1.5px solid var(--gold);border-radius:50%}.ti b{display:block;color:var(--wine2);font-size:1.2rem;font-weight:600}
-
-
-.frame .names{font-size:2.2rem;line-height:1.1;color:var(--wine2)}.frame .verse{font-style:italic;font-weight:500}
+.cd div{padding:.55rem 0 .45rem;text-align:center;border:1px solid var(--taupe);border-radius:4px;background:var(--cream)}
+.cd b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.55rem;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--burgundy)}
+.cd span{display:block;font-size:.85rem;color:var(--burgundy);letter-spacing:.06em}
 .wall{height:19rem;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(transparent,#000 10%,#000 90%,transparent)}
-.track.scroll{animation:roll linear infinite}.wall:hover .track{animation-play-state:paused}@keyframes roll{to{transform:translateY(-50%)}}
-.wish{background:#fbf4e6;border:1px solid var(--gold);border-radius:3px;padding:.7rem 1rem;margin-bottom:.7rem;text-align:left}.wish b{color:var(--wine2)}
-.closing{display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center;color:var(--parch);padding:.5rem 0 0}.closing>*{margin:0}
-.closing .fbsvg{width:120px;color:var(--gold-l)}
-.ini{display:block;width:140px;max-width:60%;height:auto;object-fit:contain}
-.ini.sm{width:48px;max-width:none;flex:none}
-.mus{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;z-index:70;width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);background:var(--wine2);color:var(--gold-l);cursor:pointer;font-size:1.2rem;display:none}
+.track.scroll{animation:roll linear infinite}.wall:hover .track,.wall:active .track{animation-play-state:paused}@keyframes roll{to{transform:translateY(-50%)}}
+.wish{background:var(--cream);border:1px solid var(--taupe-l);border-radius:4px;padding:.7rem 1rem;margin-bottom:.7rem;text-align:left}.wish b{color:var(--burgundy)}
+.closing-text{font-style:italic;font-weight:500}
+.mus{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;z-index:70;width:46px;height:46px;border-radius:50%;border:1px solid var(--taupe);background:var(--burgundy);color:var(--parch);cursor:pointer;font-size:1.2rem;display:none}
 .mus.on{animation:spin 7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-#pvbar{display:none;position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:var(--gold);color:#2a0a0c;text-align:center;padding:.3rem;font-weight:600}
-#nav{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(.8rem + env(safe-area-inset-bottom,0px));z-index:70;width:min(88vw,320px);justify-content:space-around;padding:.4rem .3rem;background:linear-gradient(160deg,var(--parch),var(--parch2));border:1.5px solid var(--gold);border-radius:999px;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+#pvbar{display:none;position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:var(--burgundy);color:var(--parch);text-align:center;padding:.3rem;font-weight:600}
+#nav{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(.8rem + env(safe-area-inset-bottom,0px));z-index:70;width:min(88vw,320px);justify-content:space-around;padding:.4rem .3rem;background:var(--cream);border:1.5px solid var(--taupe);border-radius:999px;box-shadow:0 10px 24px rgba(74,55,40,.25)}
 #main.show~#nav{display:flex}
-#nav button{background:none;border:0;color:var(--wine2);display:flex;flex-direction:column;align-items:center;font:600 .74rem/1.2 'Cormorant Garamond',Georgia,serif;cursor:pointer;padding:.2rem .3rem;min-width:46px;transition:transform .15s}#nav button:active{transform:scale(.9)}
+#nav button{background:none;border:0;color:var(--burgundy);display:flex;flex-direction:column;align-items:center;font:600 .74rem/1.2 'Cormorant Garamond',Georgia,serif;cursor:pointer;padding:.2rem .3rem;min-width:46px;transition:transform .15s}#nav button:active{transform:scale(.9)}
 /* ===== Admin & check-in ===== */
-#tool{display:none;max-width:960px;margin:0 auto;padding:1.2rem 1rem 3rem;color:var(--parch);background:var(--wine);min-height:100vh}
-.pc{background:linear-gradient(160deg,var(--parch),var(--parch2));border:1.5px solid var(--gold);border-radius:6px;color:var(--ink);padding:.9rem 1rem}
-#tool .inp{text-align:left}#tool h1{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.2rem;letter-spacing:.12em;text-transform:uppercase;line-height:1.3;margin:0}
-.bdg{display:inline-block;border-radius:999px;padding:0 .7rem;font-size:.9rem;font-weight:600}.b-yes{background:#d3e6cb;color:#2f6a3d}.b-no{background:#f3d3cf;color:#8a2a1f}.b-pending{background:#e6d9bf;color:#7a6a45}
+#tool{display:none;max-width:960px;margin:0 auto;padding:1.2rem 1rem 3rem;color:var(--burgundy);background:var(--parch);min-height:100vh}
+.pc{background:var(--cream);border:1px solid var(--taupe-l);border-radius:8px;color:var(--burgundy);padding:.9rem 1rem}
+#tool .inp{text-align:left}#tool h1{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.2rem;letter-spacing:.12em;text-transform:uppercase;line-height:1.3;margin:0;color:var(--burgundy)}
+.bdg{display:inline-block;border-radius:999px;padding:0 .7rem;font-size:.9rem;font-weight:600}.b-yes{background:#d3e6cb;color:#2f6a3d}.b-no{background:#f3d3cf;color:#8a2a1f}.b-pending{background:var(--parch2);color:var(--burgundy)}
 .shake{animation:shake .45s}@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
 .pop{animation:in .3s both}
-.modal-bg{position:fixed;inset:0;background:rgba(30,5,8,.6);display:flex;align-items:center;justify-content:center;z-index:95;padding:1rem}.modal{width:100%;max-width:480px;max-height:90vh;overflow:auto}
-.toast{position:fixed;left:50%;bottom:calc(5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--parch);color:var(--ink);padding:.5rem 1.1rem;border:1px solid var(--gold);z-index:99;font-size:1rem}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-:focus-visible{outline:2px solid var(--gold-l);outline-offset:3px}
+.modal-bg{position:fixed;inset:0;background:rgba(40,30,20,.55);display:flex;align-items:center;justify-content:center;z-index:1000;padding:1rem}.modal{width:100%;max-width:480px;max-height:90vh;overflow:auto}
+.toast{position:fixed;left:50%;bottom:calc(5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--burgundy);color:var(--parch);padding:.5rem 1.1rem;border-radius:999px;z-index:1001;font-size:1rem}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.wall{overflow:auto}.dup{display:none}}
+:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
 </style>
 </head>
 <body class="lock">
@@ -116,45 +108,49 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
 <button class="mus" id="mus" aria-label="Muzik latar" aria-pressed="false">♪</button>
 <audio id="bgm" src="lagu.mp3" loop preload="auto"></audio>
 
-<main id="main"><div class="stack flex flex-col gap-6">
+<main id="main"><div class="stack">
  <div id="pvbar"></div>
 
- <!-- 1. Cover card -->
- <section class="frame" id="cover">
+ <!-- Card 1 (image2): cover -->
+ <section class="sec" id="cover" data-bg="2">
   <h2>WALIMATULURUS</h2>
-  <img class="ini" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)">
+  <img class="mono" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)">
   <p class="script names">Syazwan &amp; Nazura</p>
   <p class="lead">Ahad | 29 Ogos 2027</p>
-  <div class="rule"></div>
   <p class="verse">“Dan Kami ciptakan kamu berpasang-pasangan.”</p>
   <p class="sm"><i>Surah An-Naba’ [78.8]</i></p>
  </section>
 
- <!-- 2. Greeting and parents -->
- <section class="frame" id="salam">
+ <!-- Card 2 (image3): greeting and guest name -->
+ <section class="sec" id="salam" data-bg="3">
   <p><i>Assalamualaikum &amp; Selamat Sejahtera,</i></p>
-  <p><i>Dengan Nama Allah yang Maha Pengasih Lagi Maha Penyayang</i></p>
-  <div class="rule"></div>
   <p>Dengan penuh kesyukuran, kami ingin menjemput Tuan/Puan/Encik/Cik</p>
   <p class="script gn" id="gn2"></p>
+ </section>
+
+ <!-- Card 3 (image4): couple and parents -->
+ <section class="sec" id="ibubapa" data-bg="4">
   <p>ke Majlis Perkahwinan anakanda kami</p>
   <div class="nm"><p class="person">Mohd Asriq Syazwan bin Abdellah</p><p class="sm">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p></div>
   <p class="script amp">&amp;</p>
   <div class="nm"><p class="person">Mumtaz Nazura binti Yusof</p><p class="sm">Puteri kepada<br>Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p></div>
  </section>
 
- <!-- 3. Date, time, venue, countdown (venue name links to Google Maps) -->
- <section class="frame" id="majlis">
-  <p class="lead">Ahad, 29 Ogos 2027</p>
-  <p>10:00 pagi - 12:00 tengah hari</p>
-  <div class="rule"></div>
-  <a class="lead" id="venue" href="#" target="_blank" rel="noopener" style="color:var(--wine2)">Arcum Tent, Majma</a>
-  <h2>Menghitung Hari</h2>
+ <!-- Card 4 (image5): date, venue, action buttons, countdown -->
+ <section class="sec" id="majlis" data-bg="5">
+  <p>Majlis perkahwinan akan berlangsung pada</p>
+  <p class="day">A H A D</p>
+  <p class="date-big">29.08.2027</p>
+  <p class="lead">10:00 Pagi - 12:00 Tengah Hari</p>
+  <p class="sm" style="margin-top:.6rem">Bertempat di</p>
+  <p class="lead">Arcum Tent, Majma</p>
+  <div class="actions"><a class="btn act" id="btnMap" href="#" target="_blank" rel="noopener">📍 LIHAT LOKASI</a><button class="btn act" id="btnCal" type="button">📅 SIMPAN TARIKH</button></div>
+  <h2 style="margin-top:1.2rem">Menghitung hari</h2>
   <div class="cd" id="cd"></div>
  </section>
 
- <!-- 4. Programme -->
- <section class="frame" id="aturcara">
+ <!-- Card 5 (image6): programme -->
+ <section class="sec" id="aturcara" data-bg="6">
   <h2>ATUR CARA MAJLIS</h2>
   <div class="tl">
    <div class="ti"><b>10:00 pagi</b>Kehadiran Tetamu</div>
@@ -163,48 +159,94 @@ input:checked+.pill{background:var(--wine2);color:var(--parch)}
   </div>
  </section>
 
- <!-- 5. RSVP and wall of wishes -->
- <section class="frame" id="rsvp">
-  <h2>RSVP &amp; Ucapan</h2><div id="rbox"></div>
-  <div class="rule"></div>
-  <p class="lead">Ucapan Tetamu</p><div id="wishes"></div>
+ <!-- Card 6 (image7): RSVP form -->
+ <section class="sec" id="rsvp" data-bg="7">
+  <h2>Maklumat Kehadiran RSVP</h2><div id="rbox"></div>
  </section>
 
- <!-- 6. Closing blessings -->
- <section class="frame" id="penutup">
-  <p class="lead" style="font-weight:500;font-style:italic">“Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih”</p>
+ <!-- Card 7 (image8): wish form and auto-scrolling wish feed -->
+ <section class="sec" id="ucapan" data-bg="8">
+  <h2>Ucapan</h2><div id="wbox"></div><div id="wishes"></div>
  </section>
 
- <p style="text-align:center;margin:0;font-size:.95rem;opacity:.6;color:var(--parch)"><a href="#admin" style="color:inherit">Admin</a> · <a href="#checkin" style="color:inherit">Check-in</a></p>
+ <!-- Card 8 (image9): blessing (doa) -->
+ <section class="sec" id="doa" data-bg="9">
+  <p class="ar" dir="rtl">بَارَكَ اللهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِيْ خَيْرٍ</p>
+  <p class="sm"><i>Semoga Allah memberkati kamu, melimpahkan keberkatan ke atas kamu, dan menghimpunkan kamu berdua dalam kebaikan.</i></p>
+ </section>
+
+ <!-- Card 9 (image10): closing blessings -->
+ <section class="sec" id="penutup" data-bg="10">
+  <p class="lead closing-text">Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih</p>
+ </section>
+
+ <p style="text-align:center;margin:0;font-size:.95rem;color:var(--burgundy)"><a href="#admin" style="color:inherit">Admin</a> · <a href="#checkin" style="color:inherit">Check-in</a></p>
 </div></main>
 <nav id="nav" aria-label="Menu pantas"></nav>
 <div id="tool"></div>
 
 <script>
 /* ===== CONFIG: edit these ===== */
+/* Paste your Google Apps Script Web App URL (ends with /exec). Leave empty for demo mode (data stays in this browser only). */
+const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxwCaP7_81U9jZHs8aFgaaZdG5MNF63jTCEDFiJFoHbI8PbyQHLNG_xxMfBHbiFjBr36A/exec";
 const CFG={date:new Date(2027,7,29,10,0,0),
  venue:"Arcum Tent, Majma",
  mapUrl:"https://www.google.com/maps/search/?api=1&query=Arcum+Tent+Majma", /* replace with the exact Google Maps link */
- wazeUrl:"https://waze.com/ul?q=Arcum%20Tent%20Majma&navigate=yes",
- tujuUrl:"", /* paste the Tuju navigation link here */
- contacts:[["Pengantin Lelaki (Mohd Asriq Syazwan)","60164607883"],["Pengantin Perempuan (Mumtaz Nazura)","60136155625"]],
+ contacts:[["Mohd Asriq Syazwan","60164607883"],["Mumtaz Nazura","60136155625"]],
  note:{title:"TETAMU YANG DIHORMATI",text:"Jemputan ini adalah terhad kepada bilangan tetamu yang dinyatakan dalam kad digital/RSVP. Mohon jasa baik tuan/puan untuk tidak membawa tambahan tetamu di luar bilangan yang diperuntukan atau berkongsi kad jemputan ini kepada pihak lain tanpa kebenaran kami. Terima kasih atas pengertian dan kerjasama anda."},
- baseUrl:"",   /* your site, e.g. https://domain.com/ ; blank = this page */
- adminPassword:"admin2027",KEY:"wedding_guests_v3"};
+ baseUrl:"",   /* your site, e.g. https://name.github.io/repo/ ; blank = this page */
+ adminPassword:"admin2027",KEY:"wedding_guests_v4",WKEY:"wedding_wishes_v1"};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const mem={};function lsGet(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}}function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}
 const uid=()=>"G"+Math.random().toString(36).slice(2,8).toUpperCase();
-function seed(){const n=Date.now();return[["Encik Ali",2,"yes","Table 1","Semoga berbahagia hingga ke syurga. Barakallahu lakuma!"],["Puan Aisyah",3,"yes","VIP Table","Tahniah Syazwan dan Nazura! Moga rumah tangga sentiasa dirahmati."],["Cik Farah",1,"no","",""],["Dr. Hafiz",2,"pending","Table 2",""],["Puan Zainab",3,"pending","Table 2",""]].map((a,i)=>({id:uid(),name:a[0],pax:a[1],status:a[2],table:a[3],wish:a[4],wishAt:a[4]?n-i*6e4:0,arrived:null}))}
-function normalize(a){const seen=new Set();return(Array.isArray(a)?a:[]).filter(g=>g&&typeof g==="object"&&String(g.name||"").trim()).map(g=>{let id=g.id?String(g.id):"";while(!id||seen.has(id))id=uid();seen.add(id);
- return{id,name:String(g.name).trim(),pax:Math.max(1,+g.pax||1),status:["yes","no","pending"].includes(g.status)?g.status:"pending",table:String(g.table||""),wish:String(g.wish||""),wishAt:+g.wishAt||0,arrived:+g.arrived||null}})}
-let guests=(()=>{try{const r=lsGet(CFG.KEY);if(r)return normalize(JSON.parse(r))}catch(e){}return seed()})();
-const save=()=>lsSet(CFG.KEY,JSON.stringify(guests));save();
-let refresh=()=>{};addEventListener("storage",e=>{if(e.key===CFG.KEY){try{guests=normalize(JSON.parse(e.newValue))}catch(x){}refresh()}});
-const same=(a,b)=>a.trim().toLowerCase()===b.trim().toLowerCase();
+const REMOTE=()=>!!GOOGLE_SCRIPT_URL;
+const same=(a,b)=>String(a).trim().toLowerCase()===String(b).trim().toLowerCase();
 const fmtT=t=>new Date(t).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
 const SL={yes:"Hadir",no:"Tidak hadir",pending:"Belum jawab"},bdg=s=>`<span class="bdg b-${s}">${SL[s]}</span>`;
-function toast(m){$$(".toast").forEach(t=>t.remove());const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2400)}
+const fromRsvp=t=>t==="Hadir"?"yes":t==="Tidak Hadir"?"no":"pending",toRsvp=s=>s==="yes"?"Hadir":s==="no"?"Tidak Hadir":"";
+
+/* ===== Data layer: Google Sheet when GOOGLE_SCRIPT_URL is set, otherwise localStorage (demo mode) ===== */
+let guests=[],wishes=[],refresh=()=>{},pollT=null;
+function seed(){return[["Encik Ali",2,"yes","Table 1"],["Puan Aisyah",3,"yes","VIP Table"],["Cik Farah",1,"no",""],["Dr. Hafiz",2,"pending","Table 2"],["Puan Zainab",3,"pending","Table 2"]].map(a=>({id:uid(),name:a[0],pax:a[1],status:a[2],table:a[3],arrived:null,submittedAt:0}))}
+function seedWishes(){const n=Date.now();return[{name:"Encik Ali",text:"Semoga berbahagia hingga ke syurga. Barakallahu lakuma!",at:n-6e4},{name:"Puan Aisyah",text:"Tahniah Syazwan dan Nazura! Moga rumah tangga sentiasa dirahmati.",at:n-12e4}]}
+function normalize(a){const seen=new Set();return(Array.isArray(a)?a:[]).filter(g=>g&&typeof g==="object"&&String(g.name||"").trim()).map(g=>{let id=g.id?String(g.id):"";while(!id||seen.has(id))id=uid();seen.add(id);
+ return{id,name:String(g.name).trim(),pax:Math.max(1,+g.pax||1),status:["yes","no","pending"].includes(g.status)?g.status:"pending",table:String(g.table||""),arrived:+g.arrived||null,submittedAt:+g.submittedAt||0}})}
+function save(){if(REMOTE())return;lsSet(CFG.KEY,JSON.stringify(guests));lsSet(CFG.WKEY,JSON.stringify(wishes))}
+function loadLocal(){let g=null,w=null;try{const r=lsGet(CFG.KEY);if(r)g=normalize(JSON.parse(r))}catch(e){}try{const r=lsGet(CFG.WKEY);if(r)w=JSON.parse(r)}catch(e){}guests=g||seed();wishes=Array.isArray(w)?w:seedWishes()}
+if(!REMOTE()){loadLocal();save()}
+addEventListener("storage",e=>{if(!REMOTE()&&(e.key===CFG.KEY||e.key===CFG.WKEY)){loadLocal();refresh()}});
+/* Remote transport (Apps Script web app). POST uses text/plain so no CORS preflight is needed. */
+async function remotePost(action,data){const r=await fetch(GOOGLE_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action,key:CFG.adminPassword,...data})});return r.json()}
+async function remoteGet(q){const r=await fetch(GOOGLE_SCRIPT_URL+"?"+q);return r.json()}
+const guestsFromSheet=a=>normalize((a||[]).map(r=>({id:String(r.name).trim().toLowerCase(),name:r.name,pax:r.pax,status:fromRsvp(r.rsvp),table:r.table,arrived:r.checkin?Date.parse(r.checkin):null,submittedAt:r.submitted?Date.parse(r.submitted):0})));
+const wishesFromSheet=a=>(a||[]).map(w=>({name:w.name,text:w.text,at:w.time?Date.parse(w.time):0}));
+async function loadAdmin(){if(!REMOTE()){loadLocal();return}const j=await remoteGet("action=list&key="+encodeURIComponent(CFG.adminPassword));if(!j.ok)throw new Error(j.error||"Tidak dibenarkan");guests=guestsFromSheet(j.guests);wishes=wishesFromSheet(j.wishes)}
+async function loadPublic(){if(!REMOTE()){loadLocal();return}const j=await remoteGet("action=wishes");if(j.ok)wishes=wishesFromSheet(j.wishes)}
+async function getMine(n){if(!n)return null;if(!REMOTE())return guests.find(x=>same(x.name,n))||null;
+ try{const j=await remoteGet("action=status&name="+encodeURIComponent(n));if(j.ok&&j.found)return{name:n,status:fromRsvp(j.rsvp),pax:+j.pax||1}}catch(e){}return null}
+function startPoll(fn,ms){clearInterval(pollT);if(REMOTE())pollT=setInterval(fn,ms)}
+const newId=n=>REMOTE()?String(n).trim().toLowerCase():uid();
+/* Apply an action to the local copy (and persist it in demo mode) */
+function applyLocal(a,d,r){const find=n=>guests.find(g=>same(g.name,n));
+ if(a==="rsvp"){let g=find(d.name);if(!g){g={id:newId(d.name),name:String(d.name).trim(),pax:1,status:"pending",table:"",arrived:null,submittedAt:0};guests.push(g)}g.status=d.status;if(d.status==="yes")g.pax=Math.max(1,+d.pax||1);g.submittedAt=Date.now()}
+ else if(a==="wish")wishes.unshift({name:d.name,text:d.text,at:Date.now()});
+ else if(a==="add")guests.push({id:newId(d.name),name:String(d.name).trim(),pax:Math.max(1,+d.pax||1),status:"pending",table:d.table||"",arrived:null,submittedAt:0});
+ else{const g=find(d.oldName||d.name);if(!g)return{ok:false,error:"not found"};
+  if(a==="table")g.table=d.table;
+  else if(a==="update"){g.name=d.name;g.pax=Math.max(1,+d.pax||1);g.status=d.status}
+  else if(a==="checkin"){if(g.arrived)return{ok:false,error:"already",time:g.arrived};g.arrived=r&&r.time?Date.parse(r.time):Date.now()}
+  else if(a==="uncheckin")g.arrived=null;
+  else if(a==="delete")guests=guests.filter(x=>x!==g)}
+ save();return{ok:true}}
+async function act(action,d){
+ if(!REMOTE())return applyLocal(action,d,{});
+ const r=await remotePost(action,{...d,rsvp:d.rsvp!==undefined?d.rsvp:toRsvp(d.status)});
+ if(r.error==="already"){const g=guests.find(x=>same(x.name,d.name));if(g&&r.time)g.arrived=Date.parse(r.time);return r}
+ if(!r.ok)throw new Error(r.error||"Ralat pelayan");
+ return applyLocal(action,d,r)}
+
+function toast(m){$$(".toast").forEach(t=>t.remove());const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
 function modal(h){const b=document.createElement("div");b.className="modal-bg";b.innerHTML=`<div class="modal pc" role="dialog" aria-modal="true">${h}</div>`;b.onclick=e=>{if(e.target===b)b.remove()};document.body.appendChild(b);return b}
 const toName=()=>{if(window.__to)return window.__to;try{const v=new URLSearchParams(location.search).get("to");if(v&&v.trim())return v.replace(/_/g," ").trim()}catch(e){}return""};
 const linkFor=g=>(CFG.baseUrl||location.href.split(/[?#]/)[0])+"?to="+encodeURIComponent(g.name.trim().replace(/\s+/g,"_"));
@@ -222,16 +264,16 @@ $("#mus").onclick=()=>music(!playing);
 function gate(next){let ok=false;try{ok=sessionStorage.getItem("wed_admin")==="1"}catch(e){ok=!!mem.adm}
  if(ok){next();return}
  const who=location.hash==="#checkin"?"Check-in":"Admin";
- $("#tool").innerHTML=`<div class="flex" style="min-height:90vh;align-items:center;justify-content:center"><form id="lg" class="pc pop" style="width:100%;max-width:380px;text-align:center;display:grid;gap:.8rem;padding:1.6rem"><img class="ini" style="margin:0 auto" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1 style="color:var(--wine2)">${who}</h1><p style="margin:0;font-size:1rem">Sila masukkan kata laluan admin untuk meneruskan.</p>
-  <div style="position:relative"><input class="inp" type="password" id="pw" placeholder="Kata laluan" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" style="padding-right:3rem"><button type="button" id="eye" aria-label="Tunjuk kata laluan" aria-pressed="false" style="position:absolute;right:.35rem;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;color:var(--wine2);padding:.4rem;line-height:0"></button></div>
-  <p id="e" style="color:#8a1c1c;min-height:1.2em;margin:0"></p><button class="btn">Log masuk</button><a href="#" style="font-size:1rem;color:var(--ink)">Kembali ke kad jemputan</a></form></div>`;
+ $("#tool").innerHTML=`<div class="flex" style="min-height:90vh;align-items:center;justify-content:center"><form id="lg" class="pc pop" style="width:100%;max-width:380px;text-align:center;display:grid;gap:.8rem;padding:1.6rem"><img class="mono" style="margin:0 auto;width:110px" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1 style="color:var(--burgundy)">${who}</h1><p style="margin:0;font-size:1rem">Sila masukkan kata laluan admin untuk meneruskan.</p>
+  <div style="position:relative"><input class="inp" type="password" id="pw" placeholder="Kata laluan" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" style="padding-right:3rem"><button type="button" id="eye" aria-label="Tunjuk kata laluan" aria-pressed="false" style="position:absolute;right:.35rem;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;color:var(--burgundy);padding:.4rem;line-height:0"></button></div>
+  <p id="e" style="color:#8a1c1c;min-height:1.2em;margin:0"></p><button class="btn">Log masuk</button><a href="#" style="font-size:1rem;color:var(--burgundy)">Kembali ke kad jemputan</a></form></div>`;
  const EO='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',EC='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.2 3.9M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a10 10 0 0 0 4.2-.9M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
  const eye=$("#eye");eye.innerHTML=EO;eye.onclick=()=>{const pw=$("#pw"),show=pw.type==="password";pw.type=show?"text":"password";eye.innerHTML=show?EC:EO;eye.setAttribute("aria-pressed",show);eye.setAttribute("aria-label",show?"Sembunyi kata laluan":"Tunjuk kata laluan");pw.focus()};
  $("#lg").onsubmit=e=>{e.preventDefault();if($("#pw").value.trim()===CFG.adminPassword){try{sessionStorage.setItem("wed_admin","1")}catch(x){mem.adm=1}next()}else{$("#e").textContent="Kata laluan salah.";$("#lg").classList.remove("shake");void $("#lg").offsetWidth;$("#lg").classList.add("shake")}};
  $("#pw").focus()}
 /* ===== Router ===== */
 let opened=false,cdT;
-function route(){const h=location.hash.slice(1);clearInterval(cdT);scrollTo(0,0);
+function route(){const h=location.hash.slice(1);clearInterval(cdT);clearInterval(pollT);scrollTo(0,0);
  if(h==="admin"||h==="checkin"){$("#intro").style.display="none";$("#main").classList.remove("show");$("#mus").style.display="none";music(false);document.body.classList.remove("lock");const t=$("#tool");t.style.display="block";gate(h==="admin"?admin:checkin);return}
  $("#tool").style.display="none";invite()}
 addEventListener("hashchange",route);
@@ -245,111 +287,155 @@ intro.addEventListener("wheel",e=>{if(e.deltaY>20)enterCard()},{passive:true});
 let touchY=null;intro.addEventListener("touchstart",e=>{touchY=e.touches[0].clientY},{passive:true});
 intro.addEventListener("touchend",e=>{if(touchY!==null&&touchY-e.changedTouches[0].clientY>50)enterCard();touchY=null},{passive:true});
 
+/* ===== Scroll animation: fade-in + slide-up per card (IntersectionObserver + CSS transition) ===== */
+let revealIO=null;
+function setupReveal(){const cards=$$(".sec");
+ if(!("IntersectionObserver" in window)){cards.forEach(c=>c.classList.add("in"));return}
+ if(!revealIO)revealIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");revealIO.unobserve(e.target)}}),{threshold:.12});
+ cards.forEach(c=>{if(!c.dataset.obs){c.dataset.obs="1";c.classList.add("reveal");revealIO.observe(c)}})}
+
 /* ===== Invitation ===== */
 function invite(){
- const n=toName();$("#gname").textContent=n||"Tamu Undangan";$("#gn2").textContent=n||"Tamu Undangan";$("#venue").href=CFG.mapUrl;
+ const n=toName();$("#gname").textContent=n||"Tetamu Undangan";$("#gn2").textContent=n||"Tetamu Undangan";$("#btnMap").href=CFG.mapUrl;$("#btnCal").onclick=calModal;
  const pv=!!window.__to;$("#pvbar").style.display=pv?"block":"none";$("#pvbar").innerHTML=`Pratonton untuk: <b>${esc(window.__to||"")}</b> · <a href="#admin" id="bk" style="color:inherit">Kembali ke admin</a>`;$("#bk").onclick=()=>{window.__to=""};
  if(opened||pv){$("#intro").style.display="none";$("#main").classList.add("show");document.body.classList.remove("lock");$("#mus").style.display="block"}
  else{$("#intro").style.display="flex";$("#intro").classList.remove("gone","open");busy=false;$("#main").classList.remove("show");document.body.classList.add("lock")}
  const tick=()=>{let d=Math.max(0,CFG.date-Date.now());$("#cd").innerHTML=[["Hari",864e5],["Jam",36e5],["Minit",6e4],["Saat",1e3]].map(([x,m])=>{const v=Math.floor(d/m);d-=v*m;return `<div><b>${String(v).padStart(2,"0")}</b><span>${x}</span></div>`}).join("")};tick();cdT=setInterval(tick,1000);
- wall();refresh=wall;const g=n&&guests.find(x=>same(x.name,n));g&&g.status!=="pending"?thanks(g):form(n,g)}
-function wall(){const w=$("#wishes");if(!w)return;const W=guests.filter(x=>x.wish).sort((a,b)=>b.wishAt-a.wishAt);
+ refresh=wall;wall();wishForm(n);form(n,null);
+ getMine(n).then(g=>{if(g&&g.status!=="pending")thanks(g)});
+ loadPublic().then(wall).catch(()=>{});startPoll(()=>loadPublic().then(wall).catch(()=>{}),30000)}
+function wall(){const w=$("#wishes");if(!w)return;const W=wishes.slice().sort((a,b)=>b.at-a.at);
  if(!W.length){w.innerHTML=`<p style="margin:0">Jadilah yang pertama menitipkan ucapan.</p>`;return}
- const it=W.map(x=>`<div class="wish"><b>${esc(x.name)}</b><div>${esc(x.wish)}</div></div>`).join(""),sc=W.length>3;
- w.innerHTML=`<div class="wall" style="${sc?"":"height:auto;-webkit-mask-image:none;mask-image:none"}"><div class="track ${sc?"scroll":""}" style="animation-duration:${W.length*6}s">${it}${sc?it:""}</div></div>`}
+ /* Build one half long enough to fill the viewport, then duplicate it for a seamless continuous loop */
+ const one=W.map(x=>`<div class="wish"><b>${esc(x.name)}</b><div>${esc(x.text)}</div></div>`).join("");
+ const reps=Math.max(1,Math.ceil(5/W.length)),half=one.repeat(reps),secs=Math.max(14,W.length*reps*5);
+ w.innerHTML=`<div class="wall"><div class="track scroll" style="animation-duration:${secs}s"><div>${half}</div><div class="dup" aria-hidden="true">${half}</div></div></div>`}
 function form(n,g){
  $("#rbox").innerHTML=`<form id="rf" class="grid gap-3" novalidate><div><label for="rn" style="font-size:1rem">Nama</label><input class="inp" style="text-align:center" id="rn" value="${esc(n||"")}" autocomplete="name"></div>
  <div class="grid grid-cols-2 gap-2"><label><input type="radio" name="at" value="yes" class="sr-only" checked><span class="pill">Hadir</span></label><label><input type="radio" name="at" value="no" class="sr-only"><span class="pill">Tidak Hadir</span></label></div>
  <div id="paxw"><label for="px" style="font-size:1rem">Jumlah pax</label><select class="inp" style="text-align:center" id="px"><option>1</option><option>2</option><option>3</option></select></div>
- <div><label for="wi" style="font-size:1rem">Ucapan untuk pengantin</label><textarea class="inp" style="text-align:center" id="wi" rows="3" maxlength="240" placeholder="Tulis ucapan anda"></textarea></div>
  <p id="er" style="color:#8a1c1c;min-height:1.3em;margin:0;font-size:1rem"></p><button class="btn" id="sb">Hantar</button></form>`;
  if(g&&g.pax<=3)$("#px").value=g.pax;
  const sync=()=>$("#paxw").style.display=$("[name=at]:checked").value==="yes"?"":"none";$$("[name=at]").forEach(r=>r.onchange=sync);
- $("#rf").onsubmit=e=>{e.preventDefault();const name=$("#rn").value.trim(),st=$("[name=at]:checked").value,w=$("#wi").value.trim();
+ $("#rf").onsubmit=async e=>{e.preventDefault();const name=$("#rn").value.trim(),st=$("[name=at]:checked").value,pax=st==="yes"?+$("#px").value:0;
   if(!name){$("#er").textContent="Sila isi nama anda.";return}
-  let x=guests.find(y=>same(y.name,name));if(!x){x={id:uid(),name,table:"",arrived:null,pax:1,status:"pending",wish:"",wishAt:0};guests.push(x)}
-  x.status=st;if(st==="yes")x.pax=+$("#px").value;if(w){x.wish=w;x.wishAt=Date.now()}save();wall();thanks(x);toast("✓ RSVP anda berjaya dihantar. Terima kasih!")}}
+  const b=$("#sb");b.disabled=true;b.textContent="Menghantar…";
+  try{await act("rsvp",{name,pax,status:st});thanks({name,status:st,pax:pax||1});toast("✓ RSVP anda berjaya dihantar. Terima kasih!")}
+  catch(err){b.disabled=false;b.textContent="Hantar";$("#er").textContent="Gagal menghantar. Semak sambungan internet dan cuba lagi."}}}
 function thanks(g){const y=g.status==="yes";
  $("#rbox").innerHTML=`<div class="flex flex-col gap-3" style="align-items:center"><p class="lead" style="margin:0">${y?"Terima kasih, kami nantikan kehadiran anda":"Terima kasih atas doa anda"}</p><span class="bdg b-yes" style="align-self:center">✓ RSVP berjaya dihantar</span><p style="margin:0">${esc(g.name)} · ${SL[g.status]}${y?" · "+g.pax+" pax":""}</p><button class="btn ghost" id="chg">Ubah jawapan</button></div>`;
  $("#chg").onclick=()=>form(g.name,g)}
+function wishForm(n){
+ $("#wbox").innerHTML=`<form id="wf" class="grid gap-3" novalidate><input class="inp" style="text-align:center" id="wn" value="${esc(n||"")}" placeholder="Nama anda" aria-label="Nama anda" autocomplete="name"><textarea class="inp" style="text-align:center" id="wt" rows="3" maxlength="240" placeholder="Tulis ucapan anda untuk pengantin" aria-label="Ucapan"></textarea><p id="we" style="color:#8a1c1c;min-height:1.3em;margin:0;font-size:1rem"></p><button class="btn" id="wb">Hantar ucapan</button></form>`;
+ $("#wf").onsubmit=async e=>{e.preventDefault();const name=$("#wn").value.trim(),text=$("#wt").value.trim();
+  if(!name||!text){$("#we").textContent="Sila isi nama dan ucapan anda.";return}
+  const b=$("#wb");b.disabled=true;b.textContent="Menghantar…";
+  try{await act("wish",{name,text});$("#wt").value="";$("#we").textContent="";wall();toast("✓ Ucapan anda telah dihantar. Terima kasih!")}
+  catch(err){$("#we").textContent="Gagal menghantar ucapan. Cuba lagi."}
+  b.disabled=false;b.textContent="Hantar ucapan"}}
 
 /* ===== Admin ===== */
-const hdr=(t,a)=>`<div class="flex items-center justify-between gap-2 flex-wrap mb-4"><div class="flex items-center gap-3"><img class="ini sm" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1>${t}</h1></div><div class="flex gap-2">${a}</div></div>`;
+const hdr=(t,a)=>`<div class="flex items-center justify-between gap-2 flex-wrap mb-4"><div class="flex items-center gap-3"><img class="mono sm" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1>${t}</h1></div><div class="flex gap-2">${a}</div></div>`;
+const modeNote=()=>`<p class="sm" style="margin:0 0 .8rem;opacity:.85">Sambungan: ${REMOTE()?"Google Sheet (data dikongsi)":"Mod demo (data dalam pelayar ini sahaja)"}</p>`;
+const busyFocus=()=>{const a=document.activeElement;return !!(a&&a.classList&&a.classList.contains("tb"))||!!document.querySelector(".modal-bg")};
 function admin(){const T=$("#tool");
  let q="",fs="all",ft="all";
- T.innerHTML=hdr("Tetamu &amp; Tempat Duduk",`<a class="btn hd sm" href="#checkin">Check-in</a><a class="btn hd sm" href="#">Kad</a><button class="btn hd sm" id="out">Log keluar</button>`)+`
+ T.innerHTML=hdr("Tetamu &amp; Tempat Duduk",`<a class="btn hd sm" href="#checkin">Check-in</a><a class="btn hd sm" href="#">Kad</a><button class="btn hd sm" id="out">Log keluar</button>`)+modeNote()+`
   <div id="sum" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4"></div>
   <form id="af" class="pc mb-3 grid gap-2 md:grid-cols-[2fr_.7fr_1fr_auto]"><input class="inp" name="n" placeholder="Nama tetamu, cth. Encik Ali" aria-label="Nama tetamu"><input class="inp" name="p" type="number" min="1" max="20" value="1" aria-label="Pax dijemput"><input class="inp" name="t" list="tbls" placeholder="Meja (pilihan)"><button class="btn">Tambah &amp; jana pautan</button></form>
   <div class="pc mb-4 grid gap-2 md:grid-cols-[1fr_auto_auto_auto]"><input class="inp" id="q" placeholder="Cari nama" aria-label="Cari"><select class="inp" id="fs"><option value="all">Semua status</option><option value="yes">Hadir</option><option value="no">Tidak hadir</option><option value="pending">Belum jawab</option></select><select class="inp" id="ft"></select><button class="btn" id="exp">Eksport CSV</button></div>
-  <div id="list" class="grid gap-2"></div><p class="text-center mt-6"><button class="btn hd sm" id="rst">Set semula data demo</button></p><datalist id="tbls"></datalist>`;
+  <div id="list" class="grid gap-2"></div><p class="text-center mt-6"><button class="btn hd sm" id="rst"></button></p><datalist id="tbls"></datalist>`;
+ $("#rst").textContent=REMOTE()?"Segerak semula":"Set semula data demo";
  const tables=()=>[...new Set(guests.map(g=>g.table).filter(Boolean))].sort();
  function top(){const y=guests.filter(g=>g.status==="yes");
-  $("#sum").innerHTML=[["Jumlah dijemput",guests.length,guests.reduce((a,g)=>a+g.pax,0)+" pax"],["Hadir (pax)",y.reduce((a,g)=>a+g.pax,0),y.length+" tetamu"],["Tidak hadir",guests.filter(g=>g.status==="no").length,"tetamu"],["Belum jawab",guests.filter(g=>g.status==="pending").length,"menunggu"]].map(s=>`<div class="pc"><div style="font-size:.95rem">${s[0]}</div><b style="font-size:2.2rem;line-height:1.1;color:var(--wine2)">${s[1]}</b><div style="font-size:.85rem">${s[2]}</div></div>`).join("");
+  $("#sum").innerHTML=[["Jumlah dijemput",guests.length,guests.reduce((a,g)=>a+g.pax,0)+" pax"],["Hadir (pax)",y.reduce((a,g)=>a+g.pax,0),y.length+" tetamu"],["Tidak hadir",guests.filter(g=>g.status==="no").length,"tetamu"],["Belum jawab",guests.filter(g=>g.status==="pending").length,"menunggu"]].map(s=>`<div class="pc"><div style="font-size:.95rem">${s[0]}</div><b style="font-size:2.2rem;line-height:1.1;color:var(--burgundy)">${s[1]}</b><div style="font-size:.85rem">${s[2]}</div></div>`).join("");
   const c=$("#ft").value||"all";$("#ft").innerHTML=`<option value="all">Semua meja</option><option value="none">Belum ditetapkan</option>`+tables().map(t=>`<option ${t===c?"selected":""}>${esc(t)}</option>`).join("");ft=$("#ft").value;
-  $("#tbls").innerHTML=["VIP Table",...Array.from({length:12},(_,i)=>"Table "+(i+1))].map(t=>`<option value="${t}">`).join("");
-  }
+  $("#tbls").innerHTML=["VIP Table",...Array.from({length:12},(_,i)=>"Table "+(i+1))].map(t=>`<option value="${t}">`).join("")}
  function draw(){top();
   const R=guests.filter(g=>(fs==="all"||g.status===fs)&&(ft==="all"||(ft==="none"?!g.table:g.table===ft))&&g.name.toLowerCase().includes(q));
-  $("#list").innerHTML=R.length?R.map(g=>`<div class="pc grid gap-2 items-center md:grid-cols-[1.6fr_.5fr_1fr_1fr_auto]" data-id="${g.id}"><div><b>${esc(g.name)}</b><div class="break-all" style="font-size:.8rem;opacity:.75">${esc(linkFor(g))}</div></div>
+  $("#list").innerHTML=R.length?R.map(g=>`<div class="pc grid gap-2 items-center md:grid-cols-[1.6fr_.5fr_1fr_1fr_auto]" data-id="${esc(g.id)}"><div><b>${esc(g.name)}</b><div class="break-all" style="font-size:.8rem;opacity:.75">${esc(linkFor(g))}</div></div>
    <div>${g.pax} pax</div><div>${bdg(g.status)}${g.arrived?` <span class="bdg b-yes">${fmtT(g.arrived)}</span>`:""}</div>
    <input class="inp tb" list="tbls" value="${esc(g.table)}" placeholder="Tetapkan meja" aria-label="Meja ${esc(g.name)}">
-   <div class="flex gap-1 flex-wrap"><button class="btn sm cp">Salin pautan</button><button class="btn ghost sm pv">Pratonton</button><button class="btn ghost sm ed">Edit</button>${g.arrived?`<button class="btn ghost sm un">Batal tiba</button>`:""}<button class="btn ghost sm dl" style="color:#8a2a1f">Padam</button></div></div>`).join(""):`<div class="pc text-center">Tiada tetamu sepadan. Tambah tetamu di atas atau kosongkan penapis.</div>`;
-}
+   <div class="flex gap-1 flex-wrap"><button class="btn sm cp">Salin pautan</button><button class="btn ghost sm pv">Pratonton</button><button class="btn ghost sm ed">Edit</button>${g.arrived?`<button class="btn ghost sm un">Batal tiba</button>`:""}<button class="btn ghost sm dl" style="color:#8a2a1f">Padam</button></div></div>`).join(""):`<div class="pc text-center">Tiada tetamu sepadan. Tambah tetamu di atas atau kosongkan penapis.</div>`}
  refresh=draw;draw();
+ loadAdmin().then(draw).catch(err=>toast("Gagal memuatkan data: "+err.message));
+ startPoll(()=>{if(busyFocus())return;loadAdmin().then(draw).catch(()=>{})},15000);
  const L=$("#list"),gOf=el=>{const r=el.closest("[data-id]");return r?guests.find(x=>x.id===r.dataset.id):null};
- L.onclick=e=>{const b=e.target.closest("button");if(!b)return;const g=gOf(b);if(!g){toast("Ralat: tetamu tidak dijumpai. Muat semula halaman.");return}
+ L.onclick=async e=>{const b=e.target.closest("button");if(!b)return;const g=gOf(b);if(!g){toast("Ralat: tetamu tidak dijumpai. Muat semula halaman.");return}
   try{
    if(b.classList.contains("cp"))copy(linkFor(g));
    else if(b.classList.contains("pv")){window.__to=g.name;if(location.hash)location.hash="";else route()}
    else if(b.classList.contains("ed"))editGuest(g);
-   else if(b.classList.contains("un")){g.arrived=null;save();draw();toast("Check-in dibatalkan")}
-   else if(b.classList.contains("dl")){if(confirm("Padam "+g.name+"?")){guests=guests.filter(x=>x!==g);save();draw();toast("Tetamu dipadam")}}
+   else if(b.classList.contains("un")){await act("uncheckin",{name:g.name});draw();toast("Check-in dibatalkan")}
+   else if(b.classList.contains("dl")){if(confirm("Padam "+g.name+"?")){await act("delete",{name:g.name});draw();toast("Tetamu dipadam")}}
   }catch(err){toast("Ralat: "+err.message)}};
- L.onchange=e=>{if(!e.target.classList.contains("tb"))return;const g=gOf(e.target);if(!g)return;g.table=e.target.value.trim();save();ft==="all"?top():draw();toast("Meja disimpan")};
- function editGuest(g){const m=modal(`<h2>Edit tetamu</h2><form id="ef" class="grid gap-3"><div><label style="font-size:1rem">Nama</label><input class="inp" name="n" value="${esc(g.name)}"></div><div class="grid grid-cols-2 gap-3"><div><label style="font-size:1rem">Pax</label><input class="inp" type="number" min="1" max="20" name="p" value="${g.pax}"></div><div><label style="font-size:1rem">Status</label><select class="inp" name="s"><option value="pending">Belum jawab</option><option value="yes">Hadir</option><option value="no">Tidak hadir</option></select></div></div><div class="flex gap-2"><button class="btn">Simpan</button><button type="button" class="btn ghost" id="cx">Batal</button></div></form>`);
+ L.onchange=async e=>{if(!e.target.classList.contains("tb"))return;const g=gOf(e.target);if(!g)return;
+  try{await act("table",{name:g.name,table:e.target.value.trim()})}catch(err){toast("Ralat: "+err.message);return}
+  ft==="all"?top():draw();toast("Meja disimpan")};
+ function editGuest(g){const m=modal(`<h2>Edit tetamu</h2><form id="ef" class="grid gap-3" style="margin-top:.8rem"><div><label style="font-size:1rem">Nama</label><input class="inp" name="n" value="${esc(g.name)}"></div><div class="grid grid-cols-2 gap-3"><div><label style="font-size:1rem">Pax</label><input class="inp" type="number" min="1" max="20" name="p" value="${g.pax}"></div><div><label style="font-size:1rem">Status</label><select class="inp" name="s"><option value="pending">Belum jawab</option><option value="yes">Hadir</option><option value="no">Tidak hadir</option></select></div></div><div class="flex gap-2"><button class="btn">Simpan</button><button type="button" class="btn ghost" id="cx">Batal</button></div></form>`);
   $("[name=s]",m).value=g.status;$("#cx",m).onclick=()=>m.remove();
-  $("#ef",m).onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim();if(n&&guests.some(x=>x!==g&&same(x.name,n))){toast("Nama ini sudah ada");return}
-   if(n)g.name=n;g.pax=Math.max(1,+f.get("p")||1);g.status=f.get("s");save();m.remove();draw();toast("Tetamu dikemas kini")}}
- $("#af").onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim();if(!n){toast("Sila isi nama tetamu");return}
+  $("#ef",m).onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim()||g.name;if(guests.some(x=>x!==g&&same(x.name,n))){toast("Nama ini sudah ada");return}
+   try{await act("update",{oldName:g.name,name:n,pax:Math.max(1,+f.get("p")||1),status:f.get("s")});m.remove();draw();toast("Tetamu dikemas kini")}catch(err){toast("Ralat: "+err.message)}}}
+ $("#af").onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim();if(!n){toast("Sila isi nama tetamu");return}
   if(guests.some(g=>same(g.name,n))){toast("Nama ini sudah ada");return}
-  const g={id:uid(),name:n,pax:Math.max(1,+f.get("p")||1),status:"pending",table:f.get("t").trim(),wish:"",wishAt:0,arrived:null};guests.push(g);save();e.target.reset();e.target.p.value=1;draw();copy(linkFor(g))};
+  try{await act("add",{name:n,pax:Math.max(1,+f.get("p")||1),table:f.get("t").trim()});e.target.reset();e.target.p.value=1;draw();copy(linkFor({name:n}))}catch(err){toast("Ralat: "+err.message)}};
  $("#q").oninput=e=>{q=e.target.value.toLowerCase();draw()};$("#fs").onchange=e=>{fs=e.target.value;draw()};$("#ft").onchange=e=>{ft=e.target.value;draw()};
  $("#out").onclick=()=>{try{sessionStorage.removeItem("wed_admin")}catch(e){delete mem.adm}route()};
- $("#rst").onclick=()=>{if(confirm("Ganti semua data dengan data demo?")){guests=seed();save();draw()}};
+ $("#rst").onclick=()=>{if(REMOTE()){loadAdmin().then(()=>{draw();toast("Data disegerakkan")}).catch(err=>toast("Ralat: "+err.message));return}
+  if(confirm("Ganti semua data dengan data demo?")){guests=seed();wishes=seedWishes();save();draw()}};
  $("#exp").onclick=()=>{const qt=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
-  const csv=[["Nama","Pax","Status","Meja","Pautan","Ucapan","Tiba"].join(",")].concat(guests.map(g=>[g.name,g.pax,SL[g.status],g.table,linkFor(g),g.wish,g.arrived?new Date(g.arrived).toLocaleString():""].map(qt).join(","))).join("\n");
+  const csv=[["Nama Jemputan","Berapa Pax","RSVP","Nombor Meja","Pautan","Masa Check-in"].join(",")].concat(guests.map(g=>[g.name,g.pax,SL[g.status],g.table,linkFor(g),g.arrived?new Date(g.arrived).toLocaleString():""].map(qt).join(","))).join("\n");
   const m=modal(`<h2>Eksport senarai tetamu</h2><p style="font-size:1rem">Salin ke Excel atau Google Sheets, atau muat turun fail CSV.</p><textarea class="inp" rows="8" readonly style="font-family:monospace;font-size:.75rem">${esc(csv)}</textarea><div class="flex gap-2 mt-3"><button class="btn" id="cp">Salin</button><button class="btn ghost" id="dc">Muat turun CSV</button><button class="btn ghost" id="cl">Tutup</button></div>`);
   $("#cl",m).onclick=()=>m.remove();$("#cp",m).onclick=()=>copy(csv,"Disalin");
   $("#dc",m).onclick=()=>{try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="senarai-tetamu.csv";document.body.appendChild(a);a.click();a.remove()}catch(e){}}}}
 
 /* ===== Check-in ===== */
 function checkin(){let q="";const T=$("#tool");
- T.innerHTML=`<div class="max-w-xl mx-auto">`+hdr("Check-in",`<a class="btn hd sm" href="#admin">Admin</a>`)+`<div id="st" class="pc mb-4 flex justify-around text-center"></div>
+ T.innerHTML=`<div class="max-w-xl mx-auto">`+hdr("Check-in",`<a class="btn hd sm" href="#admin">Admin</a>`)+modeNote()+`<div id="st" class="pc mb-4 flex justify-around text-center"></div>
   <input class="inp" id="s" style="font-size:1.25rem;padding:.9rem" placeholder="Taip nama tetamu…" autocomplete="off" aria-label="Cari nama"><div id="res" class="grid gap-3 mt-4"></div></div>`;
+ const warn=(c,t)=>{c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");try{navigator.vibrate([80,60,80])}catch(e){}
+  $$(".dup").forEach(x=>x.remove());const w=document.createElement("div");w.className="dup mt-2 p-3 text-center";w.style.cssText="background:#f3d3cf;color:#8a2a1f;border-radius:4px";w.innerHTML=`<b>Sudah check in pada ${fmtT(t)}.</b> Jangan check in dua kali.`;c.appendChild(w)};
  function draw(){const a=guests.filter(g=>g.arrived),ex=guests.filter(g=>g.status!=="no");
-  $("#st").innerHTML=`<div><b style="font-size:2rem;color:var(--wine2)">${a.reduce((s,g)=>s+g.pax,0)}</b><div style="font-size:.95rem">pax tiba</div></div><div><b style="font-size:2rem;color:var(--wine2)">${a.length}/${ex.length}</b><div style="font-size:.95rem">tetamu tiba</div></div>`;
+  $("#st").innerHTML=`<div><b style="font-size:2rem;color:var(--burgundy)">${a.reduce((s,g)=>s+g.pax,0)}</b><div style="font-size:.95rem">pax tiba</div></div><div><b style="font-size:2rem;color:var(--burgundy)">${a.length}/${ex.length}</b><div style="font-size:.95rem">tetamu tiba</div></div>`;
   if(!q){$("#res").innerHTML=`<p class="text-center py-6" style="opacity:.8">Taip nama untuk mencari tetamu.</p>`;return}
   const R=guests.filter(g=>g.name.toLowerCase().includes(q)).sort((x,y)=>!!x.arrived-!!y.arrived).slice(0,12);
-  $("#res").innerHTML=R.length?R.map(g=>`<div class="pc pop" data-id="${g.id}" style="${g.arrived?"border-color:#2f6a3d":""}"><div class="flex justify-between items-start gap-2"><div><b style="font-size:1.3rem">${esc(g.name)}</b><div>${g.pax} pax ${bdg(g.status)}</div></div><div class="text-right"><div style="font-size:.9rem">Meja</div><b style="font-size:1.7rem;color:var(--wine2);line-height:1.2">${esc(g.table)||"Belum ditetapkan"}</b></div></div>
+  $("#res").innerHTML=R.length?R.map(g=>`<div class="pc pop" data-id="${esc(g.id)}" style="${g.arrived?"border-color:#2f6a3d":""}"><div class="flex justify-between items-start gap-2"><div><b style="font-size:1.3rem">${esc(g.name)}</b><div>${g.pax} pax ${bdg(g.status)}</div></div><div class="text-right"><div style="font-size:.9rem">Meja</div><b style="font-size:1.7rem;color:var(--burgundy);line-height:1.2">${esc(g.table)||"Belum ditetapkan"}</b></div></div>
    ${g.status==="no"?`<p style="color:#8a2a1f;font-size:1rem;margin:.4rem 0 0">Tetamu ini menolak jemputan. Sahkan dengan keluarga pengantin dahulu.</p>`:""}
    ${g.arrived?`<div class="mt-3 p-3 text-center" style="background:#d3e6cb;color:#2f6a3d;border-radius:4px"><b>Telah tiba pada ${fmtT(g.arrived)}</b></div><button class="btn ghost w-full mt-2 ci">Semak semula</button>`:`<button class="btn ok w-full mt-3 ci" style="padding:.9rem;font-size:1.2rem">Check in ${g.pax} pax</button>`}</div>`).join(""):`<p class="text-center py-6" style="opacity:.8">Tiada padanan. Cuba ejaan lebih pendek.</p>`;
-  $$("#res [data-id]").forEach(c=>{const g=guests.find(x=>x.id===c.dataset.id);$(".ci",c).onclick=()=>{
-   if(g.arrived){c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");try{navigator.vibrate([80,60,80])}catch(e){}
-    $$(".dup").forEach(x=>x.remove());const w=document.createElement("div");w.className="dup mt-2 p-3 text-center";w.style.cssText="background:#f3d3cf;color:#8a2a1f;border-radius:4px";w.innerHTML=`<b>Sudah check in pada ${fmtT(g.arrived)}.</b> Jangan check in dua kali.`;c.appendChild(w);return}
-   g.arrived=Date.now();save();draw();toast(g.name+" telah check in")}})}
- refresh=draw;draw();$("#s").oninput=e=>{q=e.target.value.trim().toLowerCase();draw()}}
-(()=>{const I={cal:'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',tel:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',pin:'<path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',heart:'<path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/>',note:'<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>'};
+  $$("#res [data-id]").forEach(c=>{const g=guests.find(x=>x.id===c.dataset.id);if(!g)return;const btn=$(".ci",c);btn.onclick=async()=>{
+   if(g.arrived){warn(c,g.arrived);return}
+   btn.disabled=true;
+   try{const r=await act("checkin",{name:g.name});draw();
+    if(r&&r.error==="already"){const c2=$(`#res [data-id="${CSS.escape(g.id)}"]`);if(c2)warn(c2,g.arrived)}else toast(g.name+" telah check in")}
+   catch(err){btn.disabled=false;toast("Ralat: "+err.message)}}})}
+ refresh=draw;draw();$("#s").oninput=e=>{q=e.target.value.trim().toLowerCase();draw()};
+ loadAdmin().then(draw).catch(err=>toast("Gagal memuatkan data: "+err.message));
+ startPoll(()=>{if(busyFocus())return;loadAdmin().then(draw).catch(()=>{})},10000)}
+
+/* ===== Save-the-date modal: Google Calendar link or downloadable .ics file ===== */
+function calModal(){
+ const g="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Majlis Perkahwinan Syazwan & Nazura")+"&dates=20270829T020000Z/20270829T040000Z&location="+encodeURIComponent(CFG.venue);
+ const m=modal(`<h2>Simpan tarikh</h2><p style="margin:.6rem 0 .8rem">Ahad, 29 Ogos 2027<br>10:00 pagi - 12:00 tengah hari</p><div class="grid gap-2"><a class="btn" href="${g}" target="_blank" rel="noopener">Google Calendar</a><button class="btn ghost" id="ics">Muat turun (.ics)</button><button class="btn ghost" id="cl">Tutup</button></div>`);
+ $("#cl",m).onclick=()=>m.remove();
+ $("#ics",m).onclick=()=>{const t=["BEGIN:VCALENDAR","VERSION:2.0","BEGIN:VEVENT","DTSTART:20270829T020000Z","DTEND:20270829T040000Z","SUMMARY:Majlis Perkahwinan Syazwan & Nazura","LOCATION:"+CFG.venue,"END:VEVENT","END:VCALENDAR"].join("\r\n");
+  try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/calendar"}));a.download="majlis-syazwan-nazura.ics";document.body.appendChild(a);a.click();a.remove()}catch(e){}}}
+
+/* ===== Bottom navigation: exactly 3 buttons (Hubungi, Lokasi, Nota) ===== */
+(()=>{const I={tel:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',pin:'<path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',note:'<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>'};
  const closer=m=>$("#cl",m).onclick=()=>m.remove();
  const items=[
   ["tel","Hubungi",()=>{const rows=CFG.contacts.map(c=>`<div><b>${esc(c[0])}</b><div>${c[1].replace(/^60(\d{2})(\d{3})(\d+)$/,"+60 $1-$2 $3")}</div><div class="flex gap-2 mt-1"><a class="btn sm" href="tel:+${c[1]}">Panggil</a><a class="btn ghost sm" href="https://wa.me/${c[1]}" target="_blank" rel="noopener">WhatsApp</a></div></div>`).join("");
    const m=modal(`<h2>Hubungi kami</h2><div class="grid gap-3" style="margin-top:.8rem">${rows}<button class="btn ghost" id="cl">Tutup</button></div>`);closer(m)}],
-  ["pin","Lokasi",()=>{const t=CFG.tujuUrl;const m=modal(`<h2>Lokasi</h2><p style="margin:.6rem 0 .8rem">${esc(CFG.venue)}</p><div class="grid gap-2"><a class="btn" href="${CFG.mapUrl}" target="_blank" rel="noopener">Google Maps</a><a class="btn" href="${CFG.wazeUrl}" target="_blank" rel="noopener">Waze</a>${t?`<a class="btn" href="${t}" target="_blank" rel="noopener">Tuju</a>`:`<button class="btn" id="tj">Tuju</button>`}<button class="btn ghost" id="cl">Tutup</button></div>`);closer(m);const tj=$("#tj",m);if(tj)tj.onclick=()=>toast("Pautan Tuju belum ditetapkan.")}],
+  ["pin","Lokasi",()=>{const m=modal(`<h2>Lokasi</h2><p style="margin:.6rem 0 .8rem">${esc(CFG.venue)}</p><div class="grid gap-2"><a class="btn" href="${CFG.mapUrl}" target="_blank" rel="noopener">Buka Google Maps</a><button class="btn ghost" id="cl">Tutup</button></div>`);closer(m)}],
   ["note","Nota",()=>{const m=modal(`<h2>${esc(CFG.note.title)}</h2><p style="margin:.8rem 0 1rem;line-height:1.7;font-size:1.15rem">${esc(CFG.note.text)}</p><button class="btn ghost" id="cl">Tutup</button>`);closer(m)}]];
  $("#nav").innerHTML=items.map(([k,l],i)=>`<button data-i="${i}" aria-label="${l}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg><span>${l}</span></button>`).join("");
  $$("#nav button").forEach(b=>b.onclick=items[b.dataset.i][2])})();
-/* Probe which frame file exists (image2.jpeg or image2.jpg) and expose it to CSS as --frame */
-(()=>{const probe=(list,ok,fail)=>{const f=list.shift();if(!f){fail();return}const im=new Image();im.onload=()=>ok(f);im.onerror=()=>probe(list,ok,fail);im.src=f};
- probe(["image2.jpeg","image2.jpg"],f=>document.documentElement.style.setProperty("--frame",'url("'+f+'")'),()=>$$(".frame").forEach(x=>x.classList.add("nofr")))})();
+
+/* Per-card background images: image2.jpg ... image10.jpg (also accepts .jpeg). Missing files fall back to a plain card. */
+(()=>{const probe=(list,ok)=>{const f=list.shift();if(!f)return;const im=new Image();im.onload=()=>ok(f);im.onerror=()=>probe(list,ok);im.src=f};
+ $$(".sec[data-bg]").forEach(el=>{const list=[];el.dataset.bg.split(",").forEach(n=>list.push("image"+n+".jpg","image"+n+".jpeg"));
+  probe(list,f=>{el.style.setProperty("--bg",'url("'+f+'")');el.classList.add("has-bg")})})})();
+setupReveal();
 route();
 </script>
 </body>
