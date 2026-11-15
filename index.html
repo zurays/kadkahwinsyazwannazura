@@ -64,6 +64,9 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
 .date-big{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:2.2rem;letter-spacing:.06em;line-height:1.2;color:var(--brown)}
 .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;width:100%}
 .btn.act{border-radius:999px;font-size:.95rem;letter-spacing:.12em;padding:.7rem 1.3rem}
+.tl{position:relative;text-align:left;padding-left:1rem;width:100%;max-width:300px}.tl::before{content:"";position:absolute;left:.3rem;top:.5rem;bottom:.5rem;width:1px;background:var(--taupe)}
+.ti{position:relative;padding:0 0 1rem 1.6rem}.ti:last-child{padding-bottom:0}.ti::before{content:"";position:absolute;left:0;top:.5rem;width:.65rem;height:.65rem;background:var(--parch);border:1.5px solid var(--taupe);border-radius:50%}.ti b{display:block;color:var(--bronze);font-size:1.2rem;font-weight:600}
+.sec.has-bg{padding:3.2rem 1.6rem;background-image:var(--bg);background-size:cover;background-position:center;background-repeat:no-repeat}
 .cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem}
 .cd div{padding:.55rem 0 .45rem;text-align:center;border:1px solid var(--taupe);border-radius:4px;background:var(--cream)}
 .cd b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.55rem;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--brown)}
@@ -109,7 +112,7 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
  <div id="pvbar"></div>
 
  <!-- Section 1: cover -->
- <section class="sec" id="cover">
+ <section class="sec" id="cover" data-bg="2">
   <h2>WALIMATULURUS</h2>
   <img class="mono" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)">
   <p class="script names">Syazwan &amp; Nazura</p>
@@ -119,14 +122,14 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
  </section>
 
  <!-- Section 2: greeting and guest name -->
- <section class="sec" id="salam">
+ <section class="sec" id="salam" data-bg="3">
   <p><i>Assalamualaikum &amp; Selamat Sejahtera,</i></p>
   <p>Dengan penuh kesyukuran, kami ingin menjemput Tuan/Puan/Encik/Cik</p>
   <p class="script gn" id="gn2"></p>
  </section>
 
  <!-- Section 3: couple and parents -->
- <section class="sec" id="ibubapa">
+ <section class="sec" id="ibubapa" data-bg="4">
   <p>ke Majlis Perkahwinan anakanda kami</p>
   <div class="nm"><p class="person">Mohd Asriq Syazwan bin Abdellah</p><p class="sm">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p></div>
   <p class="script amp">&amp;</p>
@@ -134,7 +137,7 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
  </section>
 
  <!-- Section 4: date, venue, action buttons, countdown -->
- <section class="sec" id="majlis">
+ <section class="sec" id="majlis" data-bg="5">
   <p>Majlis perkahwinan akan berlangsung pada</p>
   <p class="day">A H A D</p>
   <p class="date-big">29.08.2027</p>
@@ -146,20 +149,30 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
   <div class="cd" id="cd"></div>
  </section>
 
- <!-- Section 5: RSVP form and wish form -->
- <section class="sec" id="rsvp">
+ <!-- Section 5: programme -->
+ <section class="sec" id="aturcara" data-bg="6,7">
+  <h2>ATURCARA MAJLIS</h2>
+  <div class="tl">
+   <div class="ti"><b>10:00 pagi</b>Kehadiran Tetamu</div>
+   <div class="ti"><b>10:30 pagi</b>Ketibaan Pengantin</div>
+   <div class="ti"><b>12:00 tengah hari</b>Majlis Bersurai</div>
+  </div>
+ </section>
+
+ <!-- Section 6: RSVP form and wish form -->
+ <section class="sec" id="rsvp" data-bg="8">
   <h2>MAKLUMAT KEHADIRAN RSVP</h2><div id="rbox"></div>
   <div class="rule"></div>
   <div id="wbox"></div>
  </section>
 
- <!-- Section 6: auto-scrolling wall of wishes -->
- <section class="sec" id="ucapan">
+ <!-- Section 7: auto-scrolling wall of wishes -->
+ <section class="sec" id="ucapan" data-bg="9">
   <h2>UCAPAN</h2><div id="wishes"></div>
  </section>
 
- <!-- Section 7: closing blessings -->
- <section class="sec" id="penutup">
+ <!-- Section 8: closing blessings -->
+ <section class="sec" id="penutup" data-bg="10">
   <p class="lead closing-text">Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih</p>
  </section>
 
@@ -171,13 +184,14 @@ input:checked+.pill{background:var(--bronze);color:var(--parch)}
 <script>
 /* ===== CONFIG: edit these ===== */
 /* Paste your Google Apps Script Web App URL (ends with /exec). Leave empty for demo mode (data stays in this browser only). */
-const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxwCaP7_81U9jZHs8aFgaaZdG5MNF63jTCEDFiJFoHbI8PbyQHLNG_xxMfBHbiFjBr36A/exec";
+const GOOGLE_SCRIPT_URL="";
 const CFG={date:new Date(2027,7,29,10,0,0),
  venue:"Arcum Tent, Majma",
  mapUrl:"https://www.google.com/maps/search/?api=1&query=Arcum+Tent+Majma", /* replace with the exact Google Maps link */
  contacts:[["Mohd Asriq Syazwan","60164607883"],["Mumtaz Nazura","60136155625"]],
  note:{title:"TETAMU YANG DIHORMATI",text:"Jemputan ini adalah terhad kepada bilangan tetamu yang dinyatakan dalam kad digital/RSVP. Mohon jasa baik tuan/puan untuk tidak membawa tambahan tetamu di luar bilangan yang diperuntukan atau berkongsi kad jemputan ini kepada pihak lain tanpa kebenaran kami. Terima kasih atas pengertian dan kerjasama anda."},
  baseUrl:"",   /* your site, e.g. https://name.github.io/repo/ ; blank = this page */
+ sectionImages:false, /* true = use image2..image10 as seamless per-section backgrounds when those files exist */
  adminPassword:"admin2027",KEY:"wedding_guests_v4",WKEY:"wedding_wishes_v1"};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -247,7 +261,7 @@ $("#mus").onclick=()=>music(!playing);
 function gate(next){let ok=false;try{ok=sessionStorage.getItem("wed_admin")==="1"}catch(e){ok=!!mem.adm}
  if(ok){next();return}
  const who=location.hash==="#checkin"?"Check-in":"Admin";
- $("#tool").innerHTML=`<div class="flex" style="min-height:90vh;align-items:center;justify-content:center"><form id="lg" class="pc pop" style="width:100%;max-width:380px;text-align:center;display:grid;gap:.8rem;padding:1.6rem"><img class="mono" style="margin:0 auto;width:110px" src="initial.jpeg" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1 style="color:var(--bronze)">${who}</h1><p style="margin:0;font-size:1rem">Sila masukkan kata laluan admin untuk meneruskan.</p>
+ $("#tool").innerHTML=`<div class="flex" style="min-height:90vh;align-items:center;justify-content:center"><form id="lg" class="pc pop" style="width:100%;max-width:380px;text-align:center;display:grid;gap:.8rem;padding:1.6rem"><img class="mono" style="margin:0 auto;width:110px" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1 style="color:var(--bronze)">${who}</h1><p style="margin:0;font-size:1rem">Sila masukkan kata laluan admin untuk meneruskan.</p>
   <div style="position:relative"><input class="inp" type="password" id="pw" placeholder="Kata laluan" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" style="padding-right:3rem"><button type="button" id="eye" aria-label="Tunjuk kata laluan" aria-pressed="false" style="position:absolute;right:.35rem;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;color:var(--bronze);padding:.4rem;line-height:0"></button></div>
   <p id="e" style="color:#8a1c1c;min-height:1.2em;margin:0"></p><button class="btn">Log masuk</button><a href="#" style="font-size:1rem;color:var(--ink)">Kembali ke kad jemputan</a></form></div>`;
  const EO='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',EC='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.2 3.9M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a10 10 0 0 0 4.2-.9M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
@@ -318,7 +332,7 @@ function wishForm(n){
   b.disabled=false;b.textContent="Hantar ucapan"}}
 
 /* ===== Admin ===== */
-const hdr=(t,a)=>`<div class="flex items-center justify-between gap-2 flex-wrap mb-4"><div class="flex items-center gap-3"><img class="mono sm" src="initial.jpeg" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1>${t}</h1></div><div class="flex gap-2">${a}</div></div>`;
+const hdr=(t,a)=>`<div class="flex items-center justify-between gap-2 flex-wrap mb-4"><div class="flex items-center gap-3"><img class="mono sm" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1>${t}</h1></div><div class="flex gap-2">${a}</div></div>`;
 const modeNote=()=>`<p class="sm" style="margin:0 0 .8rem;opacity:.85">Sambungan: ${REMOTE()?"Google Sheet (data dikongsi)":"Mod demo (data dalam pelayar ini sahaja)"}</p>`;
 const busyFocus=()=>{const a=document.activeElement;return !!(a&&a.classList&&a.classList.contains("tb"))||!!document.querySelector(".modal-bg")};
 function admin(){const T=$("#tool");
@@ -414,6 +428,10 @@ function calModal(){
  $("#nav").innerHTML=items.map(([k,l],i)=>`<button data-i="${i}" aria-label="${l}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg><span>${l}</span></button>`).join("");
  $$("#nav button").forEach(b=>b.onclick=items[b.dataset.i][2])})();
 
+/* Optional per-section background images (off by default so the page stays one continuous parchment) */
+if(CFG.sectionImages)(()=>{const probe=(list,ok)=>{const f=list.shift();if(!f)return;const im=new Image();im.onload=()=>ok(f);im.onerror=()=>probe(list,ok);im.src=f};
+ $$(".sec[data-bg]").forEach(el=>{const list=[];el.dataset.bg.split(",").forEach(n=>list.push("image"+n+".jpg","image"+n+".jpeg"));
+  probe(list,f=>{el.style.setProperty("--bg",'url("'+f+'")');el.classList.add("has-bg")})})})();
 setupReveal();
 route();
 </script>
