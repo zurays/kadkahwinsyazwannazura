@@ -10,7 +10,7 @@
 :root{--burgundy:#5c1d24;--parch:#f4efe6;--parch2:#e9e0d0;--taupe:#5c1d24;--taupe-l:#c9a8ab;--cream:#fbf8f2;--card:#efe6d6;color-scheme:light;
 padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;padding:0;width:100%;background-color:#f4efe6}
+html,body{margin:0;padding:0;width:100%;background-color:#5c1d24;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='%23d9bd76' fill-opacity='.13'%3E%3Cpath d='M30 14l2.2 8.8L41 25l-8.8 2.2L30 36l-2.2-8.8L19 25l8.8-2.2z'/%3E%3Cpath d='M118 88l1.6 6.4 6.4 1.6-6.4 1.6-1.6 6.4-1.6-6.4-6.4-1.6 6.4-1.6z'/%3E%3Ccircle cx='96' cy='30' r='1.6'/%3E%3Ccircle cx='24' cy='110' r='1.6'/%3E%3Ccircle cx='140' cy='140' r='1.4'/%3E%3Ccircle cx='70' cy='70' r='1.2'/%3E%3C/g%3E%3C/svg%3E")}
 html{min-height:100%;overflow-x:hidden;scroll-padding-top:env(safe-area-inset-top,0px)}
 body{min-height:100%;overflow-x:clip;color:var(--burgundy);font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-size:1.1rem;font-weight:500;line-height:1.55;overflow-wrap:break-word;-webkit-tap-highlight-color:transparent}
 body.lock{overflow:hidden}
@@ -43,60 +43,76 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .to{text-shadow:0 1px 2px rgba(255,250,240,.6)}.to p{margin:0;font-size:1.05rem}.to .script{font-size:clamp(1.9rem,9vw,2.5rem);line-height:1.2;overflow-wrap:anywhere}
 .open-btn{border:1px solid var(--taupe);border-radius:999px;background:var(--burgundy);color:var(--parch);padding:.85rem 2.2rem;font:600 .95rem 'Cormorant Garamond',Georgia,serif;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 20px rgba(74,55,40,.3);transition:transform .15s,background .2s}
 .open-btn:hover{filter:brightness(1.18)}.open-btn:active{transform:scale(.96)}
-/* ===== Main page: one continuous parchment background, sections flow in a single column ===== */
-#main{display:none;padding:1rem 1rem 7.5rem;background:#f4efe6}
+/* ===== Main page: cream background; each card is an <img> frame (never cropped or stretched) with a content overlay ===== */
+#main{display:none;padding:1rem 1rem 7.5rem;background:transparent}
 #main.show{display:block;animation:in 1.2s ease both}@keyframes in{from{opacity:0}}
-.stack{display:flex;flex-direction:column;align-items:stretch;gap:0;width:100%;max-width:520px;margin:0 auto}
+.stack{display:flex;flex-direction:column;align-items:stretch;width:100%;max-width:480px;margin:0 auto}
 .stack>*{min-width:0}
-.sec{display:flex;flex-direction:column;align-items:center;gap:.8rem;text-align:center;padding:50px 25px;margin-bottom:40px;color:var(--burgundy);border-radius:6px;
- background-color:var(--card);background-image:var(--bg,none);background-size:cover;background-position:center;background-repeat:no-repeat}
-.ar{font-family:'Amiri','Traditional Arabic',serif;font-size:1.8rem;line-height:1.9;font-weight:400}
-.sec>*{margin:0;max-width:100%;min-width:0}
-.sec #cd,.sec #rbox,.sec #wishes,.sec #wbox,.sec .rule{width:100%}.sec .rule{width:70px}
-.sec.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}.sec.reveal.in{opacity:1;transform:none}
-.sec h2{font-size:clamp(.95rem,4.6vw,1.2rem)}
-.lead{font-size:1.3rem;font-weight:600;line-height:1.3}
-.person{font-size:1.6rem;font-weight:700;line-height:1.25;color:var(--burgundy)}
-.names{font-size:2.6rem;line-height:1.1;color:var(--burgundy)}.verse{font-style:italic}
-.gn{font-size:2.2rem;line-height:1.2;color:var(--burgundy);overflow-wrap:anywhere}
-.amp{font-size:2.4rem;line-height:1;color:var(--taupe)}.nm{display:flex;flex-direction:column;gap:.3rem}
-.mono{display:block;width:140px;max-width:60%;height:auto;object-fit:contain;border:0;border-radius:0}.mono.sm{width:48px;max-width:none;flex:none}
-.day{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.5rem;letter-spacing:.35em;margin-right:-.35em;color:var(--burgundy)}
-.date-big{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:2.2rem;letter-spacing:.06em;line-height:1.2;color:var(--burgundy)}
-.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;width:100%}
-.btn.act{border-radius:999px;font-size:.95rem;letter-spacing:.12em;padding:.7rem 1.3rem}
-.tl{position:relative;text-align:left;padding-left:1rem;width:100%;max-width:300px}.tl::before{content:"";position:absolute;left:.3rem;top:.5rem;bottom:.5rem;width:1px;background:var(--taupe)}
-.ti{position:relative;padding:0 0 1rem 1.6rem}.ti:last-child{padding-bottom:0}.ti::before{content:"";position:absolute;left:0;top:.5rem;width:.65rem;height:.65rem;background:var(--parch);border:1.5px solid var(--taupe);border-radius:50%}.ti b{display:block;color:var(--burgundy);font-size:1.2rem;font-weight:600}
-.cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem}
-.cd div{padding:.55rem 0 .45rem;text-align:center;border:1px solid var(--taupe);border-radius:4px;background:var(--cream)}
-.cd b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.55rem;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--burgundy)}
-.cd span{display:block;font-size:.85rem;color:var(--burgundy);letter-spacing:.06em}
-.wall{height:19rem;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(transparent,#000 10%,#000 90%,transparent)}
+.card{position:relative;width:100%;max-width:480px;margin:0 auto 40px auto;container-type:inline-size}
+.card.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}.card.reveal.in{opacity:1;transform:none}
+.card-img{width:100%;height:auto;display:block}
+/* Overlay padding is 40px 25px as specified. If a frame has ornaments that reach further inside, raise
+   --ov-top / --ov-side / --ov-bottom on .card (cqw = % of card width) to keep text clear of them. */
+.card{--ov-top:40px;--ov-side:25px;--ov-bottom:40px}
+.card-ov{position:absolute;inset:0;padding:var(--ov-top) var(--ov-side) var(--ov-bottom);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1.4cqw;box-sizing:border-box;overflow-y:auto;scrollbar-width:thin;text-align:center;color:var(--burgundy);font-size:max(11px,3.6cqw);line-height:1.35}
+.card-ov>*{margin:0;max-width:100%;min-width:0}
+/* Fallback when a frame image is missing: plain cream card, content flows normally */
+.card.nofr .card-img{display:none}
+.card.nofr .card-ov{position:relative;inset:auto;overflow:visible;background:var(--card);border:1px solid var(--taupe-l);border-radius:6px;padding:40px 25px;gap:.8rem;font-size:1.1rem}
+/* Type scale (all relative to the card width so text always fits inside the frame) */
+.card-ov h2{font-size:1.05em;letter-spacing:.16em;line-height:1.35}
+.card-ov .lead{font-size:1.15em;font-weight:600;line-height:1.3}
+.card-ov .sm{font-size:.84em}
+.card-ov .person{font-size:1.2em;font-weight:700;line-height:1.25}
+.card-ov .names{font-size:2.1em;line-height:1.1}.card-ov .verse{font-style:italic}
+.card-ov .gn{font-size:2em;line-height:1.2;overflow-wrap:anywhere}
+.card-ov .amp{font-size:2em;line-height:1}.card-ov .nm{display:flex;flex-direction:column;gap:.2em}
+.card-ov .mono{width:min(150px,34cqw);max-width:none;height:auto;display:block;border:0;border-radius:0}
+.card-ov .day{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.3em;letter-spacing:.35em;margin-right:-.35em}
+.card-ov .date-big{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.7em;letter-spacing:.06em;line-height:1.15}
+.card-ov .closing-text{font-size:1.2em;font-style:italic;font-weight:500;line-height:1.45}
+/* Compact vintage beaded buttons */
+.card-ov .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:2cqw;width:100%}
+.card-ov .act{border:.22em dotted var(--burgundy);border-radius:999px;background:var(--cream);color:var(--burgundy);padding:.35em .8em;font-size:.72em;font-weight:700;letter-spacing:.06em;box-shadow:inset 0 0 0 .12em var(--cream),inset 0 0 0 .2em var(--burgundy)}
+.card-ov .act:hover{filter:none;background:var(--parch)}
+.card-ov #cd,.card-ov #rbox,.card-ov #wishes{width:100%}
+.card-ov .rule{width:18cqw}
+.cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45em}
+.cd div{padding:.4em 0 .3em;text-align:center;border:1px solid var(--taupe);border-radius:4px;background:var(--cream)}
+.cd b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.4em;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--burgundy)}
+.cd span{display:block;font-size:.75em;letter-spacing:.06em}
+.tl{position:relative;text-align:left;width:82%}.tl::before{content:"";position:absolute;left:.3em;top:.5em;bottom:.5em;width:1px;background:var(--taupe)}
+.ti{position:relative;padding:0 0 .8em 1.6em;font-size:.95em}.ti:last-child{padding-bottom:0}.ti::before{content:"";position:absolute;left:0;top:.45em;width:.65em;height:.65em;background:var(--parch);border:1.5px solid var(--taupe);border-radius:50%}.ti b{display:block;font-size:1.2em;font-weight:600}
+.card-ov .inp{font-size:.95em;padding:.45em .6em}.card-ov .pill{padding:.45em .3em}.card-ov label{font-size:.85em}
+.card-ov .btn{font-size:.95em;padding:.5em 1.2em}
+.card-ov form,.card-ov #rbox>div{gap:1.2cqw}
+.wall{height:62cqw;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
 .track.scroll{animation:roll linear infinite}.wall:hover .track,.wall:active .track{animation-play-state:paused}@keyframes roll{to{transform:translateY(-50%)}}
-.wish{background:var(--cream);border:1px solid var(--taupe-l);border-radius:4px;padding:.7rem 1rem;margin-bottom:.7rem;text-align:left}.wish b{color:var(--burgundy)}
-.closing-text{font-style:italic;font-weight:500}
-.mus{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;z-index:70;width:46px;height:46px;border-radius:50%;border:1px solid var(--taupe);background:var(--burgundy);color:var(--parch);cursor:pointer;font-size:1.2rem;display:none}
+.wish{background:var(--cream);border:1px solid var(--taupe-l);border-radius:4px;padding:.5em .8em;margin-bottom:.5em;text-align:left;font-size:.92em}.wish b{color:var(--burgundy)}
+.mono.sm{width:48px;max-width:none;flex:none}
+.mus{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;z-index:70;width:46px;height:46px;border-radius:50%;border:1px solid #d9bd76;background:var(--parch);color:var(--burgundy);cursor:pointer;font-size:1.2rem;display:none}
 .mus.on{animation:spin 7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-#pvbar{display:none;position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:var(--burgundy);color:var(--parch);text-align:center;padding:.3rem;font-weight:600}
-#nav{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(.8rem + env(safe-area-inset-bottom,0px));z-index:70;width:min(88vw,320px);justify-content:space-around;padding:.4rem .3rem;background:var(--cream);border:1.5px solid var(--taupe);border-radius:999px;box-shadow:0 10px 24px rgba(74,55,40,.25)}
+#pvbar{display:none;position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:#d9bd76;color:#5c1d24;text-align:center;padding:.3rem;font-weight:600;margin-bottom:1rem}
+#nav{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(.8rem + env(safe-area-inset-bottom,0px));z-index:70;width:min(88vw,320px);justify-content:space-around;padding:.4rem .3rem;background:var(--cream);border:1.5px solid var(--taupe);border-radius:999px;box-shadow:0 10px 24px rgba(92,29,36,.25)}
 #main.show~#nav{display:flex}
 #nav button{background:none;border:0;color:var(--burgundy);display:flex;flex-direction:column;align-items:center;font:600 .74rem/1.2 'Cormorant Garamond',Georgia,serif;cursor:pointer;padding:.2rem .3rem;min-width:46px;transition:transform .15s}#nav button:active{transform:scale(.9)}
 /* ===== Admin & check-in ===== */
-#tool{display:none;max-width:960px;margin:0 auto;padding:1.2rem 1rem 3rem;color:var(--burgundy);background:var(--parch);min-height:100vh}
+#tool{display:none;max-width:none;margin:0;padding:1.2rem max(1rem,calc((100% - 960px)/2)) 3rem;color:var(--burgundy);background:var(--parch);min-height:100vh}
 .pc{background:var(--cream);border:1px solid var(--taupe-l);border-radius:8px;color:var(--burgundy);padding:.9rem 1rem}
 #tool .inp{text-align:left}#tool h1{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.2rem;letter-spacing:.12em;text-transform:uppercase;line-height:1.3;margin:0;color:var(--burgundy)}
 .bdg{display:inline-block;border-radius:999px;padding:0 .7rem;font-size:.9rem;font-weight:600}.b-yes{background:#d3e6cb;color:#2f6a3d}.b-no{background:#f3d3cf;color:#8a2a1f}.b-pending{background:var(--parch2);color:var(--burgundy)}
 .shake{animation:shake .45s}@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
 .pop{animation:in .3s both}
 .modal-bg{position:fixed;inset:0;background:rgba(40,30,20,.55);display:flex;align-items:center;justify-content:center;z-index:1000;padding:1rem}.modal{width:100%;max-width:480px;max-height:90vh;overflow:auto}
-.toast{position:fixed;left:50%;bottom:calc(5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--burgundy);color:var(--parch);padding:.5rem 1.1rem;border-radius:999px;z-index:1001;font-size:1rem}
+.toast{position:fixed;left:50%;bottom:calc(5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--parch);color:var(--burgundy);border:1px solid #d9bd76;padding:.5rem 1.1rem;border-radius:999px;z-index:1001;font-size:1rem}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.wall{overflow:auto}.dup{display:none}}
 :focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
 </style>
 </head>
 <body class="lock">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="fl" viewBox="0 0 100 100"><g fill="currentColor"><ellipse cx="50" cy="26" rx="11" ry="22"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(72 50 50)"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(144 50 50)"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(216 50 50)"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(288 50 50)"/></g><circle cx="50" cy="50" r="7" fill="#b8963e"/></symbol></defs></svg>
-<script>function monoFb(i){i.style.visibility="hidden"}</script>
+<script>function monoFb(i){i.style.visibility="hidden"}
+function cardImgErr(i){var a=i.getAttribute("data-alt");if(a){i.removeAttribute("data-alt");i.src=a;return}i.parentNode.classList.add("nofr")}</script>
 <section id="intro" aria-label="Pintu masuk undangan">
  <div class="ic">
   <h1 class="ttl"><span class="t-script">Undangan</span><span class="t-caps">PERKAHWINAN</span></h1>
@@ -111,78 +127,86 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 <main id="main"><div class="stack">
  <div id="pvbar"></div>
 
- <!-- Card 1 (image2): cover -->
- <section class="sec" id="cover" data-bg="2">
-  <h2>WALIMATULURUS</h2>
-  <img class="mono" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)">
-  <p class="script names">Syazwan &amp; Nazura</p>
-  <p class="lead">Ahad | 29 Ogos 2027</p>
-  <p class="verse">“Dan Kami ciptakan kamu berpasang-pasangan.”</p>
-  <p class="sm"><i>Surah An-Naba’ [78.8]</i></p>
- </section>
-
- <!-- Card 2 (image3): greeting and guest name -->
- <section class="sec" id="salam" data-bg="3">
-  <p><i>Assalamualaikum &amp; Selamat Sejahtera,</i></p>
-  <p>Dengan penuh kesyukuran, kami ingin menjemput Tuan/Puan/Encik/Cik</p>
-  <p class="script gn" id="gn2"></p>
- </section>
-
- <!-- Card 3 (image4): couple and parents -->
- <section class="sec" id="ibubapa" data-bg="4">
-  <p>ke Majlis Perkahwinan anakanda kami</p>
-  <div class="nm"><p class="person">Mohd Asriq Syazwan bin Abdellah</p><p class="sm">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p></div>
-  <p class="script amp">&amp;</p>
-  <div class="nm"><p class="person">Mumtaz Nazura binti Yusof</p><p class="sm">Puteri kepada<br>Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p></div>
- </section>
-
- <!-- Card 4 (image5): date, venue, action buttons, countdown -->
- <section class="sec" id="majlis" data-bg="5">
-  <p>Majlis perkahwinan akan berlangsung pada</p>
-  <p class="day">A H A D</p>
-  <p class="date-big">29.08.2027</p>
-  <p class="lead">10:00 Pagi - 12:00 Tengah Hari</p>
-  <p class="sm" style="margin-top:.6rem">Bertempat di</p>
-  <p class="lead">Arcum Tent, Majma</p>
-  <div class="actions"><a class="btn act" id="btnMap" href="#" target="_blank" rel="noopener">📍 LIHAT LOKASI</a><button class="btn act" id="btnCal" type="button">📅 SIMPAN TARIKH</button></div>
-  <h2 style="margin-top:1.2rem">Menghitung hari</h2>
-  <div class="cd" id="cd"></div>
- </section>
-
- <!-- Card 5 (image6): programme -->
- <section class="sec" id="aturcara" data-bg="6">
-  <h2>ATUR CARA MAJLIS</h2>
-  <div class="tl">
-   <div class="ti"><b>10:00 pagi</b>Kehadiran Tetamu</div>
-   <div class="ti"><b>10:30 pagi</b>Ketibaan Pengantin</div>
-   <div class="ti"><b>12:00 tengah hari</b>Majlis Bersurai</div>
+ <section class="card" id="cover">
+  <img class="card-img" src="image2.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
+  <div class="card-ov">
+   <h2>WALIMATULURUS</h2>
+   <img class="mono" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)">
+   <p class="script names">Syazwan &amp; Nazura</p>
+   <p class="lead">Ahad | 29 Ogos 2027</p>
+   <p class="verse">“Dan Kami ciptakan kamu berpasang-pasangan.”</p>
+   <p class="sm"><i>Surah An-Naba’ [78.8]</i></p>
   </div>
  </section>
 
- <!-- Card 6 (image7): RSVP form and wish form -->
- <section class="sec" id="rsvp" data-bg="7">
-  <h2>MAKLUMAT KEHADIRAN RSVP</h2><div id="rbox"></div>
-  <div class="rule"></div>
-  <div id="wbox"></div>
+ <section class="card" id="salam">
+  <img class="card-img" src="image3.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
+  <div class="card-ov">
+   <p><i>Assalamualaikum &amp; Selamat Sejahtera,</i></p>
+   <p>Dengan penuh kesyukuran, kami ingin menjemput Tuan/Puan/Encik/Cik</p>
+   <p class="script gn" id="gn2"></p>
+  </div>
  </section>
 
- <!-- Card 7 (image8): auto-scrolling wall of wishes -->
- <section class="sec" id="ucapan" data-bg="8">
-  <h2>UCAPAN</h2><div id="wishes"></div>
+ <section class="card" id="ibubapa">
+  <img class="card-img" src="image4.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
+  <div class="card-ov">
+   <p>ke Majlis Perkahwinan anakanda kami</p>
+   <div class="nm"><p class="person">Mohd Asriq Syazwan bin Abdellah</p><p class="sm">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p></div>
+   <p class="script amp">&amp;</p>
+   <div class="nm"><p class="person">Mumtaz Nazura binti Yusof</p><p class="sm">Puteri kepada<br>Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p></div>
+  </div>
  </section>
 
- <!-- Card 8 (image9): blessing (doa) -->
- <section class="sec" id="doa" data-bg="9">
-  <p class="ar" dir="rtl">بَارَكَ اللهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِيْ خَيْرٍ</p>
-  <p class="sm"><i>Semoga Allah memberkati kamu, melimpahkan keberkatan ke atas kamu, dan menghimpunkan kamu berdua dalam kebaikan.</i></p>
+ <section class="card" id="majlis">
+  <img class="card-img" src="image5.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
+  <div class="card-ov">
+   <p>Majlis perkahwinan akan berlangsung pada</p>
+   <p class="day">A H A D</p>
+   <p class="date-big">29.08.2027</p>
+   <p class="lead">10:00 Pagi - 12:00 Tengah Hari</p>
+   <p class="sm">Bertempat di</p>
+   <p class="lead">Arcum Tent, Majma</p>
+   <div class="actions"><a class="btn act" id="btnMap" href="#" target="_blank" rel="noopener">📍 LIHAT LOKASI</a><button class="btn act" id="btnCal" type="button">📅 SIMPAN TARIKH</button></div>
+   <h2>Menghitung hari</h2>
+   <div class="cd" id="cd"></div>
+  </div>
  </section>
 
- <!-- Card 9 (image10): closing blessings -->
- <section class="sec" id="penutup" data-bg="10">
-  <p class="lead closing-text">Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih</p>
+ <section class="card" id="aturcara">
+  <img class="card-img" src="image6.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
+  <div class="card-ov">
+   <h2>ATUR CARA MAJLIS</h2>
+   <div class="tl">
+    <div class="ti"><b>10:00 pagi</b>Kehadiran Tetamu</div>
+    <div class="ti"><b>10:30 pagi</b>Ketibaan Pengantin</div>
+    <div class="ti"><b>12:00 tengah hari</b>Majlis Bersurai</div>
+   </div>
+  </div>
  </section>
 
- <p style="text-align:center;margin:0;font-size:.95rem;color:var(--burgundy)"><a href="#admin" style="color:inherit">Admin</a> · <a href="#checkin" style="color:inherit">Check-in</a></p>
+ <section class="card" id="rsvp">
+  <img class="card-img" src="image7.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
+  <div class="card-ov">
+   <h2>RSVP &amp; Ucapan</h2><div id="rbox"></div>
+  </div>
+ </section>
+
+ <section class="card" id="ucapan">
+  <img class="card-img" src="image8.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
+  <div class="card-ov">
+   <h2>Ucapan Tetamu</h2><div id="wishes"></div>
+  </div>
+ </section>
+
+ <section class="card" id="penutup">
+  <img class="card-img" src="image9.jpg" data-alt="image10.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
+  <div class="card-ov">
+   <p class="lead closing-text">Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih</p>
+  </div>
+ </section>
+
+ <p style="text-align:center;margin:0;font-size:.95rem;color:var(--parch)"><a href="#admin" style="color:inherit">Admin</a> · <a href="#checkin" style="color:inherit">Check-in</a></p>
 </div></main>
 <nav id="nav" aria-label="Menu pantas"></nav>
 <div id="tool"></div>
@@ -291,7 +315,7 @@ intro.addEventListener("touchend",e=>{if(touchY!==null&&touchY-e.changedTouches[
 
 /* ===== Scroll animation: fade-in + slide-up per card (IntersectionObserver + CSS transition) ===== */
 let revealIO=null;
-function setupReveal(){const cards=$$(".sec");
+function setupReveal(){const cards=$$(".card");
  if(!("IntersectionObserver" in window)){cards.forEach(c=>c.classList.add("in"));return}
  if(!revealIO)revealIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");revealIO.unobserve(e.target)}}),{threshold:.12});
  cards.forEach(c=>{if(!c.dataset.obs){c.dataset.obs="1";c.classList.add("reveal");revealIO.observe(c)}})}
@@ -303,7 +327,7 @@ function invite(){
  if(opened||pv){$("#intro").style.display="none";$("#main").classList.add("show");document.body.classList.remove("lock");$("#mus").style.display="block"}
  else{$("#intro").style.display="flex";$("#intro").classList.remove("gone","open");busy=false;$("#main").classList.remove("show");document.body.classList.add("lock")}
  const tick=()=>{let d=Math.max(0,CFG.date-Date.now());$("#cd").innerHTML=[["Hari",864e5],["Jam",36e5],["Minit",6e4],["Saat",1e3]].map(([x,m])=>{const v=Math.floor(d/m);d-=v*m;return `<div><b>${String(v).padStart(2,"0")}</b><span>${x}</span></div>`}).join("")};tick();cdT=setInterval(tick,1000);
- refresh=wall;wall();wishForm(n);form(n,null);
+ refresh=wall;wall();form(n,null);
  getMine(n).then(g=>{if(g&&g.status!=="pending")thanks(g)});
  loadPublic().then(wall).catch(()=>{});startPoll(()=>loadPublic().then(wall).catch(()=>{}),30000)}
 function wall(){const w=$("#wishes");if(!w)return;const W=wishes.slice().sort((a,b)=>b.at-a.at);
@@ -313,28 +337,21 @@ function wall(){const w=$("#wishes");if(!w)return;const W=wishes.slice().sort((a
  const reps=Math.max(1,Math.ceil(5/W.length)),half=one.repeat(reps),secs=Math.max(14,W.length*reps*5);
  w.innerHTML=`<div class="wall"><div class="track scroll" style="animation-duration:${secs}s"><div>${half}</div><div class="dup" aria-hidden="true">${half}</div></div></div>`}
 function form(n,g){
- $("#rbox").innerHTML=`<form id="rf" class="grid gap-3" novalidate><div><label for="rn" style="font-size:1rem">Nama</label><input class="inp" style="text-align:center" id="rn" value="${esc(n||"")}" autocomplete="name"></div>
+ $("#rbox").innerHTML=`<form id="rf" class="grid gap-3" novalidate><input class="inp" id="rn" value="${esc(n||"")}" placeholder="Nama" aria-label="Nama" autocomplete="name">
  <div class="grid grid-cols-2 gap-2"><label><input type="radio" name="at" value="yes" class="sr-only" checked><span class="pill">Hadir</span></label><label><input type="radio" name="at" value="no" class="sr-only"><span class="pill">Tidak Hadir</span></label></div>
- <div id="paxw"><label for="px" style="font-size:1rem">Jumlah pax</label><select class="inp" style="text-align:center" id="px"><option>1</option><option>2</option><option>3</option></select></div>
- <p id="er" style="color:#8a1c1c;min-height:1.3em;margin:0;font-size:1rem"></p><button class="btn" id="sb">Hantar</button></form>`;
+ <div id="paxw"><select class="inp" id="px" aria-label="Jumlah pax"><option value="1">Jumlah pax: 1</option><option value="2">Jumlah pax: 2</option><option value="3">Jumlah pax: 3</option></select></div>
+ <div><label for="wt" style="display:block;font-size:.85em;margin-bottom:.2em">Tulis ucapan anda</label><textarea class="inp" id="wt" rows="2" maxlength="240" placeholder="Ucapan untuk pengantin"></textarea></div>
+ <p id="er" style="color:#8a1c1c;margin:0;font-size:.85em"></p><button class="btn" id="sb">Confirm</button></form>`;
  if(g&&g.pax<=3)$("#px").value=g.pax;
- const sync=()=>$("#paxw").style.display=$("[name=at]:checked").value==="yes"?"":"none";$$("[name=at]").forEach(r=>r.onchange=sync);
+ const sync=()=>{$("#paxw").style.display=$("[name=at]:checked").value==="yes"?"":"none"};$$("[name=at]").forEach(r=>r.onchange=sync);
  $("#rf").onsubmit=async e=>{e.preventDefault();const name=$("#rn").value.trim(),st=$("[name=at]:checked").value,pax=st==="yes"?+$("#px").value:0;
   if(!name){$("#er").textContent="Sila isi nama anda.";return}
   const b=$("#sb");b.disabled=true;b.textContent="Menghantar…";
-  try{await act("rsvp",{name,pax,status:st});thanks({name,status:st,pax:pax||1});toast("✓ RSVP anda berjaya dihantar. Terima kasih!")}
-  catch(err){b.disabled=false;b.textContent="Hantar";$("#er").textContent="Gagal menghantar. Semak sambungan internet dan cuba lagi."}}}
+  try{await act("rsvp",{name,pax,status:st});const wish=$("#wt").value.trim();if(wish){await act("wish",{name,text:wish});wall()}thanks({name,status:st,pax:pax||1});toast("✓ RSVP anda berjaya dihantar. Terima kasih!")}
+  catch(err){b.disabled=false;b.textContent="Confirm";$("#er").textContent="Gagal menghantar. Semak sambungan internet dan cuba lagi."}}}
 function thanks(g){const y=g.status==="yes";
  $("#rbox").innerHTML=`<div class="flex flex-col gap-3" style="align-items:center"><p class="lead" style="margin:0">${y?"Terima kasih, kami nantikan kehadiran anda":"Terima kasih atas doa anda"}</p><span class="bdg b-yes" style="align-self:center">✓ RSVP berjaya dihantar</span><p style="margin:0">${esc(g.name)} · ${SL[g.status]}${y?" · "+g.pax+" pax":""}</p><button class="btn ghost" id="chg">Ubah jawapan</button></div>`;
  $("#chg").onclick=()=>form(g.name,g)}
-function wishForm(n){
- $("#wbox").innerHTML=`<form id="wf" class="grid gap-3" novalidate><input class="inp" style="text-align:center" id="wn" value="${esc(n||"")}" placeholder="Nama anda" aria-label="Nama anda" autocomplete="name"><textarea class="inp" style="text-align:center" id="wt" rows="3" maxlength="240" placeholder="Tulis ucapan anda untuk pengantin" aria-label="Ucapan"></textarea><p id="we" style="color:#8a1c1c;min-height:1.3em;margin:0;font-size:1rem"></p><button class="btn" id="wb">Hantar ucapan</button></form>`;
- $("#wf").onsubmit=async e=>{e.preventDefault();const name=$("#wn").value.trim(),text=$("#wt").value.trim();
-  if(!name||!text){$("#we").textContent="Sila isi nama dan ucapan anda.";return}
-  const b=$("#wb");b.disabled=true;b.textContent="Menghantar…";
-  try{await act("wish",{name,text});$("#wt").value="";$("#we").textContent="";wall();toast("✓ Ucapan anda telah dihantar. Terima kasih!")}
-  catch(err){$("#we").textContent="Gagal menghantar ucapan. Cuba lagi."}
-  b.disabled=false;b.textContent="Hantar ucapan"}}
 
 /* ===== Admin ===== */
 const hdr=(t,a)=>`<div class="flex items-center justify-between gap-2 flex-wrap mb-4"><div class="flex items-center gap-3"><img class="mono sm" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"><h1>${t}</h1></div><div class="flex gap-2">${a}</div></div>`;
@@ -433,10 +450,6 @@ function calModal(){
  $("#nav").innerHTML=items.map(([k,l],i)=>`<button data-i="${i}" aria-label="${l}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg><span>${l}</span></button>`).join("");
  $$("#nav button").forEach(b=>b.onclick=items[b.dataset.i][2])})();
 
-/* Per-card background images: image2.jpg ... image10.jpg (also accepts .jpeg). Missing files fall back to a plain card. */
-(()=>{const probe=(list,ok)=>{const f=list.shift();if(!f)return;const im=new Image();im.onload=()=>ok(f);im.onerror=()=>probe(list,ok);im.src=f};
- $$(".sec[data-bg]").forEach(el=>{const list=[];el.dataset.bg.split(",").forEach(n=>list.push("image"+n+".jpg","image"+n+".jpeg"));
-  probe(list,f=>{el.style.setProperty("--bg",'url("'+f+'")');el.classList.add("has-bg")})})})();
 setupReveal();
 route();
 </script>
