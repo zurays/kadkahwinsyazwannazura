@@ -42,7 +42,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .t-script{font-family:'Great Vibes',cursive;font-size:clamp(3.4rem,17vw,5.2rem);line-height:1;color:var(--burgundy)}
 .t-caps{font-family:'Playfair Display',Georgia,serif;font-weight:700;letter-spacing:.3em;margin-right:-.3em;font-size:clamp(1.15rem,5.6vw,1.7rem);line-height:1.2;color:var(--burgundy)}
 .sealwrap{display:grid;place-items:center;transition:transform .9s,opacity .9s}#intro.open .sealwrap{transform:scale(1.25);opacity:0}
-.seal-img{display:block;width:min(58vw,230px);max-height:34vh;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(74,55,40,.35));animation:float 4s ease-in-out infinite}
+.seal-img{display:block;width:min(68vw,280px);max-height:40vh;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(74,55,40,.35));animation:float 4s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-6px)}}
 .to{text-shadow:0 1px 2px rgba(255,250,240,.6)}.to p{margin:0;font-size:1.05rem}.to .script{font-size:clamp(1.9rem,9vw,2.5rem);line-height:1.2;overflow-wrap:anywhere}
 .open-btn{border:1px solid var(--taupe);border-radius:999px;background:var(--burgundy);color:var(--parch);padding:.85rem 2.2rem;font:600 .95rem 'Cormorant Garamond',Georgia,serif;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 20px rgba(74,55,40,.3);transition:transform .15s,background .2s}
@@ -85,23 +85,43 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .cd div{padding:.4em 0 .3em;text-align:center;border:1px solid var(--taupe);border-radius:4px;background:var(--cream)}
 .cd b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.4em;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--burgundy)}
 .cd span{display:block;font-size:.75em;letter-spacing:.06em}
-.tl{position:relative;text-align:left;width:82%}.tl::before{content:"";position:absolute;left:.3em;top:.5em;bottom:.5em;width:1px;background:var(--taupe)}
-.ti{position:relative;padding:0 0 .8em 1.6em;font-size:.95em}.ti:last-child{padding-bottom:0}.ti::before{content:"";position:absolute;left:0;top:.45em;width:.65em;height:.65em;background:var(--parch);border:1.5px solid var(--taupe);border-radius:50%}.ti b{display:block;font-size:1.2em;font-weight:600}
+.tl{display:flex;flex-direction:column;align-items:center;gap:.9em;width:100%;text-align:center}
+.ti{font-size:1.12em;line-height:1.3}.ti b{display:block;font-size:1.15em;font-weight:700}
 .card-ov .inp{font-size:.95em;padding:.45em .6em}.card-ov .pill{padding:.45em .3em}.card-ov label{font-size:.85em}
 .card-ov .btn{font-size:.95em;padding:.5em 1.2em}
 .card-ov form,.card-ov #rbox>div{gap:1.2cqw}
 .wall{height:62cqw;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
 .track.scroll{animation:roll linear infinite}.wall:hover .track,.wall:active .track{animation-play-state:paused}@keyframes roll{to{transform:translateY(-50%)}}
 .wish{background:var(--cream);border:1px solid var(--taupe-l);border-radius:4px;padding:.5em .8em;margin-bottom:.5em;text-align:left;font-size:.92em}.wish b{color:var(--burgundy)}
-/* Per-card balance */
-#cover .card-ov{gap:3cqw}#cover h2{margin-bottom:1cqw}
-#salam .card-ov{font-size:max(12.5px,4.3cqw);gap:4cqw}
-#ibubapa .card-ov{gap:2.6cqw}#ibubapa .person{font-size:1.32em}#ibubapa .sm{font-size:.88em}
-#majlis .card-ov{gap:1.8cqw}#majlis .act{font-size:.68em}
-#aturcara h2,#ucapan h2{font-size:1.25em}
-#ucapan{--ov-bottom:56px}
-#rsvp .card-ov{gap:1.6cqw}
-#penutup .closing-text{font-size:1.3em;line-height:1.5}
+/* Star divider ("penghadang") */
+.divider{display:flex;align-items:center;gap:.6em;width:70%;flex:none}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--burgundy))}.divider::after{background:linear-gradient(270deg,transparent,var(--burgundy))}
+.divider .star{font-size:.9em;line-height:1}
+/* Per-card spacing. Each frame image carries its own artwork (flowers, calligraphy, illustrations), so every card
+   reserves room for it. Insets are in cqw (% of card width) and scale with the frame; raise one if text meets an ornament. */
+#cover{--ov-top:36px;--ov-bottom:max(110px,34cqw);--ov-side:max(30px,13cqw)}
+#cover .card-ov{gap:2.4cqw}
+#cover .verse{line-height:1.3}#cover .verse .ref{display:inline-block;margin-top:.1em;font-size:.84em}
+#salam{--ov-top:max(64px,30cqw);--ov-bottom:max(70px,33cqw);--ov-side:max(32px,15cqw)}
+#salam .card-ov{gap:2.8cqw}
+#ibubapa{--ov-top:max(52px,22cqw);--ov-bottom:max(62px,27cqw);--ov-side:max(32px,15cqw)}
+#ibubapa .card-ov{font-size:max(12px,4.1cqw);gap:2.6cqw}
+#ibubapa .person{font-size:1.32em}#ibubapa .sm{font-size:.9em;line-height:1.4}
+#majlis{--ov-top:max(62px,28cqw);--ov-bottom:max(44px,20cqw);--ov-side:max(30px,14cqw)}
+#majlis .card-ov{gap:2cqw}
+#majlis .act{font-size:.66em}#majlis .actions{gap:1.6cqw}
+#majlis .cd{gap:.4em;margin-top:.2em}
+#aturcara{--ov-top:max(56px,26cqw);--ov-bottom:max(50px,22cqw);--ov-side:max(32px,15cqw)}
+#aturcara .card-ov{gap:4cqw}
+#aturcara h2{font-size:1.3em;letter-spacing:.2em}
+#rsvp{--ov-top:max(52px,22cqw);--ov-bottom:max(48px,20cqw);--ov-side:max(32px,15cqw)}
+#rsvp .card-ov{gap:3cqw}
+#rsvp form{gap:3cqw}#rsvp .inp{padding:.55em .7em}#rsvp .pill{padding:.55em .3em}#rsvp .btn{margin-top:.4em}
+#ucapan{--ov-top:max(52px,22cqw);--ov-bottom:max(70px,30cqw);--ov-side:max(32px,15cqw)}
+#ucapan .card-ov{gap:2.6cqw}#ucapan .wall{height:44cqw}
+#penutup{--ov-top:max(56px,25cqw);--ov-bottom:max(62px,27cqw);--ov-side:max(34px,16cqw)}
+#penutup .card-ov{gap:4cqw}
+#penutup .closing-text{font-size:1.15em;line-height:1.5}
 .mono.sm{width:48px;max-width:none;flex:none}
 .mus{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;z-index:70;width:46px;height:46px;border-radius:50%;border:1px solid #d9bd76;background:var(--parch);color:var(--burgundy);cursor:pointer;font-size:1.2rem;display:none}
 .mus.on{animation:spin 7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
@@ -148,9 +168,8 @@ function cardImgErr(i){var a=i.getAttribute("data-alt");if(a){i.removeAttribute(
    <img class="mono" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)">
    <p class="script names">Syazwan &amp; Nazura</p>
    <div class="rule" aria-hidden="true"></div>
-   <p class="lead">Ahad | 29 Ogos 2027</p>
-   <p class="verse">“Dan Kami ciptakan kamu berpasang-pasangan.”</p>
-   <p class="sm"><i>Surah An-Naba’ [78.8]</i></p>
+   <p class="lead">AHAD | 29 OGOS 2027</p>
+   <p class="verse">“Dan Kami ciptakan kamu berpasang-pasangan.”<br><i class="ref">Surah An-Naba’ [78.8]</i></p>
   </div>
  </section>
 
@@ -170,10 +189,10 @@ function cardImgErr(i){var a=i.getAttribute("data-alt");if(a){i.removeAttribute(
  <section class="card" id="ibubapa">
   <img class="card-img" src="image4.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
   <div class="card-ov">
-   <p>ke Majlis Perkahwinan anakanda kami</p>
-   <div class="nm"><p class="person">Mohd Asriq Syazwan bin Abdellah</p><p class="sm">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p></div>
+   <p>ke majlis perkahwinan anakanda kami</p>
+   <div class="nm"><p class="person">Mohd Asriq Syazwan</p><p class="sm">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p></div>
    <p class="script amp">&amp;</p>
-   <div class="nm"><p class="person">Mumtaz Nazura binti Yusof</p><p class="sm">Puteri kepada<br>Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p></div>
+   <div class="nm"><p class="person">Mumtaz Nazura</p><p class="sm">Puteri kepada<br>Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p></div>
   </div>
  </section>
 
@@ -198,7 +217,7 @@ function cardImgErr(i){var a=i.getAttribute("data-alt");if(a){i.removeAttribute(
  <section class="card" id="aturcara">
   <img class="card-img" src="image6.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
   <div class="card-ov">
-   <h2 class="duo" aria-label="ATUR CARA MAJLIS"><span class="d-script" aria-hidden="true">Atur Cara</span><span class="d-caps" aria-hidden="true">Majlis</span></h2>
+   <h2>ATUR CARA MAJLIS</h2>
    <div class="tl">
     <div class="ti"><b>10:00 pagi</b>Kehadiran Tetamu</div>
     <div class="ti"><b>10:30 pagi</b>Ketibaan Pengantin</div>
