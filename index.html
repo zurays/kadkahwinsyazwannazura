@@ -10,7 +10,11 @@
 :root{--burgundy:#5c1d24;--parch:#f4efe6;--parch2:#e9e0d0;--taupe:#5c1d24;--taupe-l:#c9a8ab;--cream:#fbf8f2;--card:#efe6d6;color-scheme:light;
 padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;padding:0;width:100%;background-color:#5c1d24;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='%23d9bd76' fill-opacity='.13'%3E%3Cpath d='M30 14l2.2 8.8L41 25l-8.8 2.2L30 36l-2.2-8.8L19 25l8.8-2.2z'/%3E%3Cpath d='M118 88l1.6 6.4 6.4 1.6-6.4 1.6-1.6 6.4-1.6-6.4-6.4-1.6 6.4-1.6z'/%3E%3Ccircle cx='96' cy='30' r='1.6'/%3E%3Ccircle cx='24' cy='110' r='1.6'/%3E%3Ccircle cx='140' cy='140' r='1.4'/%3E%3Ccircle cx='70' cy='70' r='1.2'/%3E%3C/g%3E%3C/svg%3E")}
+html,body{margin:0;padding:0;width:100%;background-color:#5c1d24}
+body{background-image:radial-gradient(ellipse 120% 55% at 50% 0%,rgba(255,236,200,.30),transparent 70%),radial-gradient(ellipse 120% 45% at 50% 100%,rgba(255,236,200,.20),transparent 70%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='%23d9bd76' fill-opacity='.13'%3E%3Cpath d='M30 14l2.2 8.8L41 25l-8.8 2.2L30 36l-2.2-8.8L19 25l8.8-2.2z'/%3E%3Cpath d='M118 88l1.6 6.4 6.4 1.6-6.4 1.6-1.6 6.4-1.6-6.4-6.4-1.6 6.4-1.6z'/%3E%3Ccircle cx='96' cy='30' r='1.6'/%3E%3Ccircle cx='24' cy='110' r='1.6'/%3E%3Ccircle cx='140' cy='140' r='1.4'/%3E%3Ccircle cx='70' cy='70' r='1.2'/%3E%3C/g%3E%3C/svg%3E");background-attachment:fixed,fixed,scroll}
+/* Twinkling sparkle layer (fixed, non-interactive, sits behind the cards) */
+#sparkle{position:fixed;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='%23d9bd76' fill-opacity='.13'%3E%3Cpath d='M30 14l2.2 8.8L41 25l-8.8 2.2L30 36l-2.2-8.8L19 25l8.8-2.2z'/%3E%3Cpath d='M118 88l1.6 6.4 6.4 1.6-6.4 1.6-1.6 6.4-1.6-6.4-6.4-1.6 6.4-1.6z'/%3E%3Ccircle cx='96' cy='30' r='1.6'/%3E%3Ccircle cx='24' cy='110' r='1.6'/%3E%3Ccircle cx='140' cy='140' r='1.4'/%3E%3Ccircle cx='70' cy='70' r='1.2'/%3E%3C/g%3E%3C/svg%3E");background-size:230px 230px;background-position:70px 40px;animation:twinkle 4.5s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.25}to{opacity:1}}
 html{min-height:100%;overflow-x:hidden;scroll-padding-top:env(safe-area-inset-top,0px)}
 body{min-height:100%;overflow-x:clip;color:var(--burgundy);font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-size:1.1rem;font-weight:500;line-height:1.55;overflow-wrap:break-word;-webkit-tap-highlight-color:transparent}
 body.lock{overflow:hidden}
@@ -89,6 +93,15 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .wall{height:62cqw;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
 .track.scroll{animation:roll linear infinite}.wall:hover .track,.wall:active .track{animation-play-state:paused}@keyframes roll{to{transform:translateY(-50%)}}
 .wish{background:var(--cream);border:1px solid var(--taupe-l);border-radius:4px;padding:.5em .8em;margin-bottom:.5em;text-align:left;font-size:.92em}.wish b{color:var(--burgundy)}
+/* Per-card balance */
+#cover .card-ov{gap:3cqw}#cover h2{margin-bottom:1cqw}
+#salam .card-ov{font-size:max(12.5px,4.3cqw);gap:4cqw}
+#ibubapa .card-ov{gap:2.6cqw}#ibubapa .person{font-size:1.32em}#ibubapa .sm{font-size:.88em}
+#majlis .card-ov{gap:1.8cqw}#majlis .act{font-size:.68em}
+#aturcara h2,#ucapan h2{font-size:1.25em}
+#ucapan{--ov-bottom:56px}
+#rsvp .card-ov{gap:1.6cqw}
+#penutup .closing-text{font-size:1.3em;line-height:1.5}
 .mono.sm{width:48px;max-width:none;flex:none}
 .mus{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;z-index:70;width:46px;height:46px;border-radius:50%;border:1px solid #d9bd76;background:var(--parch);color:var(--burgundy);cursor:pointer;font-size:1.2rem;display:none}
 .mus.on{animation:spin 7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
@@ -110,6 +123,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 </style>
 </head>
 <body class="lock">
+<div id="sparkle" aria-hidden="true"></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="fl" viewBox="0 0 100 100"><g fill="currentColor"><ellipse cx="50" cy="26" rx="11" ry="22"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(72 50 50)"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(144 50 50)"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(216 50 50)"/><ellipse cx="50" cy="26" rx="11" ry="22" transform="rotate(288 50 50)"/></g><circle cx="50" cy="50" r="7" fill="#b8963e"/></symbol></defs></svg>
 <script>function monoFb(i){i.style.visibility="hidden"}
 function cardImgErr(i){var a=i.getAttribute("data-alt");if(a){i.removeAttribute("data-alt");i.src=a;return}i.parentNode.classList.add("nofr")}</script>
@@ -202,7 +216,7 @@ function cardImgErr(i){var a=i.getAttribute("data-alt");if(a){i.removeAttribute(
  <section class="card" id="penutup">
   <img class="card-img" src="image9.jpg" data-alt="image10.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
   <div class="card-ov">
-   <p class="lead closing-text">Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih</p>
+   <p class="lead closing-text">Kehadiran serta doa restu daripada Tuan/Puan amat kami hargai. Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih</p>
   </div>
  </section>
 
