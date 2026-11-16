@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Walimatulurus · Syazwan &amp; Nazura</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Pacifico&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
 :root{--burgundy:#5c1d24;--parch:#f4efe6;--parch2:#e9e0d0;--taupe:#5c1d24;--taupe-l:#c9a8ab;--cream:#fbf8f2;--card:#efe6d6;color-scheme:light;
@@ -19,7 +19,7 @@ html{min-height:100%;overflow-x:hidden;scroll-padding-top:env(safe-area-inset-to
 body{min-height:100%;overflow-x:clip;color:var(--burgundy);font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-size:1.1rem;font-weight:500;line-height:1.55;overflow-wrap:break-word;-webkit-tap-highlight-color:transparent}
 body.lock{overflow:hidden}
 img,svg{max-width:100%}
-.script{font-family:'Pacifico','Brush Script MT',cursive;font-weight:400}
+.script{font-family:'Great Vibes','Snell Roundhand',cursive;font-weight:400}
 h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.2rem;letter-spacing:.16em;text-transform:uppercase;line-height:1.4;margin:0;color:var(--burgundy);overflow-wrap:normal}
 .grid{display:grid}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex{display:flex}.flex-col{flex-direction:column}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-6{gap:1.5rem}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -39,10 +39,10 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 #intro .ic{display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;gap:1rem;width:100%;max-width:420px;height:min(100%,720px)}
 #intro .ic>*{margin:0;max-width:100%}
 .ttl{display:flex;flex-direction:column;align-items:center;gap:.3rem;text-shadow:0 1px 2px rgba(255,250,240,.6)}
-.t-script{font-family:'Pacifico',cursive;font-size:clamp(2.6rem,13vw,4rem);line-height:1.15;color:var(--burgundy)}
+.t-script{font-family:'Great Vibes',cursive;font-size:clamp(3.4rem,17vw,5.2rem);line-height:1;color:var(--burgundy)}
 .t-caps{font-family:'Playfair Display',Georgia,serif;font-weight:700;letter-spacing:.3em;margin-right:-.3em;font-size:clamp(1.15rem,5.6vw,1.7rem);line-height:1.2;color:var(--burgundy)}
 .sealwrap{display:grid;place-items:center;transition:transform .9s,opacity .9s}#intro.open .sealwrap{transform:scale(1.25);opacity:0}
-.seal-img{display:block;width:min(78vw,340px);max-height:42vh;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(74,55,40,.35));animation:float 4s ease-in-out infinite}
+.seal-img{display:block;width:min(58vw,230px);max-height:34vh;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(74,55,40,.35));animation:float 4s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-6px)}}
 .to{text-shadow:0 1px 2px rgba(255,250,240,.6)}.to p{margin:0;font-size:1.05rem}.to .script{font-size:clamp(1.9rem,9vw,2.5rem);line-height:1.2;overflow-wrap:anywhere}
 .open-btn{border:1px solid var(--taupe);border-radius:999px;background:var(--burgundy);color:var(--parch);padding:.85rem 2.2rem;font:600 .95rem 'Cormorant Garamond',Georgia,serif;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 20px rgba(74,55,40,.3);transition:transform .15s,background .2s}
@@ -57,7 +57,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .card-img{width:100%;height:auto;display:block}
 /* Overlay padding is 40px 25px as specified. If a frame has ornaments that reach further inside, raise
    --ov-top / --ov-side / --ov-bottom on .card (cqw = % of card width) to keep text clear of them. */
-.card{--ov-top:50px;--ov-side:max(35px,16cqw);--ov-bottom:50px}
+.card{--ov-top:40px;--ov-side:25px;--ov-bottom:40px}
 .card-ov{position:absolute;inset:0;padding:var(--ov-top) var(--ov-side) var(--ov-bottom);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1.4cqw;box-sizing:border-box;overflow-y:auto;scrollbar-width:thin;text-align:center;color:var(--burgundy);font-size:max(11px,3.6cqw);line-height:1.35}
 .card-ov>*{margin:0;max-width:100%;min-width:0}
 /* Fallback when a frame image is missing: plain cream card, content flows normally */
@@ -68,9 +68,9 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .card-ov .lead{font-size:1.15em;font-weight:600;line-height:1.3}
 .card-ov .sm{font-size:.84em}
 .card-ov .person{font-size:1.2em;font-weight:700;line-height:1.25}
-.card-ov .names{font-size:1.9em;line-height:1.2}.card-ov .verse{font-style:italic}
-.card-ov .gn{font-size:1.7em;line-height:1.3;overflow-wrap:anywhere}
-.card-ov .amp{font-size:1.6em;line-height:1.1}.card-ov .nm{display:flex;flex-direction:column;gap:.2em}
+.card-ov .names{font-size:2.1em;line-height:1.1}.card-ov .verse{font-style:italic}
+.card-ov .gn{font-size:2em;line-height:1.2;overflow-wrap:anywhere}
+.card-ov .amp{font-size:2em;line-height:1}.card-ov .nm{display:flex;flex-direction:column;gap:.2em}
 .card-ov .mono{width:min(150px,34cqw);max-width:none;height:auto;display:block;border:0;border-radius:0}
 .card-ov .day{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.3em;letter-spacing:.35em;margin-right:-.35em}
 .card-ov .date-big{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.7em;letter-spacing:.06em;line-height:1.15}
@@ -81,11 +81,10 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .card-ov .act:hover{filter:none;background:var(--parch)}
 .card-ov #cd,.card-ov #rbox,.card-ov #wishes{width:100%}
 .card-ov .rule{width:18cqw}
-.cd{display:flex;align-items:flex-start;justify-content:center;gap:.5em}
-.cd .cu{display:flex;flex-direction:column;align-items:center;min-width:2.6em}
-.cd .cu b{font-family:'Cormorant Garamond','Playfair Display',Georgia,serif;font-size:2.1em;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
-.cd .cu span{font-size:.62em;letter-spacing:.18em;margin-top:.3em;font-weight:700}
-.cd .sep{font-family:'Cormorant Garamond',Georgia,serif;font-style:normal;font-size:2em;line-height:1;font-weight:600}
+.cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45em}
+.cd div{padding:.4em 0 .3em;text-align:center;border:1px solid var(--taupe);border-radius:4px;background:var(--cream)}
+.cd b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.4em;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--burgundy)}
+.cd span{display:block;font-size:.75em;letter-spacing:.06em}
 .tl{position:relative;text-align:left;width:82%}.tl::before{content:"";position:absolute;left:.3em;top:.5em;bottom:.5em;width:1px;background:var(--taupe)}
 .ti{position:relative;padding:0 0 .8em 1.6em;font-size:.95em}.ti:last-child{padding-bottom:0}.ti::before{content:"";position:absolute;left:0;top:.45em;width:.65em;height:.65em;background:var(--parch);border:1.5px solid var(--taupe);border-radius:50%}.ti b{display:block;font-size:1.2em;font-weight:600}
 .card-ov .inp{font-size:.95em;padding:.45em .6em}.card-ov .pill{padding:.45em .3em}.card-ov label{font-size:.85em}
@@ -94,32 +93,15 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .wall{height:62cqw;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
 .track.scroll{animation:roll linear infinite}.wall:hover .track,.wall:active .track{animation-play-state:paused}@keyframes roll{to{transform:translateY(-50%)}}
 .wish{background:var(--cream);border:1px solid var(--taupe-l);border-radius:4px;padding:.5em .8em;margin-bottom:.5em;text-align:left;font-size:.92em}.wish b{color:var(--burgundy)}
-/* Title pattern: script word over spaced serif capitals */
-.card-ov h2.duo{display:flex;flex-direction:column;align-items:center;gap:.1em;text-transform:none;letter-spacing:0}
-.duo .script{font-size:1.9em;line-height:1.15;text-transform:none;letter-spacing:0;font-weight:400}
-.duo .caps{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:.95em;letter-spacing:.3em;margin-right:-.3em;text-transform:uppercase}
-.divider{display:flex;align-items:center;gap:.6em;width:72%;flex:none}
-.divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--burgundy))}.divider::after{background:linear-gradient(270deg,transparent,var(--burgundy))}
-.divider .star{font-size:.9em;line-height:1}
-.card-ov .mono.s{width:min(92px,23cqw)}
-.tl2{position:relative;display:flex;flex-direction:column;gap:1em;width:100%}
-.tl2::before{content:"";position:absolute;left:1.3em;top:1.3em;bottom:1.3em;width:1px;background:var(--burgundy);opacity:.45}
-.tl2 .row{position:relative;display:grid;grid-template-columns:2.6em 1fr;gap:.9em;align-items:center;text-align:left}
-.tl2 .ico{width:2.6em;height:2.6em;border:1px solid var(--burgundy);border-radius:50%;background:var(--cream);display:grid;place-items:center}
-.tl2 .ico svg{width:1.5em;height:1.5em;fill:none;stroke:var(--burgundy);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.tl2 b{display:block;font-size:1.15em}
 /* Per-card balance */
-#cover .card-ov{gap:2cqw;padding-bottom:max(90px,26cqw)}
-#cover .names{font-size:1.9em}
-#cover .mono{width:min(160px,40cqw)}
-#salam .card-ov{font-size:max(12px,3.9cqw);gap:2.6cqw}
-#salam .gn{font-size:1.7em}#salam .lead{font-size:1.02em}
-#ibubapa .card-ov{gap:2cqw}#ibubapa .person{font-size:1.25em}#ibubapa .sm{font-size:.86em}
-#majlis .card-ov{gap:1.4cqw}#majlis .act{font-size:.66em}
-#aturcara .duo .script{font-size:2.3em}#aturcara .duo .caps{font-size:1.05em}
-#ucapan{--ov-bottom:70px}#ucapan .wall{height:46cqw}
-#rsvp .card-ov{gap:1.4cqw}
-#penutup .closing-text{font-size:1.15em;line-height:1.5}
+#cover .card-ov{gap:3cqw}#cover h2{margin-bottom:1cqw}
+#salam .card-ov{font-size:max(12.5px,4.3cqw);gap:4cqw}
+#ibubapa .card-ov{gap:2.6cqw}#ibubapa .person{font-size:1.32em}#ibubapa .sm{font-size:.88em}
+#majlis .card-ov{gap:1.8cqw}#majlis .act{font-size:.68em}
+#aturcara h2,#ucapan h2{font-size:1.25em}
+#ucapan{--ov-bottom:56px}
+#rsvp .card-ov{gap:1.6cqw}
+#penutup .closing-text{font-size:1.3em;line-height:1.5}
 .mono.sm{width:48px;max-width:none;flex:none}
 .mus{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;z-index:70;width:46px;height:46px;border-radius:50%;border:1px solid #d9bd76;background:var(--parch);color:var(--burgundy);cursor:pointer;font-size:1.2rem;display:none}
 .mus.on{animation:spin 7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
@@ -159,7 +141,7 @@ function cardImgErr(i){var a=i.getAttribute("data-alt");if(a){i.removeAttribute(
 <main id="main"><div class="stack">
  <div id="pvbar"></div>
 
- <section class="card" id="cover">
+<section class="card" id="cover">
   <img class="card-img" src="image2.jpg" style="width:100%;height:auto;display:block" alt="Card Frame" onerror="cardImgErr(this)">
   <div class="card-ov">
    <h2 class="duo"><span class="script">Walimatul</span><span class="caps">URUS</span></h2>
@@ -368,7 +350,7 @@ function invite(){
  const pv=!!window.__to;$("#pvbar").style.display=pv?"block":"none";$("#pvbar").innerHTML=`Pratonton untuk: <b>${esc(window.__to||"")}</b> · <a href="#admin" id="bk" style="color:inherit">Kembali ke admin</a>`;$("#bk").onclick=()=>{window.__to=""};
  if(opened||pv){$("#intro").style.display="none";$("#main").classList.add("show");document.body.classList.remove("lock");$("#mus").style.display="block"}
  else{$("#intro").style.display="flex";$("#intro").classList.remove("gone","open");busy=false;$("#main").classList.remove("show");document.body.classList.add("lock")}
- const tick=()=>{let d=Math.max(0,CFG.date-Date.now());$("#cd").innerHTML=[["HARI",864e5],["JAM",36e5],["MINIT",6e4],["SAAT",1e3]].map(([x,m],i)=>{const v=Math.floor(d/m);d-=v*m;return `<div class="cu"><b>${i===0?v:String(v).padStart(2,"0")}</b><span>${x}</span></div>`}).join('<i class="sep">:</i>')};tick();cdT=setInterval(tick,1000);
+ const tick=()=>{let d=Math.max(0,CFG.date-Date.now());$("#cd").innerHTML=[["Hari",864e5],["Jam",36e5],["Minit",6e4],["Saat",1e3]].map(([x,m])=>{const v=Math.floor(d/m);d-=v*m;return `<div><b>${String(v).padStart(2,"0")}</b><span>${x}</span></div>`}).join("")};tick();cdT=setInterval(tick,1000);
  refresh=wall;wall();form(n,null);
  getMine(n).then(g=>{if(g&&g.status!=="pending")thanks(g)});
  loadPublic().then(wall).catch(()=>{});startPoll(()=>loadPublic().then(wall).catch(()=>{}),30000)}
@@ -382,7 +364,6 @@ function form(n,g){
  $("#rbox").innerHTML=`<form id="rf" class="grid gap-3" novalidate><input class="inp" id="rn" value="${esc(n||"")}" placeholder="Nama" aria-label="Nama" autocomplete="name">
  <div class="grid grid-cols-2 gap-2"><label><input type="radio" name="at" value="yes" class="sr-only" checked><span class="pill">Hadir</span></label><label><input type="radio" name="at" value="no" class="sr-only"><span class="pill">Tidak Hadir</span></label></div>
  <div id="paxw"><select class="inp" id="px" aria-label="Jumlah pax"><option value="1">Jumlah pax: 1</option><option value="2">Jumlah pax: 2</option><option value="3">Jumlah pax: 3</option></select></div>
- <div class="divider" aria-hidden="true"><span class="star">✦</span></div>
  <div><label for="wt" style="display:block;font-size:.85em;margin-bottom:.2em">Tulis ucapan anda</label><textarea class="inp" id="wt" rows="2" maxlength="240" placeholder="Ucapan untuk pengantin"></textarea></div>
  <p id="er" style="color:#8a1c1c;margin:0;font-size:.85em"></p><button class="btn" id="sb">Confirm</button></form>`;
  if(g&&g.pax<=3)$("#px").value=g.pax;
