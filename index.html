@@ -148,24 +148,33 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 /* Wider screens: soften the cover's side edges so it blends into the page */
 @media (min-width:700px){#cover{-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}}
 
-/* ===== Intro (wax seal) in the same frame ===== */
-#intro{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:999;display:flex;justify-content:center;overflow:hidden;background:var(--bg);text-align:center;color:#fff;transition:opacity 1s,transform 1s}
-#intro.gone{opacity:0;transform:scale(1.06);pointer-events:none}
-#intro .icol{position:relative;width:min(100vw,640px,62vh);width:min(100vw,640px,62dvh);height:100%;container-type:inline-size}
-#intro .icol::before,#intro .icol::after{content:"";position:absolute;left:0;right:0;height:51.86cqw;background-repeat:no-repeat;background-size:100% auto;pointer-events:none}
-#intro .icol::before{top:0;background-image:url("hiasan-atas.jpg");background-position:top;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
-#intro .icol::after{bottom:0;background-image:url("hiasan-bawah.jpg");background-position:bottom;-webkit-mask-image:linear-gradient(transparent,#000 9%);mask-image:linear-gradient(transparent,#000 9%)}
-#intro .ic{position:absolute;left:0;right:0;top:20cqw;bottom:33cqw;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;gap:.6rem;padding:0 9cqw}
-#intro .ic>*{margin:0;max-width:100%}
-.ttl{display:flex;flex-direction:column;align-items:center;gap:.2rem}
-.t-script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:min(9.5cqw,2.7rem);line-height:1.1;color:#fff}
-.t-caps{font-weight:600;letter-spacing:.32em;margin-right:-.32em;font-size:min(4.4cqw,1.25rem);line-height:1.2;color:var(--gold)}
-.sealwrap{display:grid;place-items:center;transition:transform .9s,opacity .9s}#intro.open .sealwrap{transform:scale(1.25);opacity:0}
-.seal-img{display:block;width:min(56cqw,250px);max-height:30vh;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5));animation:float 4s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-6px)}}
-.to p{margin:0;font-size:min(3.6cqw,1rem);font-weight:500;letter-spacing:.04em}.to .script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:min(5.8cqw,1.6rem);line-height:1.3;margin-top:.35rem;color:var(--gold);overflow-wrap:anywhere}
-.open-btn{border:1px solid var(--gold);border-radius:999px;background:linear-gradient(180deg,#fbf6ec,#e2d5bd);color:var(--bg);padding:.85rem 2rem;font:700 .82rem 'Montserrat',sans-serif;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .15s,filter .2s}
-.open-btn:hover{filter:brightness(1.08)}.open-btn:active{transform:scale(.96)}
+/* ===== Intro: embossed burgundy doors, oval frame with flowers, cream seal (tap to open) ===== */
+#intro{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:999;overflow:hidden;background:transparent;text-align:center;color:#fff;transition:opacity .8s}
+#intro.gone{opacity:0;pointer-events:none}
+.door{position:absolute;top:0;bottom:0;width:50.5%;background:#4e101a url("tekstur.jpg") repeat;background-size:clamp(260px,34vh,420px);transition:transform 1.5s cubic-bezier(.7,0,.25,1) .35s}
+.door.l{left:0;background-position:0 0;box-shadow:inset -10px 0 18px -10px rgba(0,0,0,.55)}
+.door.r{right:0;background-position:calc(-49.5vw) 0;box-shadow:inset 10px 0 18px -10px rgba(0,0,0,.55),-1px 0 0 rgba(255,255,255,.06)}
+#intro.open .door.l{transform:translateX(-101%)}#intro.open .door.r{transform:translateX(101%)}
+#intro::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 48%,transparent 40%,rgba(20,0,4,.45) 100%);transition:opacity .6s}
+#intro.open::after{opacity:0}
+.stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(84vw,400px,calc((100dvh - 40px)*640/1100));aspect-ratio:640/1100;z-index:2;container-type:inline-size;transition:opacity .6s ease,transform .8s ease}
+#intro.open .stage{opacity:0;transform:translate(-50%,-50%) scale(1.06)}
+.st-frame{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+.st-spray{position:absolute;left:-6.7%;top:14.17%;width:33.6%;height:auto;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 9%,#000 30%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 9%,#000 30%);filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));transform-origin:80% 20%;animation:sway2 6s ease-in-out infinite alternate}
+@keyframes sway2{to{transform:rotate(-1.6deg)}}
+.st-in{position:absolute;left:12%;right:12%;top:12%;bottom:10%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4.5cqw}
+.st-in>*{margin:0}
+.st-top{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(11px,4.4cqw,16px);letter-spacing:.32em;margin-right:-.32em;text-transform:uppercase;color:rgba(255,245,235,.82)}
+.seal{position:relative;width:34cqw;aspect-ratio:1;border-radius:50%;border:0;padding:0;cursor:pointer;display:grid;place-items:center;
+ background:radial-gradient(circle at 35% 30%,#fffdf8 0%,#f3eadb 45%,#e0d1b8 78%,#cdb994 100%);
+ box-shadow:0 10px 22px rgba(0,0,0,.45),inset 0 -4px 8px rgba(120,90,60,.25),inset 0 3px 6px rgba(255,255,255,.7);animation:pulse 2.6s ease-in-out infinite}
+.seal::before{content:"";position:absolute;inset:8%;border-radius:50%;border:1.5px solid rgba(92,26,32,.28);box-shadow:inset 0 1px 2px rgba(0,0,0,.08)}
+.seal img{width:62%;height:62%;object-fit:contain;position:relative}
+.seal:active{transform:scale(.95)}
+@keyframes pulse{0%,100%{box-shadow:0 10px 22px rgba(0,0,0,.45),0 0 0 0 rgba(255,240,220,.35),inset 0 -4px 8px rgba(120,90,60,.25),inset 0 3px 6px rgba(255,255,255,.7)}50%{box-shadow:0 10px 22px rgba(0,0,0,.45),0 0 0 9px rgba(255,240,220,0),inset 0 -4px 8px rgba(120,90,60,.25),inset 0 3px 6px rgba(255,255,255,.7)}}
+.st-hint{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(12px,4.6cqw,16px);color:rgba(255,245,235,.75);letter-spacing:.04em}
+.to p{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(12px,4.6cqw,16.5px);color:rgba(255,245,235,.85)}
+.to .script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(15px,6.4cqw,24px);line-height:1.3;margin-top:.3rem;color:var(--gold);overflow-wrap:anywhere}
 
 /* ===== Main ===== */
 #main{display:none;padding:0 0 6.5rem}
@@ -201,12 +210,16 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
  var n=document.getElementById("nav");if(n)n.style.display="flex";var a=document.getElementById("bgm");if(a&&a.play){var r=a.play();if(r&&r.catch)r.catch(function(){})}}catch(e){}}</script>
 
 <section id="intro" aria-label="Pintu masuk undangan">
- <div class="icol">
-  <div class="ic">
-   <h1 class="ttl"><span class="t-script">Undangan</span><span class="t-caps">PERKAHWINAN</span></h1>
-   <div class="sealwrap"><img class="seal-img" src="image1.png" alt="Meterai lilin berbentuk hati" onerror="monoFb(this)"></div>
+ <div class="door l" aria-hidden="true"></div><div class="door r" aria-hidden="true"></div>
+ <div class="stage">
+  <img class="st-spray" src="jambangan-oval.png" alt="" aria-hidden="true">
+  <img class="st-frame" src="bingkai-oval.png" alt="" aria-hidden="true">
+  <div class="st-in">
+   <h1 class="sr-only">Undangan Perkahwinan Syazwan &amp; Nazura</h1>
+   <p class="st-top">Walimatulurus</p>
+   <button class="seal" id="openBtn" type="button" onclick="openFallback()" aria-label="Buka jemputan"><img src="initial.png" alt="" onerror="monoFb(this)"></button>
+   <p class="st-hint">Sentuh untuk membuka</p>
    <div class="to"><p>Kepada Yang Dihormati</p><p id="gname" class="script"></p></div>
-   <button class="open-btn" id="openBtn" type="button" onclick="openFallback()">BUKA JEMPUTAN</button>
   </div>
  </div>
 </section>
@@ -389,9 +402,11 @@ addEventListener("hashchange",route);
 const intro=$("#intro");let busy=false;
 /* Enter the card via the button, a mouse-wheel scroll, or an upward swipe */
 function enterCard(){if(opened||busy)return;busy=true;intro.classList.add("open");
- setTimeout(()=>{opened=true;intro.classList.add("gone");$("#main").classList.add("show");document.body.classList.remove("lock");$("#mus").style.display="block";scrollTo(0,0);
-  try{setupReveal()}catch(e){$$(".scene").forEach(s=>s.classList.add("in"))}},900);
- setTimeout(()=>{intro.style.display="none"},2000);
+ /* the card is shown underneath straight away, then the two doors slide apart to reveal it */
+ setTimeout(()=>{opened=true;$("#main").classList.add("show");document.body.classList.remove("lock");$("#mus").style.display="block";scrollTo(0,0);
+  try{setupReveal()}catch(e){$$(".scene").forEach(s=>s.classList.add("in"))}},250);
+ setTimeout(()=>{intro.classList.add("gone")},1700);
+ setTimeout(()=>{intro.style.display="none"},2500);
  try{music(true)}catch(e){} /* some phones/in-app browsers refuse audio: never let that stop the card opening */}
 $("#openBtn").onclick=enterCard;
 intro.addEventListener("wheel",e=>{if(e.deltaY>20)enterCard()},{passive:true});
