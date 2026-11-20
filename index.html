@@ -9,7 +9,7 @@
 <link rel="preload" href="teks-kulit.png" as="image">
 <link rel="preload" href="hiasan-atas.jpg" as="image">
 <link rel="preload" href="hiasan-bawah.jpg" as="image">
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
 /* ===== Look of the invitation video =====
@@ -91,6 +91,11 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 /* Scene 2: greeting + bride and groom */
 #salam{--pt:20cqw}
 #salam .bism{margin-bottom:5cqw}
+/* Greeting section: Cormorant Garamond (italic greetings, spaced capitals for the parents) */
+#salam .it{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(15px,4cqw,19px);line-height:1.6}
+#salam .it.s{font-size:clamp(13px,3.4cqw,16px);opacity:.85}
+#salam .kp{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-right:-.12em;font-size:clamp(13.5px,3.65cqw,17.5px);line-height:1.75}
+#salam .par{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(12px,3.15cqw,15.5px);line-height:1.5;opacity:.85}
 /* Scene 3: date, address, countdown */
 #tarikh{--pt:34cqw}
 .cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(6px,2.4cqw,14px);width:min(84%,400px)}
@@ -105,6 +110,9 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 #doa{--pt:22cqw}
 #doa .bism{width:clamp(95px,24cqw,150px);margin-bottom:7cqw}
 #doa .t{font-size:clamp(12.5px,3.35cqw,16px);line-height:1.65}
+/* Doa section: Cormorant Garamond (spaced capitals for the names, classic serif for the prayer) */
+#doa .ttl-i{font-family:'Cormorant Garamond',Georgia,serif;font-style:normal;font-weight:500;letter-spacing:.24em;margin-right:-.24em;font-size:clamp(19px,5.6cqw,30px)}
+#doa .t{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(15px,4cqw,19px);line-height:1.7;letter-spacing:.04em}
 
 /* RSVP, wishes, closing — same frame, form controls in gold and white */
 #rsvp,#ucapan,#penutup{--pt:30cqw}
@@ -132,6 +140,9 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
  -webkit-mask:url("initial.png") center/contain no-repeat;mask:url("initial.png") center/contain no-repeat;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
 .mono-wrap.plain .mono-gold{display:none}.mono-wrap img{display:block;width:clamp(120px,32cqw,180px);height:auto}
 #penutup .t{max-width:30em}
+/* Closing section: same Cormorant Garamond style as the doa */
+#penutup .ttl-i{font-family:'Cormorant Garamond',Georgia,serif;font-style:normal;font-weight:500;letter-spacing:.24em;margin-right:-.24em;font-size:clamp(19px,5.6cqw,30px)}
+#penutup .t{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(15.5px,4.1cqw,19.5px);line-height:1.7;letter-spacing:.02em}
 .foot{text-align:center;margin:0;padding:1rem 0 0;font-size:.85rem;color:rgba(255,255,255,.6)}.foot a{color:inherit}
 .mono.sm{width:48px;max-width:none;flex:none}
 /* Wider screens: soften the cover's side edges so it blends into the page */
@@ -211,27 +222,30 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
   <img class="art" src="kulit.jpg" alt="" aria-hidden="true">
   <!-- Text taken straight from the video frame, so the script font is exactly the same -->
   <img class="art-txt" src="teks-kulit.png" alt="" aria-hidden="true">
-  <h2 class="sr-only">Walimatulurus Syazwan &amp; Nazura. Ahad, 29 Ogos 2027, 10:00 pagi hingga 12:00 tengah hari</h2>
+  <h2 class="sr-only">Walimatulurus Syazwan &amp; Nazura. Ahad, 29 Ogos 2027, 10:00 pagi</h2>
  </section>
 
  <!-- Scene 2: greeting, guest, bride and groom -->
  <section class="scene deco" id="salam">
   <img class="bism rv" src="bismillah.png" alt="Bismillahirrahmanirrahim">
-  <p class="t rv">Assalamualaikum &amp; Salam Sejahtera<br>Dengan penuh kesyukuran ke hadrat<br>Ilahi, kami</p>
-  <p class="t rv" style="margin-top:5cqw">Dengan setulus hati ingin menjemput<br>Tuan / Puan / Encik / Cik</p>
-  <p class="guest rv" id="gn2" style="margin-top:1.5cqw"></p>
-  <p class="t rv" style="margin-top:4cqw">ke majlis perkahwinan anakanda kami</p>
-  <p class="nm-img rv" style="margin-top:3cqw"><img class="n-l" src="nama-lelaki.png" alt="Mohd Asriq Syazwan"></p>
-  <p class="par rv">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p>
+  <p class="it rv">Assalamualaikum &amp; Salam Sejahtera<br>Dengan penuh kesyukuran ke hadrat Ilahi, kami</p>
+  <p class="kp rv" style="margin-top:5cqw">Abdellah bin Nahrawi<br>&amp; Saerah binti Sarbini</p>
+  <p class="it s rv" style="margin:1.5cqw 0">serta</p>
+  <p class="kp rv" style="letter-spacing:.06em;margin-right:-.06em">Yusof bin Ahmad<br>&amp; Selamah binti Abang Abu Bakar</p>
+  <p class="it rv" style="margin-top:5cqw">Dengan setulus hati ingin menjemput<br>Tuan / Puan / Encik / Cik</p>
+  <p class="guest rv" id="gn2" style="margin-top:1cqw"></p>
+  <p class="it rv">ke majlis perkahwinan anakanda kami</p>
+  <p class="nm-img rv" style="margin-top:4cqw"><img class="n-l" src="nama-lelaki.png" alt="Mohd Asriq Syazwan"></p>
+  <p class="par rv">Putera kepada Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p>
   <p class="nm-img rv" style="margin-top:4cqw"><img class="n-d" src="nama-dan.png" alt="dan"></p>
   <p class="nm-img rv" style="margin-top:2cqw"><img class="n-p" src="nama-perempuan.png" alt="Mumtaz Nazura"></p>
-  <p class="par rv">Puteri kepada<br>Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p>
+  <p class="par rv">Puteri kepada Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p>
  </section>
 
  <!-- Scene 3: date, address, countdown, map / save-the-date -->
  <section class="scene deco" id="tarikh">
   <p class="t-b rv">TARIKH &amp; MASA</p>
-  <p class="t rv">AHAD | 29 Ogos 2027<br>10:00 Pagi - 12:00 Tengah hari</p>
+  <p class="t rv">AHAD | 29 Ogos 2027<br>10:00 Pagi</p>
   <span class="vline rv" style="margin:3cqw 0" aria-hidden="true"></span>
   <p class="t-b rv" style="margin-top:2cqw">ALAMAT</p>
   <p class="t rv">Arcum Tent, Majma</p>
@@ -271,7 +285,7 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
   <p class="ttl-i rv">Syazwan &amp; Nazura</p>
   <p class="t rv" style="margin-top:9cqw">Ya Allah Ya Tuhan kami,<br>Kurniakanlah kepada mereka zuriat<br>yang soleh dan solehah, serta rezeki<br>yang luas dan diberkati. Lindungilah<br>mereka daripada segala fitnah, dugaan<br>yang melemahkan, dan godaan yang<br>menyesatkan.</p>
   <p class="t rv" style="margin-top:5cqw">Ya Allah Yang Maha Pengampun,<br>Jadikanlah rumah tangga ini sebagai<br>taman-taman syurga, tempat berlindung<br>dari keletihan dunia. Peliharalah mereka<br>dalam iman, dan himpunkanlah mereka<br>semula di syurga-Mu nanti,<br>sebagaimana Engkau himpunkan<br>mereka hari ini dalam ikatan yang halal.</p>
-  <p class="t rv" style="margin-top:5cqw">Amin Ya Rabbal 'Alamin.</p>
+  <p class="t rv" style="margin-top:5cqw"><i>Amin Ya Rabbal 'Alamin.</i></p>
  </section>
 
  <p class="foot"><a href="#admin">Admin</a> · <a href="#checkin">Check-in</a></p>
@@ -387,7 +401,7 @@ intro.addEventListener("touchend",e=>{if(touchY!==null&&touchY-e.changedTouches[
 /* ===== Scroll animation: each scene's lines blur in one after another, like the video ===== */
 let revealIO=null;
 function setupReveal(){const scenes=$$(".scene");
- scenes.forEach(s=>$$(".rv",s).forEach((el,i)=>el.style.setProperty("--i",i)));
+ scenes.forEach(s=>[...s.querySelectorAll(".rv")].forEach((el,i)=>el.style.setProperty("--i",Math.min(i,14))));
  if(!("IntersectionObserver" in window)){scenes.forEach(c=>c.classList.add("in"));return}
  if(!revealIO)revealIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");revealIO.unobserve(e.target)}}),{threshold:.15});
  scenes.forEach(c=>{if(!c.dataset.obs){c.dataset.obs="1";revealIO.observe(c)}})}
@@ -506,7 +520,7 @@ function checkin(){let q="";const T=$("#tool");
 /* ===== Save-the-date modal: Google Calendar link or downloadable .ics file ===== */
 function calModal(){
  const g="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Majlis Perkahwinan Syazwan & Nazura")+"&dates=20270829T020000Z/20270829T040000Z&location="+encodeURIComponent(CFG.venue);
- const m=modal(`<h2>Simpan tarikh</h2><p style="margin:.6rem 0 .8rem">Ahad, 29 Ogos 2027<br>10:00 pagi - 12:00 tengah hari</p><div class="grid gap-2"><a class="btn" href="${g}" target="_blank" rel="noopener">Google Calendar</a><button class="btn ghost" id="ics">Muat turun (.ics)</button><button class="btn ghost" id="cl">Tutup</button></div>`);
+ const m=modal(`<h2>Simpan tarikh</h2><p style="margin:.6rem 0 .8rem">Ahad, 29 Ogos 2027<br>10:00 pagi</p><div class="grid gap-2"><a class="btn" href="${g}" target="_blank" rel="noopener">Google Calendar</a><button class="btn ghost" id="ics">Muat turun (.ics)</button><button class="btn ghost" id="cl">Tutup</button></div>`);
  $("#cl",m).onclick=()=>m.remove();
  $("#ics",m).onclick=()=>{const t=["BEGIN:VCALENDAR","VERSION:2.0","BEGIN:VEVENT","DTSTART:20270829T020000Z","DTEND:20270829T040000Z","SUMMARY:Majlis Perkahwinan Syazwan & Nazura","LOCATION:"+CFG.venue,"END:VEVENT","END:VCALENDAR"].join("\r\n");
   try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/calendar"}));a.download="majlis-syazwan-nazura.ics";document.body.appendChild(a);a.click();a.remove()}catch(e){}}}
