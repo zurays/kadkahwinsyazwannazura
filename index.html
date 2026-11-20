@@ -379,7 +379,12 @@ function copy(t,msg){const ok=msg||"Pautan disalin";const fb=()=>{const a=docume
 const bgm=$("#bgm");let playing=false,warned=false;
 const noFile=()=>{if(warned)return;warned=true;toast("Fail lagu.mp3 tidak ditemui. Letakkan dalam folder yang sama dengan fail HTML ini.")};
 function music(on){playing=on;const b=$("#mus");b.classList.toggle("on",on);b.setAttribute("aria-pressed",on);
- if(on){const r=bgm.play();if(r&&r.catch)r.catch(()=>{playing=false;b.classList.remove("on");b.setAttribute("aria-pressed","false");bgm.error?noFile():toast("Ketik butang ♪ untuk memainkan muzik.")})}else bgm.pause()}
+ if(on){const r=bgm.play();if(r&&r.catch)r.catch(()=>{playing=false;b.classList.remove("on");b.setAttribute("aria-pressed","false");
+  if(bgm.error){noFile();return}
+  toast("Tekan butang ♪ untuk memainkan lagu.");
+  /* the phone blocked autoplay: start the song on the guest's next touch anywhere on the card */
+  const retry=e=>{if(e.target&&e.target.closest&&e.target.closest("#mus"))return;document.removeEventListener("pointerdown",retry,true);if(!playing)music(true)};
+  document.addEventListener("pointerdown",retry,true)})}else bgm.pause()}
 $("#mus").onclick=()=>music(!playing);
 
 /* ===== Password gate: guards BOTH #admin and #checkin ===== */
@@ -442,14 +447,14 @@ function form(n,g){
  <div class="grid grid-cols-2 gap-2"><label><input type="radio" name="at" value="yes" class="sr-only" checked><span class="pill">Hadir</span></label><label><input type="radio" name="at" value="no" class="sr-only"><span class="pill">Tidak Hadir</span></label></div>
  <div id="paxw"><select class="inp" id="px" aria-label="Jumlah pax"><option value="1">Jumlah pax: 1</option><option value="2">Jumlah pax: 2</option><option value="3">Jumlah pax: 3</option></select></div>
  <div><label for="wt" style="display:block;font-size:.85em;margin-bottom:.2em">Tulis ucapan anda</label><textarea class="inp" id="wt" rows="2" maxlength="240" placeholder="Ucapan untuk pengantin"></textarea></div>
- <p id="er" class="err" role="alert"></p><button class="btn" id="sb">Confirm</button></form>`;
+ <p id="er" class="err" role="alert"></p><button class="btn" id="sb">Hantar</button></form>`;
  if(g&&g.pax<=3)$("#px").value=g.pax;
  const sync=()=>{$("#paxw").style.display=$("[name=at]:checked").value==="yes"?"":"none"};$$("[name=at]").forEach(r=>r.onchange=sync);
  $("#rf").onsubmit=async e=>{e.preventDefault();const name=$("#rn").value.trim(),st=$("[name=at]:checked").value,pax=st==="yes"?+$("#px").value:0;
   if(!name){$("#er").textContent="Sila isi nama anda.";return}
   const b=$("#sb");b.disabled=true;b.textContent="Menghantar…";
   try{await act("rsvp",{name,pax,status:st});const wish=$("#wt").value.trim();if(wish){await act("wish",{name,text:wish});wall()}thanks({name,status:st,pax:pax||1});toast("✓ RSVP anda berjaya dihantar. Terima kasih!")}
-  catch(err){b.disabled=false;b.textContent="Confirm";$("#er").textContent="Gagal menghantar. Semak sambungan internet dan cuba lagi."}}}
+  catch(err){b.disabled=false;b.textContent="Hantar";$("#er").textContent="Gagal menghantar. Semak sambungan internet dan cuba lagi."}}}
 function thanks(g){const y=g.status==="yes";
  $("#rbox").innerHTML=`<div class="flex flex-col gap-3" style="align-items:center"><p class="lead" style="margin:0">${y?"Terima kasih, kami nantikan kehadiran anda":"Terima kasih atas doa anda"}</p><span class="bdg b-yes" style="align-self:center">✓ RSVP berjaya dihantar</span><p style="margin:0">${esc(g.name)} · ${SL[g.status]}${y?" · "+g.pax+" pax":""}</p><button class="btn ghost" id="chg">Ubah jawapan</button></div>`;
  $("#chg").onclick=()=>form(g.name,g)}
