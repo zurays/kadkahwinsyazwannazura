@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#360002">
 <title>Walimatulurus · Syazwan &amp; Nazura</title>
 <link rel="preload" href="kulit.jpg" as="image">
+<link rel="preload" href="teks-kulit.png" as="image">
 <link rel="preload" href="hiasan-atas.jpg" as="image">
 <link rel="preload" href="hiasan-bawah.jpg" as="image">
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
@@ -58,6 +59,10 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .t{font-weight:500;font-size:clamp(13px,3.6cqw,17px);line-height:1.6;letter-spacing:.01em}
 .t-b{font-weight:700;font-size:clamp(13.5px,3.8cqw,18px);line-height:1.4;letter-spacing:.08em}
 .nm{font-family:'Great Vibes',cursive;font-size:clamp(30px,8.6cqw,48px);line-height:1.2;font-weight:400}
+/* Bride & groom names: lettering taken straight from the video (same font), sized like the video */
+.nm-img{line-height:0}.nm-img img{display:inline-block;height:auto}
+.n-l{width:clamp(240px,76cqw,430px)}.n-p{width:clamp(187px,59.3cqw,335px)}.n-d{width:clamp(26px,8.4cqw,48px)}
+.par{margin-top:.3em!important}
 .amp{font-family:'Great Vibes',cursive;font-size:clamp(26px,7cqw,40px);line-height:1}
 .par{font-size:clamp(11px,2.8cqw,13.5px);font-weight:500;line-height:1.55;opacity:.92}
 .ttl-i{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(15px,4.2cqw,22px);letter-spacing:.06em;text-transform:uppercase;color:#fff}
@@ -72,8 +77,9 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 
 /* ===== Scene 1: oval cover — always fits the screen height (text scales with the picture) ===== */
 #cover{position:relative;aspect-ratio:9/16;overflow:hidden;margin:0 auto;container-type:inline-size;width:min(100%,calc(100vh*9/16));width:min(100%,calc(100svh*9/16))}
-#cover .art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 2.4s ease}
-#cover.in .art{transform:none}
+#cover .art,#cover .art-txt{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 2.4s ease}
+#cover .art-txt{z-index:1;opacity:0;filter:blur(8px);transition:transform 2.4s ease,opacity 1.4s ease .4s,filter 1.4s ease .4s}
+#cover.in .art,#cover.in .art-txt{transform:none}#cover.in .art-txt{opacity:1;filter:none}
 .ovtxt{position:absolute;left:51.6%;top:29.5%;width:58%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;text-align:center;color:var(--ink)}
 .ovtxt>*{margin:0}
 .ov-t{font-weight:700;font-size:3.7cqw;letter-spacing:.08em}
@@ -167,7 +173,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .pop{animation:in .3s both}
 .modal-bg{position:fixed;inset:0;background:rgba(20,0,2,.6);display:flex;align-items:center;justify-content:center;z-index:1000;padding:1rem}.modal{width:100%;max-width:480px;max-height:90vh;overflow:auto;border-color:var(--gold)!important}
 .toast{position:fixed;left:50%;bottom:calc(5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--parch);color:var(--burgundy);border:1px solid var(--gold);padding:.5rem 1.1rem;border-radius:999px;z-index:1001;font-size:.92rem}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;filter:none;transform:none}.deco::before,.deco::after{opacity:1}.wall{overflow:auto}.dup{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,#cover .art-txt{opacity:1;filter:none;transform:none}.deco::before,.deco::after{opacity:1}.wall{overflow:auto}.dup{display:none}}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 </style>
 </head>
@@ -195,14 +201,9 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
  <!-- Scene 1: oval cover -->
  <section class="scene" id="cover" aria-label="Walimatulurus Syazwan dan Nazura">
   <img class="art" src="kulit.jpg" alt="" aria-hidden="true">
-  <div class="ovtxt">
-   <p class="ov-t rv">WALIMATULURUS</p>
-   <p class="ov-n rv">Syazwan</p>
-   <p class="ov-a rv">&amp;</p>
-   <p class="ov-n rv" style="margin-top:0">Nazura</p>
-   <p class="ov-d rv">AHAD | 29 Ogos 2027</p>
-   <p class="ov-d rv" style="margin-top:0">10:00 Pagi - 12:00 Tengah Hari</p>
-  </div>
+  <!-- Text taken straight from the video frame, so the script font is exactly the same -->
+  <img class="art-txt" src="teks-kulit.png" alt="" aria-hidden="true">
+  <h2 class="sr-only">Walimatulurus Syazwan &amp; Nazura. Ahad, 29 Ogos 2027, 10:00 pagi hingga 12:00 tengah hari</h2>
  </section>
 
  <!-- Scene 2: greeting, guest, bride and groom -->
@@ -212,10 +213,10 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
   <p class="t rv" style="margin-top:5cqw">Dengan setulus hati ingin menjemput<br>Tuan / Puan / Encik / Cik</p>
   <p class="guest rv" id="gn2" style="margin-top:1.5cqw"></p>
   <p class="t rv" style="margin-top:4cqw">ke majlis perkahwinan anakanda kami</p>
-  <p class="nm rv" style="margin-top:3cqw">Mohd Asriq Syazwan</p>
+  <p class="nm-img rv" style="margin-top:3cqw"><img class="n-l" src="nama-lelaki.png" alt="Mohd Asriq Syazwan"></p>
   <p class="par rv">Putera kepada<br>Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p>
-  <p class="amp rv" style="margin-top:4cqw">&amp;</p>
-  <p class="nm rv" style="margin-top:1cqw">Mumtaz Nazura</p>
+  <p class="nm-img rv" style="margin-top:4cqw"><img class="n-d" src="nama-dan.png" alt="dan"></p>
+  <p class="nm-img rv" style="margin-top:2cqw"><img class="n-p" src="nama-perempuan.png" alt="Mumtaz Nazura"></p>
   <p class="par rv">Puteri kepada<br>Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p>
  </section>
 
@@ -506,13 +507,4 @@ function calModal(){
  const items=[
   ["tel","Hubungi",()=>{const rows=CFG.contacts.map(c=>`<div><b>${esc(c[0])}</b><div>${c[1].replace(/^60(\d{2})(\d{3})(\d+)$/,"+60 $1-$2 $3")}</div><div class="flex gap-2 mt-1"><a class="btn sm" href="tel:+${c[1]}">Panggil</a><a class="btn ghost sm" href="https://wa.me/${c[1]}" target="_blank" rel="noopener">WhatsApp</a></div></div>`).join("");
    const m=modal(`<h2>Hubungi kami</h2><div class="grid gap-3" style="margin-top:.8rem">${rows}<button class="btn ghost" id="cl">Tutup</button></div>`);closer(m)}],
-  ["pin","Lokasi",()=>{const m=modal(`<h2>Lokasi</h2><p style="margin:.6rem 0 .8rem">${esc(CFG.venue)}</p><div class="grid gap-2"><a class="btn" href="${CFG.mapUrl}" target="_blank" rel="noopener">Buka Google Maps</a><button class="btn ghost" id="cl">Tutup</button></div>`);closer(m)}],
-  ["note","Nota",()=>{const m=modal(`<h2>${esc(CFG.note.title)}</h2><p style="margin:.8rem 0 1rem;line-height:1.7;font-size:1.15rem">${esc(CFG.note.text)}</p><button class="btn ghost" id="cl">Tutup</button>`);closer(m)}]];
- $("#nav").innerHTML=items.map(([k,l],i)=>`<button data-i="${i}" aria-label="${l}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg><span>${l}</span></button>`).join("");
- $$("#nav button").forEach(b=>b.onclick=items[b.dataset.i][2])})();
-
-setupReveal();
-route();
-</script>
-</body>
-</html>
+  ["pin","Lokasi",()=>{const m=modal(`<h2>Lokasi</h2><p style="margin:.6rem 0 .8rem">${esc(CFG.venue)}</p><div class="grid gap-2"><a class="btn" href="${CFG.mapUrl}" target="_blank" rel="noopener">Buka Google Maps
