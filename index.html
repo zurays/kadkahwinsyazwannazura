@@ -42,101 +42,107 @@ h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.1rem
 .pill{display:block;padding:.6rem .4rem;border:1px solid var(--bronze);border-radius:4px;cursor:pointer;background:var(--cream);color:var(--burgundy);text-align:center;transition:all .2s}
 input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 
-/* ===== Shared scene frame: gold lines on top, arches + flowers at the bottom (exactly as in the video) ===== */
-.col{position:relative;width:100%;max-width:480px;margin:0 auto;container-type:inline-size}
-.deco{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;color:#fff;
- --pt:22cqw;--pb:34cqw;padding:var(--pt) 6cqw var(--pb);min-height:177.78cqw}
+/* ===== Shared scene frame: gold lines on top, arches + flowers at the bottom (exactly as in the video) =====
+   Responsive: phones use the full screen width; tablets/desktop get a wider column (up to 640px).
+   Artwork and spacing scale with the column (cqw); text uses clamp() so it never gets too big or too small. */
+.col{position:relative;width:100%;max-width:640px;margin:0 auto;container-type:inline-size}
+.deco{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;
+ --pt:24cqw;--pb:36cqw;padding:var(--pt) 9cqw var(--pb);min-height:min(177.78cqw,100vh);min-height:min(177.78cqw,100svh)}
 .deco::before,.deco::after{content:"";position:absolute;left:0;right:0;height:51.86cqw;background-repeat:no-repeat;background-size:100% auto;pointer-events:none;z-index:0;opacity:0;transition:opacity 1.4s ease}
 .deco::before{top:0;background-image:url("hiasan-atas.jpg");background-position:top;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
 .deco::after{bottom:0;background-image:url("hiasan-bawah.jpg");background-position:bottom;-webkit-mask-image:linear-gradient(transparent,#000 9%);mask-image:linear-gradient(transparent,#000 9%)}
 .deco.in::before,.deco.in::after,#intro .icol::before,#intro .icol::after{opacity:1}
 .deco>*{position:relative;z-index:1;margin:0;max-width:100%}
 
-/* Text styles from the video */
-.t{font-weight:600;font-size:4.25cqw;line-height:1.27}
-.t-b{font-weight:700;font-size:4.6cqw;line-height:1.25;letter-spacing:.01em}
-.nm{font-family:'Great Vibes',cursive;font-size:10.5cqw;line-height:1.15;font-weight:400}
-.amp{font-family:'Great Vibes',cursive;font-size:9cqw;line-height:1}
-.par{font-size:max(11px,2.75cqw);font-weight:500;line-height:1.3}
-.ttl-i{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;font-size:4.6cqw;letter-spacing:.03em;text-transform:uppercase;color:#fff}
-.bism{display:block;width:44cqw;height:auto}
-.vline{width:2px;height:6.5cqw;background:#fff;flex:none}
-.guest{font-family:'Great Vibes',cursive;font-size:8cqw;line-height:1.15;color:var(--gold);overflow-wrap:anywhere}
+/* Text styles from the video (sized to stay calm and readable on every screen) */
+.t{font-weight:500;font-size:clamp(13px,3.6cqw,17px);line-height:1.6;letter-spacing:.01em}
+.t-b{font-weight:700;font-size:clamp(13.5px,3.8cqw,18px);line-height:1.4;letter-spacing:.08em}
+.nm{font-family:'Great Vibes',cursive;font-size:clamp(30px,8.6cqw,48px);line-height:1.2;font-weight:400}
+.amp{font-family:'Great Vibes',cursive;font-size:clamp(26px,7cqw,40px);line-height:1}
+.par{font-size:clamp(11px,2.8cqw,13.5px);font-weight:500;line-height:1.55;opacity:.92}
+.ttl-i{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(15px,4.2cqw,22px);letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.bism{display:block;width:clamp(130px,36cqw,220px);height:auto}
+.vline{width:1.5px;height:clamp(22px,6.5cqw,38px);background:#fff;flex:none}
+.guest{font-family:'Great Vibes',cursive;font-size:clamp(26px,7cqw,40px);line-height:1.2;color:var(--gold);overflow-wrap:anywhere}
+.note{font-size:clamp(12px,3.2cqw,14.5px)!important;font-weight:500;opacity:.85}
 
 /* Blur-in text animation like the video */
 .rv{opacity:0;filter:blur(8px);transform:translateY(10px);transition:opacity 1s ease,filter 1s ease,transform 1s ease;transition-delay:calc(var(--i,0)*110ms)}
 .in .rv{opacity:1;filter:none;transform:none}
 
-/* ===== Scene 1: oval cover ===== */
-#cover{position:relative;aspect-ratio:9/16;overflow:hidden}
+/* ===== Scene 1: oval cover — always fits the screen height (text scales with the picture) ===== */
+#cover{position:relative;aspect-ratio:9/16;overflow:hidden;margin:0 auto;container-type:inline-size;width:min(100%,calc(100vh*9/16));width:min(100%,calc(100svh*9/16))}
 #cover .art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 2.4s ease}
 #cover.in .art{transform:none}
-.ovtxt{position:absolute;left:51.6%;top:28.6%;width:60%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;text-align:center;color:var(--ink)}
+.ovtxt{position:absolute;left:51.6%;top:29.5%;width:58%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;text-align:center;color:var(--ink)}
 .ovtxt>*{margin:0}
-.ov-t{font-weight:700;font-size:4.3cqw;letter-spacing:.01em}
-.ov-n{font-family:'Great Vibes',cursive;font-size:15.5cqw;line-height:1.08;color:#1c100d}
-.ov-a{font-family:'Great Vibes',cursive;font-size:12cqw;line-height:.95;color:#1c100d}
-.ov-d{font-weight:600;font-size:3.35cqw;line-height:1.3}
-.ov-n:first-of-type{margin-top:2.2cqw}.ov-d:first-of-type{margin-top:3.6cqw}
+.ov-t{font-weight:700;font-size:3.7cqw;letter-spacing:.08em}
+.ov-n{font-family:'Great Vibes',cursive;font-size:13.5cqw;line-height:1.1;color:#1c100d}
+.ov-a{font-family:'Great Vibes',cursive;font-size:10cqw;line-height:1;color:#1c100d}
+.ov-d{font-weight:600;font-size:3cqw;line-height:1.5;letter-spacing:.02em}
+.ov-n:first-of-type{margin-top:2.6cqw}.ov-d:first-of-type{margin-top:4cqw}
 
 /* Scene 2: greeting + bride and groom */
-#salam{--pt:19cqw}
-#salam .bism{margin-bottom:5.5cqw}
+#salam{--pt:20cqw}
+#salam .bism{margin-bottom:5cqw}
 /* Scene 3: date, address, countdown */
-#tarikh{--pt:35cqw;justify-content:flex-start}
-.cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2.4cqw;width:84%}
-.cd div{padding:2cqw 0 1.4cqw;border:1px solid rgba(212,184,98,.75);border-radius:3px;background:rgba(0,0,0,.18)}
-.cd b{display:block;font-weight:700;font-size:6cqw;line-height:1.1;font-variant-numeric:tabular-nums}
-.cd span{display:block;font-size:max(10px,2.6cqw);letter-spacing:.06em}
-.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:2.6cqw;width:100%}
-.act{display:inline-flex;align-items:center;gap:.35em;border:1px solid var(--gold);border-radius:999px;background:transparent;color:#fff;padding:2.2cqw 4.2cqw;font:600 max(11px,3cqw) 'Montserrat',sans-serif;letter-spacing:.06em;text-decoration:none;cursor:pointer;transition:background .2s,transform .15s}
+#tarikh{--pt:34cqw}
+.cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(6px,2.4cqw,14px);width:min(84%,400px)}
+.cd div{padding:clamp(7px,2cqw,12px) 0 clamp(5px,1.4cqw,9px);border:1px solid rgba(212,184,98,.75);border-radius:3px;background:rgba(0,0,0,.18)}
+.cd b{display:block;font-weight:600;font-size:clamp(18px,5.2cqw,28px);line-height:1.15;font-variant-numeric:tabular-nums}
+.cd span{display:block;font-size:clamp(10px,2.5cqw,12.5px);letter-spacing:.06em;opacity:.9}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(8px,2.6cqw,14px);width:100%}
+.act{display:inline-flex;align-items:center;gap:.4em;border:1px solid var(--gold);border-radius:999px;background:transparent;color:#fff;padding:.7em 1.3em;font:600 clamp(11px,2.9cqw,13.5px) 'Montserrat',sans-serif;letter-spacing:.08em;text-decoration:none;cursor:pointer;transition:background .2s,transform .15s}
 .act:hover{background:rgba(212,184,98,.15)}.act:active{transform:scale(.96)}
 .act svg{width:1.2em;height:1.2em;color:var(--gold)}
-/* Scene 4: doa */
+/* Doa */
 #doa{--pt:22cqw}
-#doa .bism{width:25cqw;margin-bottom:9cqw}
-#doa .t{font-size:3.9cqw;line-height:1.24}
+#doa .bism{width:clamp(95px,24cqw,150px);margin-bottom:7cqw}
+#doa .t{font-size:clamp(12.5px,3.35cqw,16px);line-height:1.65}
 
 /* RSVP, wishes, closing — same frame, form controls in gold and white */
-#rsvp,#ucapan,#penutup{--pt:30cqw;justify-content:center}
-.sub{font-size:max(12px,3.2cqw);font-weight:500;opacity:.85}
-#rbox,#wishes{width:100%;font-size:max(14px,3.7cqw)}
-.deco .inp{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(212,184,98,.8);border-radius:3px;font-size:max(15px,3.8cqw);padding:.7em .8em}
+#rsvp,#ucapan,#penutup{--pt:30cqw}
+.sub{font-size:clamp(12px,3.1cqw,14.5px);font-weight:500;opacity:.8}
+#rbox,#wishes{width:100%;max-width:420px;font-size:clamp(14px,3.6cqw,16px)}
+.deco .inp{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(212,184,98,.8);border-radius:3px;font-size:16px;padding:.7em .8em}
 .deco .inp::placeholder{color:rgba(255,255,255,.6)}
 .deco select.inp option{background:var(--bg);color:#fff}
-.deco .pill{background:transparent;color:#fff;border-color:rgba(212,184,98,.8);border-radius:3px;padding:.65em .3em;font-weight:600}
+.deco .pill{background:transparent;color:#fff;border-color:rgba(212,184,98,.8);border-radius:3px;padding:.7em .3em;font-weight:600;font-size:.95em}
 .deco input:checked+.pill{background:var(--gold);color:var(--bg);border-color:var(--gold)}
 .deco input:focus-visible+.pill{outline:2px solid var(--gold);outline-offset:2px}
-.deco label{font-size:.92em}
-.deco .btn{background:linear-gradient(180deg,#e2c977,var(--bronze));color:var(--bg);border:1px solid var(--gold);border-radius:999px;font-weight:700;letter-spacing:.08em;padding:.8em 1.6em;font-size:max(14px,3.6cqw)}
+.deco label{font-size:.9em}
+.deco .btn{background:linear-gradient(180deg,#e2c977,var(--bronze));color:var(--bg);border:1px solid var(--gold);border-radius:999px;font-weight:700;letter-spacing:.1em;padding:.85em 1.6em;font-size:clamp(13px,3.4cqw,15px)}
 .deco .btn.ghost{background:transparent;color:var(--gold)}
-.deco .lead{font-weight:600;font-size:1.1em}
-#rf{gap:3.4cqw}
-.err{color:#ffb7a8;margin:0;font-size:.92em}
-.wall{height:62cqw;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
+.deco .lead{font-weight:600;font-size:1.05em}
+#rf{gap:clamp(12px,3.6cqw,18px)}
+.err{color:#ffb7a8;margin:0;font-size:.9em}
+.wall{height:clamp(230px,62cqw,340px);overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
 .track.scroll{animation:roll linear infinite}.wall:hover .track,.wall:active .track{animation-play-state:paused}@keyframes roll{to{transform:translateY(-50%)}}
-.wish{background:rgba(255,255,255,.05);border:1px solid rgba(212,184,98,.45);border-radius:3px;padding:.6em .85em;margin-bottom:.6em;text-align:left;font-size:.95em;line-height:1.4}.wish b{color:var(--gold);font-weight:600}
-.badge{width:24cqw;height:24cqw;border-radius:50%;background:var(--cream);border:1px solid var(--gold);box-shadow:0 0 0 4px var(--bg),0 0 0 5px rgba(212,184,98,.6);display:grid;place-items:center;overflow:hidden}
+.wish{background:rgba(255,255,255,.05);border:1px solid rgba(212,184,98,.45);border-radius:3px;padding:.7em .9em;margin-bottom:.65em;text-align:left;font-size:.92em;line-height:1.55}.wish b{color:var(--gold);font-weight:600}
+.badge{width:clamp(80px,22cqw,120px);height:clamp(80px,22cqw,120px);border-radius:50%;background:var(--cream);border:1px solid var(--gold);box-shadow:0 0 0 4px var(--bg),0 0 0 5px rgba(212,184,98,.6);display:grid;place-items:center;overflow:hidden}
 .badge img{width:78%;height:auto}
+#penutup .t{max-width:30em}
 .foot{text-align:center;margin:0;padding:1rem 0 0;font-size:.85rem;color:rgba(255,255,255,.6)}.foot a{color:inherit}
 .mono.sm{width:48px;max-width:none;flex:none}
+/* Wider screens: soften the cover's side edges so it blends into the page */
+@media (min-width:700px){#cover{-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}}
 
 /* ===== Intro (wax seal) in the same frame ===== */
 #intro{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:999;display:flex;justify-content:center;overflow:hidden;background:var(--bg);text-align:center;color:#fff;transition:opacity 1s,transform 1s}
 #intro.gone{opacity:0;transform:scale(1.06);pointer-events:none}
-#intro .icol{position:relative;width:min(100vw,480px);height:100%;container-type:inline-size}
+#intro .icol{position:relative;width:min(100vw,640px,62vh);width:min(100vw,640px,62dvh);height:100%;container-type:inline-size}
 #intro .icol::before,#intro .icol::after{content:"";position:absolute;left:0;right:0;height:51.86cqw;background-repeat:no-repeat;background-size:100% auto;pointer-events:none}
 #intro .icol::before{top:0;background-image:url("hiasan-atas.jpg");background-position:top;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
 #intro .icol::after{bottom:0;background-image:url("hiasan-bawah.jpg");background-position:bottom;-webkit-mask-image:linear-gradient(transparent,#000 9%);mask-image:linear-gradient(transparent,#000 9%)}
 #intro .ic{position:absolute;left:0;right:0;top:20cqw;bottom:33cqw;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;gap:.6rem;padding:0 9cqw}
 #intro .ic>*{margin:0;max-width:100%}
 .ttl{display:flex;flex-direction:column;align-items:center;gap:.2rem}
-.t-script{font-family:'Great Vibes',cursive;font-size:min(16cqw,4.6rem);line-height:1;color:#fff}
+.t-script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:min(9.5cqw,2.7rem);line-height:1.1;color:#fff}
 .t-caps{font-weight:600;letter-spacing:.32em;margin-right:-.32em;font-size:min(4.4cqw,1.25rem);line-height:1.2;color:var(--gold)}
 .sealwrap{display:grid;place-items:center;transition:transform .9s,opacity .9s}#intro.open .sealwrap{transform:scale(1.25);opacity:0}
 .seal-img{display:block;width:min(56cqw,250px);max-height:30vh;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5));animation:float 4s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-6px)}}
-.to p{margin:0;font-size:min(3.6cqw,1rem);font-weight:500;letter-spacing:.04em}.to .script{font-size:min(9cqw,2.4rem);line-height:1.2;color:var(--gold);overflow-wrap:anywhere;letter-spacing:0;font-weight:400}
+.to p{margin:0;font-size:min(3.6cqw,1rem);font-weight:500;letter-spacing:.04em}.to .script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:min(5.8cqw,1.6rem);line-height:1.3;margin-top:.35rem;color:var(--gold);overflow-wrap:anywhere}
 .open-btn{border:1px solid var(--gold);border-radius:999px;background:linear-gradient(180deg,#e2c977,var(--bronze));color:var(--bg);padding:.85rem 2rem;font:700 .82rem 'Montserrat',sans-serif;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .15s,filter .2s}
 .open-btn:hover{filter:brightness(1.08)}.open-btn:active{transform:scale(.96)}
 
@@ -226,16 +232,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
    <a class="act" id="btnMap" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>LIHAT LOKASI</a>
    <button class="act" id="btnCal" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>SIMPAN TARIKH</button>
   </div>
-  <p class="t rv" style="margin-top:4cqw;font-size:3.6cqw;font-weight:500">Tekan butang di atas untuk<br>lokasi majlis.</p>
- </section>
-
- <!-- Scene 4: doa -->
- <section class="scene deco" id="doa">
-  <img class="bism rv" src="bismillah.png" alt="Bismillahirrahmanirrahim">
-  <p class="ttl-i rv">Syazwan &amp; Nazura</p>
-  <p class="t rv" style="margin-top:9cqw">Ya Allah Ya Tuhan kami,<br>Kurniakanlah kepada mereka zuriat<br>yang soleh dan solehah, serta rezeki<br>yang luas dan diberkati. Lindungilah<br>mereka daripada segala fitnah, dugaan<br>yang melemahkan, dan godaan yang<br>menyesatkan.</p>
-  <p class="t rv" style="margin-top:5cqw">Ya Allah Yang Maha Pengampun,<br>Jadikanlah rumah tangga ini sebagai<br>taman-taman syurga, tempat berlindung<br>dari keletihan dunia. Peliharalah mereka<br>dalam iman, dan himpunkanlah mereka<br>semula di syurga-Mu nanti,<br>sebagaimana Engkau himpunkan<br>mereka hari ini dalam ikatan yang halal.</p>
-  <p class="t rv" style="margin-top:5cqw">Amin Ya Rabbal 'Alamin.</p>
+  <p class="t note rv" style="margin-top:4cqw">Tekan butang di atas untuk<br>lokasi majlis.</p>
  </section>
 
  <!-- RSVP & wishes form -->
@@ -256,7 +253,16 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
  <section class="scene deco" id="penutup">
   <div class="badge rv"><img src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"></div>
   <p class="ttl-i rv" style="margin-top:6cqw">Syazwan &amp; Nazura</p>
-  <p class="t rv" style="margin-top:5cqw;font-weight:500">Kehadiran serta doa restu daripada Tuan/Puan amat kami hargai. Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih</p>
+  <p class="t rv" style="margin-top:5cqw">Kehadiran serta doa restu daripada Tuan/Puan amat kami hargai. Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih</p>
+ </section>
+
+ <!-- Doa (last section) -->
+ <section class="scene deco" id="doa">
+  <img class="bism rv" src="bismillah.png" alt="Bismillahirrahmanirrahim">
+  <p class="ttl-i rv">Syazwan &amp; Nazura</p>
+  <p class="t rv" style="margin-top:9cqw">Ya Allah Ya Tuhan kami,<br>Kurniakanlah kepada mereka zuriat<br>yang soleh dan solehah, serta rezeki<br>yang luas dan diberkati. Lindungilah<br>mereka daripada segala fitnah, dugaan<br>yang melemahkan, dan godaan yang<br>menyesatkan.</p>
+  <p class="t rv" style="margin-top:5cqw">Ya Allah Yang Maha Pengampun,<br>Jadikanlah rumah tangga ini sebagai<br>taman-taman syurga, tempat berlindung<br>dari keletihan dunia. Peliharalah mereka<br>dalam iman, dan himpunkanlah mereka<br>semula di syurga-Mu nanti,<br>sebagaimana Engkau himpunkan<br>mereka hari ini dalam ikatan yang halal.</p>
+  <p class="t rv" style="margin-top:5cqw">Amin Ya Rabbal 'Alamin.</p>
  </section>
 
  <p class="foot"><a href="#admin">Admin</a> · <a href="#checkin">Check-in</a></p>
