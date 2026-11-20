@@ -183,7 +183,11 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 </head>
 <body class="lock">
 <div id="sparkle" aria-hidden="true"></div>
-<script>function monoFb(i){i.style.visibility="hidden"}</script>
+<script>function monoFb(i){i.style.visibility="hidden"}
+/* Backup opener: only used if the main script below could not start on this browser */
+function openFallback(){try{var i=document.getElementById("intro"),m=document.getElementById("main");i.style.display="none";m.classList.add("show");m.style.display="block";
+ document.body.classList.remove("lock");var s=document.querySelectorAll(".scene");for(var k=0;k<s.length;k++)s[k].classList.add("in");
+ var n=document.getElementById("nav");if(n)n.style.display="flex";var a=document.getElementById("bgm");if(a&&a.play){var r=a.play();if(r&&r.catch)r.catch(function(){})}}catch(e){}}</script>
 
 <section id="intro" aria-label="Pintu masuk undangan">
  <div class="icol">
@@ -191,7 +195,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
    <h1 class="ttl"><span class="t-script">Undangan</span><span class="t-caps">PERKAHWINAN</span></h1>
    <div class="sealwrap"><img class="seal-img" src="image1.png" alt="Meterai lilin berbentuk hati" onerror="monoFb(this)"></div>
    <div class="to"><p>Kepada Yang Dihormati</p><p id="gname" class="script"></p></div>
-   <button class="open-btn" id="openBtn" type="button">BUKA JEMPUTAN</button>
+   <button class="open-btn" id="openBtn" type="button" onclick="openFallback()">BUKA JEMPUTAN</button>
   </div>
  </div>
 </section>
@@ -370,9 +374,11 @@ function route(){const h=location.hash.slice(1);clearInterval(cdT);clearInterval
 addEventListener("hashchange",route);
 const intro=$("#intro");let busy=false;
 /* Enter the card via the button, a mouse-wheel scroll, or an upward swipe */
-function enterCard(){if(opened||busy)return;busy=true;intro.classList.add("open");music(true);
- setTimeout(()=>{opened=true;intro.classList.add("gone");$("#main").classList.add("show");document.body.classList.remove("lock");$("#mus").style.display="block";scrollTo(0,0)},900);
- setTimeout(()=>{intro.style.display="none"},2000)}
+function enterCard(){if(opened||busy)return;busy=true;intro.classList.add("open");
+ setTimeout(()=>{opened=true;intro.classList.add("gone");$("#main").classList.add("show");document.body.classList.remove("lock");$("#mus").style.display="block";scrollTo(0,0);
+  try{setupReveal()}catch(e){$$(".scene").forEach(s=>s.classList.add("in"))}},900);
+ setTimeout(()=>{intro.style.display="none"},2000);
+ try{music(true)}catch(e){} /* some phones/in-app browsers refuse audio: never let that stop the card opening */}
 $("#openBtn").onclick=enterCard;
 intro.addEventListener("wheel",e=>{if(e.deltaY>20)enterCard()},{passive:true});
 let touchY=null;intro.addEventListener("touchstart",e=>{touchY=e.touches[0].clientY},{passive:true});
@@ -509,4 +515,23 @@ function calModal(){
 (()=>{const I={tel:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',pin:'<path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',note:'<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>'};
  const closer=m=>$("#cl",m).onclick=()=>m.remove();
  const items=[
-  ["tel","Hubungi",()=>{const rows=CFG.contacts.map(c=>`<div><b>${esc(c[0])}</b><div>${c[1].replace(/^60(\d{2})(\d{3})(\d+)$/,"+60 $1-$2 $3")}</div><div class="flex gap-2 mt-1"><a class="btn sm" href="tel:+${c[1]
+  ["tel","Hubungi",()=>{const rows=CFG.contacts.map(c=>`<div><b>${esc(c[0])}</b><div>${c[1].replace(/^60(\d{2})(\d{3})(\d+)$/,"+60 $1-$2 $3")}</div><div class="flex gap-2 mt-1"><a class="btn sm" href="tel:+${c[1]}">Panggil</a><a class="btn ghost sm" href="https://wa.me/${c[1]}" target="_blank" rel="noopener">WhatsApp</a></div></div>`).join("");
+   const m=modal(`<h2>Hubungi kami</h2><div class="grid gap-3" style="margin-top:.8rem">${rows}<button class="btn ghost" id="cl">Tutup</button></div>`);closer(m)}],
+  ["pin","Lokasi",()=>{const m=modal(`<h2>Lokasi</h2><p style="margin:.6rem 0 .8rem">${esc(CFG.venue)}</p><div class="grid gap-2"><a class="btn" href="${CFG.mapUrl}" target="_blank" rel="noopener">Buka Google Maps</a><button class="btn ghost" id="cl">Tutup</button></div>`);closer(m)}],
+  ["note","Nota",()=>{const m=modal(`<h2>${esc(CFG.note.title)}</h2><p style="margin:.8rem 0 1rem;line-height:1.7;font-size:1.15rem">${esc(CFG.note.text)}</p><button class="btn ghost" id="cl">Tutup</button>`);closer(m)}]];
+ $("#nav").innerHTML=items.map(([k,l],i)=>`<button data-i="${i}" aria-label="${l}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg><span>${l}</span></button>`).join("");
+ $$("#nav button").forEach(b=>b.onclick=items[b.dataset.i][2])})();
+
+/* Monogram: use initial.png's own proportions. If the PNG has a solid (non-transparent) background,
+   the gold version would show as a block, so show the original picture instead. */
+(()=>{const w=$("#monoBig");if(!w)return;const im=new Image();
+ im.onload=()=>{w.style.setProperty("--ar",(im.naturalWidth/im.naturalHeight).toFixed(3));
+  if(location.protocol==="file:"){w.classList.add("plain");const p=new Image();p.src="initial.png";p.alt="Monogram S & N";w.appendChild(p);return}
+  try{const c=document.createElement("canvas");c.width=c.height=8;const x=c.getContext("2d");x.drawImage(im,0,0,im.naturalWidth,im.naturalHeight,0,0,8,8);
+   const d=x.getImageData(0,0,8,8).data;if(d[3]>250&&d[31]>250&&d[227]>250&&d[255]>250){w.classList.add("plain");const p=new Image();p.src="initial.png";p.alt="Monogram S & N";w.appendChild(p)}}catch(e){}};
+ im.onerror=()=>{w.style.display="none"};im.src="initial.png"})();
+setupReveal();
+route();
+</script>
+</body>
+</html>
