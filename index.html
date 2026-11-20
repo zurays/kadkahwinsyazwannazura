@@ -17,7 +17,7 @@
    antique-gold art-deco lines, crimson flowers and gold arches.
    Artwork files (taken from the video): kulit.jpg (oval cover), hiasan-atas.jpg (gold lines at the top
    of each scene), hiasan-bawah.jpg (arches + flowers at the bottom), bismillah.png (calligraphy). */
-:root{--bg:#360002;--gold:#d4b862;--bronze:#a07848;--ink:#24130f;
+:root{--bg:#360002;--gold:#eadfca;--bronze:#cbb999;--ink:#24130f;
 --burgundy:#4a0a12;--parch:#f4ece0;--parch2:#e8dccb;--taupe:#a07848;--taupe-l:#d8c39a;--cream:#fbf6ee;color-scheme:light;
 padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:border-box}
@@ -94,12 +94,12 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 /* Scene 3: date, address, countdown */
 #tarikh{--pt:34cqw}
 .cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(6px,2.4cqw,14px);width:min(84%,400px)}
-.cd div{padding:clamp(7px,2cqw,12px) 0 clamp(5px,1.4cqw,9px);border:1px solid rgba(212,184,98,.75);border-radius:3px;background:rgba(0,0,0,.18)}
+.cd div{padding:clamp(7px,2cqw,12px) 0 clamp(5px,1.4cqw,9px);border:1px solid rgba(234,223,202,.75);border-radius:3px;background:rgba(0,0,0,.18)}
 .cd b{display:block;font-weight:600;font-size:clamp(18px,5.2cqw,28px);line-height:1.15;font-variant-numeric:tabular-nums}
 .cd span{display:block;font-size:clamp(10px,2.5cqw,12.5px);letter-spacing:.06em;opacity:.9}
 .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(8px,2.6cqw,14px);width:100%}
 .act{display:inline-flex;align-items:center;gap:.4em;border:1px solid var(--gold);border-radius:999px;background:transparent;color:#fff;padding:.7em 1.3em;font:600 clamp(11px,2.9cqw,13.5px) 'Montserrat',sans-serif;letter-spacing:.08em;text-decoration:none;cursor:pointer;transition:background .2s,transform .15s}
-.act:hover{background:rgba(212,184,98,.15)}.act:active{transform:scale(.96)}
+.act:hover{background:rgba(234,223,202,.15)}.act:active{transform:scale(.96)}
 .act svg{width:1.2em;height:1.2em;color:var(--gold)}
 /* Doa */
 #doa{--pt:22cqw}
@@ -110,23 +110,27 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 #rsvp,#ucapan,#penutup{--pt:30cqw}
 .sub{font-size:clamp(12px,3.1cqw,14.5px);font-weight:500;opacity:.8}
 #rbox,#wishes{width:100%;max-width:420px;font-size:clamp(14px,3.6cqw,16px)}
-.deco .inp{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(212,184,98,.8);border-radius:3px;font-size:16px;padding:.7em .8em}
+.deco .inp{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(234,223,202,.8);border-radius:3px;font-size:16px;padding:.7em .8em}
 .deco .inp::placeholder{color:rgba(255,255,255,.6)}
 .deco select.inp option{background:var(--bg);color:#fff}
-.deco .pill{background:transparent;color:#fff;border-color:rgba(212,184,98,.8);border-radius:3px;padding:.7em .3em;font-weight:600;font-size:.95em}
+.deco .pill{background:transparent;color:#fff;border-color:rgba(234,223,202,.8);border-radius:3px;padding:.7em .3em;font-weight:600;font-size:.95em}
 .deco input:checked+.pill{background:var(--gold);color:var(--bg);border-color:var(--gold)}
 .deco input:focus-visible+.pill{outline:2px solid var(--gold);outline-offset:2px}
 .deco label{font-size:.9em}
-.deco .btn{background:linear-gradient(180deg,#e2c977,var(--bronze));color:var(--bg);border:1px solid var(--gold);border-radius:999px;font-weight:700;letter-spacing:.1em;padding:.85em 1.6em;font-size:clamp(13px,3.4cqw,15px)}
+.deco .btn{background:linear-gradient(180deg,#fbf6ec,#e2d5bd);color:var(--bg);border:1px solid var(--gold);border-radius:999px;font-weight:700;letter-spacing:.1em;padding:.85em 1.6em;font-size:clamp(13px,3.4cqw,15px)}
 .deco .btn.ghost{background:transparent;color:var(--gold)}
 .deco .lead{font-weight:600;font-size:1.05em}
 #rf{gap:clamp(12px,3.6cqw,18px)}
 .err{color:#ffb7a8;margin:0;font-size:.9em}
 .wall{height:clamp(230px,62cqw,340px);overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
 .track.scroll{animation:roll linear infinite}.wall:hover .track,.wall:active .track{animation-play-state:paused}@keyframes roll{to{transform:translateY(-50%)}}
-.wish{background:rgba(255,255,255,.05);border:1px solid rgba(212,184,98,.45);border-radius:3px;padding:.7em .9em;margin-bottom:.65em;text-align:left;font-size:.92em;line-height:1.55}.wish b{color:var(--gold);font-weight:600}
-.badge{width:clamp(80px,22cqw,120px);height:clamp(80px,22cqw,120px);border-radius:50%;background:var(--cream);border:1px solid var(--gold);box-shadow:0 0 0 4px var(--bg),0 0 0 5px rgba(212,184,98,.6);display:grid;place-items:center;overflow:hidden}
+.wish{background:rgba(255,255,255,.05);border:1px solid rgba(234,223,202,.45);border-radius:3px;padding:.7em .9em;margin-bottom:.65em;text-align:left;font-size:.92em;line-height:1.55}.wish b{color:var(--gold);font-weight:600}
+.badge{width:clamp(80px,22cqw,120px);height:clamp(80px,22cqw,120px);border-radius:50%;background:var(--cream);border:1px solid var(--gold);box-shadow:0 0 0 4px var(--bg),0 0 0 5px rgba(234,223,202,.6);display:grid;place-items:center;overflow:hidden}
 .badge img{width:78%;height:auto}
+/* Closing monogram: initial.png shown without a circle, coloured cream */
+.mono-gold{display:block;width:clamp(120px,32cqw,180px);aspect-ratio:var(--ar,.55);background:linear-gradient(165deg,#fffaf1 0%,#f0e6d3 50%,#dacbaf 100%);
+ -webkit-mask:url("initial.png") center/contain no-repeat;mask:url("initial.png") center/contain no-repeat;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
+.mono-wrap.plain .mono-gold{display:none}.mono-wrap img{display:block;width:clamp(120px,32cqw,180px);height:auto}
 #penutup .t{max-width:30em}
 .foot{text-align:center;margin:0;padding:1rem 0 0;font-size:.85rem;color:rgba(255,255,255,.6)}.foot a{color:inherit}
 .mono.sm{width:48px;max-width:none;flex:none}
@@ -149,7 +153,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .seal-img{display:block;width:min(56cqw,250px);max-height:30vh;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5));animation:float 4s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-6px)}}
 .to p{margin:0;font-size:min(3.6cqw,1rem);font-weight:500;letter-spacing:.04em}.to .script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:min(5.8cqw,1.6rem);line-height:1.3;margin-top:.35rem;color:var(--gold);overflow-wrap:anywhere}
-.open-btn{border:1px solid var(--gold);border-radius:999px;background:linear-gradient(180deg,#e2c977,var(--bronze));color:var(--bg);padding:.85rem 2rem;font:700 .82rem 'Montserrat',sans-serif;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .15s,filter .2s}
+.open-btn{border:1px solid var(--gold);border-radius:999px;background:linear-gradient(180deg,#fbf6ec,#e2d5bd);color:var(--bg);padding:.85rem 2rem;font:700 .82rem 'Montserrat',sans-serif;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .15s,filter .2s}
 .open-btn:hover{filter:brightness(1.08)}.open-btn:active{transform:scale(.96)}
 
 /* ===== Main ===== */
@@ -252,7 +256,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 
  <!-- Closing -->
  <section class="scene deco" id="penutup">
-  <div class="badge rv"><img src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"></div>
+  <div class="mono-wrap rv" id="monoBig"><span class="mono-gold" role="img" aria-label="Monogram S &amp; N"></span></div>
   <p class="ttl-i rv" style="margin-top:6cqw">Syazwan &amp; Nazura</p>
   <p class="t rv" style="margin-top:5cqw">Kehadiran serta doa restu daripada Tuan/Puan amat kami hargai. Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah. Terima Kasih</p>
  </section>
@@ -505,6 +509,4 @@ function calModal(){
 (()=>{const I={tel:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',pin:'<path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',note:'<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>'};
  const closer=m=>$("#cl",m).onclick=()=>m.remove();
  const items=[
-  ["tel","Hubungi",()=>{const rows=CFG.contacts.map(c=>`<div><b>${esc(c[0])}</b><div>${c[1].replace(/^60(\d{2})(\d{3})(\d+)$/,"+60 $1-$2 $3")}</div><div class="flex gap-2 mt-1"><a class="btn sm" href="tel:+${c[1]}">Panggil</a><a class="btn ghost sm" href="https://wa.me/${c[1]}" target="_blank" rel="noopener">WhatsApp</a></div></div>`).join("");
-   const m=modal(`<h2>Hubungi kami</h2><div class="grid gap-3" style="margin-top:.8rem">${rows}<button class="btn ghost" id="cl">Tutup</button></div>`);closer(m)}],
-  ["pin","Lokasi",()=>{const m=modal(`<h2>Lokasi</h2><p style="margin:.6rem 0 .8rem">${esc(CFG.venue)}</p><div class="grid gap-2"><a class="btn" href="${CFG.mapUrl}" target="_blank" rel="noopener">Buka Google Maps
+  ["tel","Hubungi",()=>{const rows=CFG.contacts.map(c=>`<div><b>${esc(c[0])}</b><div>${c[1].replace(/^60(\d{2})(\d{3})(\d+)$/,"+60 $1-$2 $3")}</div><div class="flex gap-2 mt-1"><a class="btn sm" href="tel:+${c[1]
