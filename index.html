@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#360002">
 <title>Walimatulurus · Syazwan &amp; Nazura</title>
-<link rel="preload" href="kulit.jpg" as="image">
+<link rel="preload" href="kulit-bunga.webp" as="image" type="image/webp">
 <link rel="preload" href="teks-kulit.png" as="image">
 <link rel="preload" href="hiasan-atas.jpg" as="image">
 <link rel="preload" href="hiasan-bawah.jpg" as="image">
@@ -76,7 +76,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .in .rv{opacity:1;filter:none;transform:none}
 
 /* ===== Scene 1: oval cover — always fits the screen height (text scales with the picture) ===== */
-#cover{position:relative;aspect-ratio:9/16;overflow:hidden;margin:0 auto;container-type:inline-size;width:min(100%,calc(100vh*9/16));width:min(100%,calc(100svh*9/16))}
+#cover{position:relative;display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:100svh;overflow:hidden;padding:0 0 4rem;margin:0 0 0 calc(50% - 50vw);container-type:inline-size;width:100vw}
 #cover .art,#cover .art-txt{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 2.4s ease}
 #cover .art-txt{z-index:1;opacity:0;filter:blur(8px);transition:transform 2.4s ease,opacity 1.4s ease .4s,filter 1.4s ease .4s}
 #cover.in .art,#cover.in .art-txt{transform:none}#cover.in .art-txt{opacity:1;filter:none}
@@ -145,8 +145,12 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 #penutup .t{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(15.5px,4.1cqw,19.5px);line-height:1.7;letter-spacing:.02em}
 .foot{text-align:center;margin:0;padding:1rem 0 0;font-size:.85rem;color:rgba(255,255,255,.6)}.foot a{color:inherit}
 .mono.sm{width:48px;max-width:none;flex:none}
-/* Wider screens: soften the cover's side edges so it blends into the page */
-@media (min-width:700px){#cover{-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}}
+/* wider cover picture: the bouquets continue past the sides of the 9:16 card and fade into the page */
+/* cover: the finished picture (oval + full bouquets + text), fading softly into the page */
+#cover .cv{position:relative;flex:none;margin:0 auto;width:min(100vw,600px,calc(90vh * 0.765));width:min(100vw,600px,calc(90svh * 0.765));aspect-ratio:1400/1830}
+#cover .cv picture{display:block;width:100%;height:100%}
+#cover .cv .art{position:relative!important;inset:auto!important;display:block;width:100%!important;height:100%!important;object-fit:contain}
+#cover .cv .art-txt{object-fit:contain}
 
 /* ===== Intro: embossed burgundy doors, oval frame with flowers, cream seal (tap to open) ===== */
 #intro{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:999;overflow:hidden;background:transparent;text-align:center;color:#fff;transition:opacity .8s}
@@ -157,25 +161,25 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 #intro.open .door.l{transform:translateX(-101%)}#intro.open .door.r{transform:translateX(101%)}
 #intro::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 48%,transparent 40%,rgba(20,0,4,.45) 100%);transition:opacity .6s}
 #intro.open::after{opacity:0}
-.stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(84vw,400px,calc((100dvh - 40px)*640/1100));aspect-ratio:640/1100;z-index:2;container-type:inline-size;transition:opacity .6s ease,transform .8s ease}
+.stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(60vw,400px,calc((100dvh - 60px)*640/1100));aspect-ratio:640/1100;z-index:2;container-type:inline-size;transition:opacity .6s ease,transform .8s ease}
 #intro.open .stage{opacity:0;transform:translate(-50%,-50%) scale(1.06)}
 .st-frame{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
-.st-spray{position:absolute;left:-6.7%;top:14.17%;width:33.6%;height:auto;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 9%,#000 30%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 9%,#000 30%);filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));transform-origin:80% 20%;animation:sway2 6s ease-in-out infinite alternate}
+.st-spray{position:absolute;left:-24.8%;top:1.2%;width:151%;max-width:none;height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));pointer-events:none}
 @keyframes sway2{to{transform:rotate(-1.6deg)}}
-.st-in{position:absolute;left:12%;right:12%;top:12%;bottom:10%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6cqw}
+.st-in{position:absolute;left:18%;right:18%;top:20%;bottom:16%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6cqw}
 .st-in>*{margin:0}
 .st-top{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(11px,4.4cqw,16px);letter-spacing:.32em;margin-right:-.32em;text-transform:uppercase;color:rgba(255,245,235,.82)}
 /* Seal button: your wax seal picture (image1.png) */
-.seal{position:relative;width:44cqw;border:0;padding:0;background:none;cursor:pointer;display:block;animation:sealpulse 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
-.seal img{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 14px rgba(0,0,0,.5))}
+.seal{position:relative;width:24cqw;aspect-ratio:3/4;border:0;padding:0;background:none;cursor:pointer;display:block;animation:sealpulse 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
+.seal-mono{position:absolute;inset:0;background:linear-gradient(170deg,#fff8ec,#eadfca 60%,#cdb994);-webkit-mask:url("initial.png") center/contain no-repeat;mask:url("initial.png") center/contain no-repeat;filter:drop-shadow(0 4px 10px rgba(0,0,0,.45))}
 .seal:active img{transform:scale(.95)}
-.seal.nf{width:30cqw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c23a44,#7a1520 70%);box-shadow:0 10px 20px rgba(0,0,0,.45)}.seal.nf img{display:none}
+
 @keyframes sealpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
-.open-pill{border:1px solid rgba(255,240,220,.75);border-radius:999px;background:rgba(255,248,238,.08);color:#fff6ea;padding:.75em 2em;font:600 clamp(11px,3.9cqw,14px) 'Cormorant Garamond',Georgia,serif;letter-spacing:.26em;margin-right:-.26em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.35);transition:background .2s,transform .15s}
+.open-pill{border:1px solid rgba(255,240,220,.75);border-radius:999px;background:rgba(255,248,238,.08);color:#fff6ea;padding:.8em 1.4em;font:600 3.2cqw 'Cormorant Garamond',Georgia,serif;letter-spacing:.2em;margin-right:-.2em;text-transform:uppercase;white-space:nowrap;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.35);transition:background .2s,transform .15s}
 .open-pill:hover{background:rgba(255,248,238,.18)}.open-pill:active{transform:scale(.96)}
 .st-hint{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(12px,4.6cqw,16px);color:rgba(255,245,235,.75);letter-spacing:.04em}
-.to p{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(12px,4.6cqw,16.5px);color:rgba(255,245,235,.85)}
-.to .script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(15px,6cqw,23px);line-height:1.3;margin-top:.3rem;color:var(--gold);overflow-wrap:anywhere}
+.to p{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:4.2cqw;color:rgba(255,245,235,.85)}
+.to .script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;text-transform:uppercase;letter-spacing:.03em;font-size:4.8cqw;line-height:1.3;margin:1.2cqw auto 0;max-width:58cqw;color:var(--gold);overflow-wrap:break-word}
 
 /* ===== Main ===== */
 #main{display:none;padding:0 0 6.5rem}
@@ -213,12 +217,12 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
 <section id="intro" aria-label="Pintu masuk undangan">
  <div class="door l" aria-hidden="true"></div><div class="door r" aria-hidden="true"></div>
  <div class="stage">
-  <img class="st-spray" src="jambangan-oval.png" alt="" aria-hidden="true">
+  <img class="st-spray" src="bunga-intro.png" alt="" aria-hidden="true">
   <img class="st-frame" src="bingkai-oval.png" alt="" aria-hidden="true">
   <div class="st-in">
    <h1 class="sr-only">Undangan Perkahwinan Syazwan &amp; Nazura</h1>
    <div class="to"><p>Kepada Yang Dihormati</p><p id="gname" class="script"></p></div>
-   <button class="seal" type="button" onclick="document.getElementById('openBtn').click()" aria-label="Buka jemputan"><img src="image1.png" alt="Meterai lilin" onerror="this.parentNode.classList.add('nf')"></button>
+   <button class="seal" type="button" onclick="document.getElementById('openBtn').click()" aria-label="Buka jemputan"><span class="seal-mono"></span></button>
    <button class="open-pill" id="openBtn" type="button" onclick="openFallback()">BUKA JEMPUTAN</button>
   </div>
  </div>
@@ -232,9 +236,11 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
 
  <!-- Scene 1: oval cover -->
  <section class="scene" id="cover" aria-label="Walimatulurus Syazwan dan Nazura">
-  <img class="art" src="kulit.jpg" alt="" aria-hidden="true">
+  <div class="cv">
+   <picture><source srcset="kulit-bunga.webp" type="image/webp"><img class="art" src="kulit-bunga.png" alt="" aria-hidden="true"></picture>
+   <img class="art-txt" src="teks-kulit.png" alt="" aria-hidden="true">
+  </div>
   <!-- Text taken straight from the video frame, so the script font is exactly the same -->
-  <img class="art-txt" src="teks-kulit.png" alt="" aria-hidden="true">
   <h2 class="sr-only">Walimatulurus Syazwan &amp; Nazura. Ahad, 29 Ogos 2027. Dan Kami ciptakan kamu berpasang-pasangan, An-Naba 78:8</h2>
  </section>
 
