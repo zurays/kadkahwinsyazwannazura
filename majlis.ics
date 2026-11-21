@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Syazwan Nazura//Walimatulurus//MS
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:walimatulurus-syazwan-nazura-20270829@jemputan
+DTSTAMP:20261121T000000Z
+DTSTART:20270829T020000Z
+DTEND:20270829T040000Z
+SUMMARY:Walimatulurus Syazwan & Nazura
+LOCATION:Arcum Tent\, Majma Mall\, Lorong P. Ramlee 5A\, 93400 Kuching\, Sarawak
+DESCRIPTION:Majlis Perkahwinan Mohd Asriq Syazwan & Mumtaz Nazura. Kehadiran tetamu 10:00 pagi.
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Walimatulurus Syazwan & Nazura esok
+END:VALARM
+END:VEVENT
+END:VCALENDAR
