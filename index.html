@@ -355,6 +355,11 @@ a.ad-side{color:inherit;text-decoration:none;display:block}a.ad-side:hover{borde
 .ly-hr::after,.ly-hb::after{content:"";position:absolute;background:var(--burgundy);opacity:.45;border-radius:3px}.ly-hr::after{width:4px;height:44px;top:50%;right:4px;transform:translateY(-50%)}.ly-hb::after{height:4px;width:44px;left:50%;bottom:4px;transform:translateX(-50%)}
 .ly-ghost{position:absolute;z-index:50;border:2px dashed var(--burgundy);border-radius:12px;background:rgba(110,20,30,.05);pointer-events:none}.ly-ghost::after{content:attr(data-t);position:absolute;right:8px;bottom:8px;background:var(--burgundy);color:#fff;font:600 .8rem 'Montserrat',sans-serif;padding:.2rem .5rem;border-radius:6px}
 .ly-szbar{display:flex;flex-wrap:wrap;gap:.3rem 1rem;align-items:center;font-size:.8rem;margin:.5rem 0 0}.ly-szbar #lysz{font-weight:600;color:var(--burgundy)}.ly-szbar span:nth-child(2){opacity:.7}.ly-szbar .ad-link{margin-left:auto}
+.ly-vip{border-radius:50%;border-width:3px;border-color:#b8902f;background:#fff8e6;box-shadow:0 0 0 3px rgba(184,144,47,.25)}
+.ly-it.ly-vip.ok,.ly-it.ly-vip.full,.ly-it.ly-vip.over{background:#fff8e6;border-color:#b8902f}.ly-it.ly-vip.full{background:#fdf0d4}.ly-it.ly-vip.over{border-color:#b3261e}
+.ly-rs{position:absolute;right:-7px;bottom:-7px;width:16px;height:16px;border-radius:4px;background:var(--burgundy);border:2px solid #fff;cursor:nwse-resize;touch-action:none;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.ly-round .ly-rs,.ly-vip .ly-rs{right:4%;bottom:4%}
+.ly-tip{grid-column:1/-1;font-size:.78rem;opacity:.8;margin:0}
 </style>
 </head>
 <body class="lock">
@@ -671,6 +676,7 @@ const tabNow=()=>{const t=(location.hash.split("/")[1]||"ringkasan");return TABS
 const LKEY="wedding_layout_v1";let layout=null,layoutT=null;
 const LT={
  round:{l:"Meja tetamu (dome)",w:8.5,ar:"1",table:1,seats:10,g:0},
+ vip:{l:"Meja VIP",w:10,ar:"1",table:1,seats:10,g:0,base:"Meja VIP"},
  rect:{l:"Meja makan pengantin",w:16,ar:"2.8",table:1,seats:8,g:1,base:"Meja Makan Pengantin"},
  stage:{l:"Pelamin",w:26,ar:"3.4",g:1},
  aisle:{l:"Laluan pengantin",w:5,ar:"0.12",g:1},
@@ -684,6 +690,7 @@ const LT={
  buffet:{l:"Buffet (akad pagi)",w:18,ar:"3.2",g:2},
  door:{l:"Pintu masuk",w:10,ar:"2.6",g:2},
  label:{l:"Label / ruang lain",w:14,ar:"2.6",g:2}};
+const ISZ=(i,L)=>{const t=LT[i.type]||LT.label,z=40/(+L.W||40),rd=t.ar==="1",ws=+i.ws||1,hs=rd?ws:(+i.hs||1);return `width:${+(t.w*z*(i.type==="round"?(L.ts||1):1)*ws).toFixed(2)}%;aspect-ratio:${+(parseFloat(t.ar)*ws/hs).toFixed(4)}`};
 const LG=["Meja tetamu","Pengantin","Majlis & kemudahan"];
 function parseLayout(v){try{const o=typeof v==="string"?JSON.parse(v):v;if(o&&Array.isArray(o.items))return o}catch(e){}return null}
 function getLayout(){if(!layout)layout=parseLayout(window.__layoutRaw)||parseLayout(lsGet(LKEY))||{v:1,items:[]};return layout}
@@ -786,7 +793,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
  function drawFloor(){const L=getLayout(),F=$("#floor"),W=+L.W||40,H=+L.H||25,z=40/W;
   F.style.aspectRatio=W+"/"+H;F.style.backgroundSize=(200/W)+"% "+(200/H)+"%";const sz=$("#lysz");if(sz)sz.textContent=`Saiz pelan: ${Math.round(W)} × ${Math.round(H)} petak`;
   F.innerHTML=`<div class="ly-h ly-hr" data-h="r" title="Tarik untuk melebarkan pelan"></div><div class="ly-h ly-hb" data-h="b" title="Tarik untuk memanjangkan pelan"></div><div class="ly-h ly-hc" data-h="rb" title="Tarik untuk mengubah saiz pelan"></div>`+(L.items.length?L.items.map(i=>{const t=LT[i.type]||LT.label,o=t.table?occ(i.name):0;
-   return `<div class="ly-it ly-${i.type} ${t.table?occClass(o,+i.seats||0):""} ${sel===i.id?"sel":""}" data-id="${i.id}" style="left:${i.x}%;top:${i.y}%;width:${+(t.w*z*(i.type==="round"?(L.ts||1):1)).toFixed(2)}%;aspect-ratio:${t.ar};transform:translate(-50%,-50%) rotate(${+i.r||0}deg)" tabindex="0" role="button" aria-label="${esc(i.name)}"><b>${esc(i.name)}</b>${t.table?`<span>${o}/${+i.seats||0}</span>`:""}</div>`}).join("")
+   return `<div class="ly-it ly-${i.type} ${t.table?occClass(o,+i.seats||0):""} ${sel===i.id?"sel":""}" data-id="${i.id}" style="left:${i.x}%;top:${i.y}%;${ISZ(i,L)};transform:translate(-50%,-50%) rotate(${+i.r||0}deg)" tabindex="0" role="button" aria-label="${esc(i.name)}"><b>${esc(i.name)}</b>${t.table?`<span>${o}/${+i.seats||0}</span>`:""}${sel===i.id?`<i class="ly-rs" title="Tarik untuk ubah saiz"></i>`:""}</div>`}).join("")
    :`<div class="ly-empty">Pelan masih kosong.<br>Tekan <b>Jana meja automatik</b> untuk bermula, atau tambah meja satu per satu.</div>`)}
  function drawPanel(){const P=$("#lypanel"),L=getLayout(),it=L.items.find(i=>i.id===sel);
   if(!it){P.innerHTML=`<h3>Butiran</h3><p class="ad-note" style="margin:.5rem 0 0">Klik mana-mana meja pada pelan untuk melihat dan menetapkan tetamu.</p>
@@ -797,6 +804,8 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    <form id="lyf" class="ad-form ad-form-m" novalidate style="margin-top:.4rem">
     <label class="${t.table?"":"f-name"}">Nama<input class="inp" name="nm" value="${esc(it.name)}"></label>
     ${t.table?`<label>Bilangan kerusi<input class="inp" name="st" type="number" min="1" max="40" value="${+it.seats||10}"></label>`:""}
+    ${t.ar==="1"?`<label>Saiz (%)<input class="inp" name="ws" type="number" min="30" max="600" step="10" value="${Math.round((+it.ws||1)*100)}"></label>`:`<label>Lebar (%)<input class="inp" name="ws" type="number" min="30" max="600" step="10" value="${Math.round((+it.ws||1)*100)}"></label><label>Panjang (%)<input class="inp" name="hs" type="number" min="30" max="600" step="10" value="${Math.round((+it.hs||1)*100)}"></label>`}
+    <p class="ly-tip">Atau tarik penjuru ◢ pada item yang dipilih untuk ubah saiz. <button type="button" class="ad-link" id="lyrs0">Saiz asal</button></p>
    </form>
    ${t.table?`<p class="ly-occ ${occClass(o,+it.seats||0)}"><b>${o}</b> / ${+it.seats||0} pax ${o>(+it.seats||0)?"· melebihi kerusi!":""}</p>
    <div class="ly-gl">${G.length?G.map(g=>`<div class="ly-gr" data-id="${esc(g.id)}"><span><b>${esc(g.name)}</b><small>${expPax(g)} pax · ${SL[g.status]}${g.side?" · "+sideName(g.side):""}</small></span><button type="button" class="ad-link ly-rm" title="Keluarkan dari meja">Keluarkan</button></div>`).join(""):`<p class="ad-note" style="margin:0">Belum ada tetamu di meja ini.</p>`}</div>
@@ -809,13 +818,15 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    it.name=nv;saveLayout();
    if(t.table){const M=guests.filter(g=>g.table===old);for(const g of M){try{await act("table",{name:g.name,table:nv})}catch(err){toast("Ralat: "+err.message)}}if(M.length)toast(M.length+" tetamu dipindahkan ke "+nv)}
    drawMeja()};
+  ["ws","hs"].forEach(k=>{const el=$(`#lyf [name=${k}]`);if(el)el.onchange=e=>{it[k]=Math.max(.3,Math.min(6,(+e.target.value||100)/100));saveLayout();drawMeja()}});
+  $("#lyrs0").onclick=()=>{delete it.ws;delete it.hs;saveLayout();drawMeja()};
   const st=$("#lyf [name=st]");if(st)st.onchange=e=>{it.seats=Math.max(1,Math.min(40,+e.target.value||10));saveLayout();drawMeja()};
   const gs=$("#lyg");if(gs)gs.onchange=async e=>{const g=guests.find(x=>x.id===e.target.value);if(!g)return;try{await act("table",{name:g.name,table:it.name});toast(g.name+" → "+it.name)}catch(err){toast("Ralat: "+err.message)}drawMeja()};
   $$(".ly-rm",P).forEach(b=>b.onclick=async()=>{const g=guests.find(x=>x.id===b.closest(".ly-gr").dataset.id);if(!g)return;try{await act("table",{name:g.name,table:""});toast(g.name+" dikeluarkan dari "+it.name)}catch(err){toast("Ralat: "+err.message)}drawMeja()});
   const rb=$("#lyrot");if(rb)rb.onclick=()=>{it.r=((+it.r||0)+90)%360;saveLayout();drawMeja()};
   $("#lydup").onclick=()=>{const n={...it,id:uid(),x:Math.min(96,it.x+4),y:Math.min(96,it.y+4),name:nextName(it)};L.items.push(n);sel=n.id;saveLayout();drawMeja()};
   $("#lydel").onclick=()=>{const M=t.table?guests.filter(g=>g.table===it.name):[];if(!confirm(`Padam "${it.name}" dari pelan?`+(M.length?`\n${M.length} tetamu di meja ini akan kekal dengan nama meja tersebut (boleh ditukar kemudian).`:"")))return;L.items=L.items.filter(x=>x!==it);sel=null;saveLayout();drawMeja()}}
- const i_round=it=>it.type==="round";
+ const i_round=it=>(LT[it.type]||{}).ar==="1";
  const nextName=it=>{const L=getLayout(),m=/^(.*?)(\d+)$/.exec(it.name);if(m){let k=+m[2]+1;while(L.items.some(x=>x.name===m[1]+k))k++;return m[1]+k}let k=2;while(L.items.some(x=>x.name===it.name+" "+k))k++;return it.name+" "+k};
  function drawTList(){const names=tableNames(),by=n=>guests.filter(g=>g.table===n).sort((a,b)=>a.name.localeCompare(b.name));
   const seatsOf=n=>{const i=layoutTables().find(x=>x.name===n);return i?+i.seats||0:0};
@@ -877,6 +888,11 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up);removeEventListener("pointercancel",up);ghost.remove();window.__dragging=0;resizeTo(W1,H1)};
    addEventListener("pointermove",mv);addEventListener("pointerup",up);addEventListener("pointercancel",up)},true);
   F.onpointerdown=e=>{const el=e.target.closest(".ly-it");if(!el)return;const it=L().items.find(i=>i.id===el.dataset.id);if(!it)return;
+   if(e.target.closest(".ly-rs")){e.preventDefault();e.stopPropagation();const sx=e.clientX,sy=e.clientY,w0=el.offsetWidth,h0=el.offsetHeight,ws0=+it.ws||1,hs0=+it.hs||1,rd=(LT[it.type]||LT.label).ar==="1",a=(+it.r||0)*Math.PI/180;window.__dragging=1;try{el.setPointerCapture(e.pointerId)}catch(x){}
+    el.onpointermove=ev=>{const dx=ev.clientX-sx,dy=ev.clientY-sy,lx=dx*Math.cos(a)+dy*Math.sin(a),ly=-dx*Math.sin(a)+dy*Math.cos(a),cl=v=>Math.max(.3,Math.min(6,+v.toFixed(2)));
+     if(rd){it.ws=cl(ws0*(w0+2*(lx+ly)/2)/w0);delete it.hs}else{it.ws=cl(ws0*(w0+2*lx)/w0);it.hs=cl(hs0*(h0+2*ly)/h0)}
+     el.style.cssText=`left:${it.x}%;top:${it.y}%;${ISZ(it,L())};transform:translate(-50%,-50%) rotate(${+it.r||0}deg)`};
+    el.onpointerup=el.onpointercancel=()=>{el.onpointermove=el.onpointerup=el.onpointercancel=null;window.__dragging=0;saveLayout();drawMeja()};return}
    e.preventDefault();const r=F.getBoundingClientRect(),sx=e.clientX,sy=e.clientY,ox=it.x,oy=it.y;let moved=false;window.__dragging=1;try{el.setPointerCapture(e.pointerId)}catch(x){}
    el.onpointermove=ev=>{if(!moved&&Math.hypot(ev.clientX-sx,ev.clientY-sy)<5)return;moved=true;el.classList.add("drag");
     it.x=Math.round(Math.max(2,Math.min(98,ox+(ev.clientX-sx)/r.width*100))*2)/2;it.y=Math.round(Math.max(3,Math.min(97,oy+(ev.clientY-sy)/r.height*100))*2)/2;el.style.left=it.x+"%";el.style.top=it.y+"%"};
