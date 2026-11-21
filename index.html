@@ -349,6 +349,12 @@ a.ad-side{color:inherit;text-decoration:none;display:block}a.ad-side:hover{borde
 @media (max-width:560px){.ly-add:has(.ly-btns){flex-direction:column;gap:.3rem}.ly-gl-t{padding-top:0}}
 .ad-cicard{display:flex;gap:1rem;align-items:center;justify-content:space-between;border-left:4px solid #2f6a3d}.ad-cicard p{margin:.25rem 0 .4rem;font-size:.85rem;opacity:.85}.ad-cicard code{font-size:.8rem;word-break:break-all;background:var(--parch);padding:.15rem .4rem;border-radius:4px}.ad-cib{display:flex;gap:.4rem;flex:none}
 @media (max-width:560px){.ad-cicard{flex-direction:column;align-items:stretch}}
+.ly-h{position:absolute;z-index:6;touch-action:none}.ly-hr{top:0;right:0;width:14px;height:100%;cursor:ew-resize}.ly-hb{left:0;bottom:0;height:14px;width:100%;cursor:ns-resize}
+.ly-hc{right:0;bottom:0;width:28px;height:28px;cursor:nwse-resize;background:linear-gradient(135deg,transparent 45%,var(--burgundy) 45% 55%,transparent 55% 65%,var(--burgundy) 65% 75%,transparent 75%);opacity:.75;border-bottom-right-radius:10px}
+.ly-hr:hover,.ly-hb:hover{background:rgba(110,20,30,.12)}
+.ly-hr::after,.ly-hb::after{content:"";position:absolute;background:var(--burgundy);opacity:.45;border-radius:3px}.ly-hr::after{width:4px;height:44px;top:50%;right:4px;transform:translateY(-50%)}.ly-hb::after{height:4px;width:44px;left:50%;bottom:4px;transform:translateX(-50%)}
+.ly-ghost{position:absolute;z-index:50;border:2px dashed var(--burgundy);border-radius:12px;background:rgba(110,20,30,.05);pointer-events:none}.ly-ghost::after{content:attr(data-t);position:absolute;right:8px;bottom:8px;background:var(--burgundy);color:#fff;font:600 .8rem 'Montserrat',sans-serif;padding:.2rem .5rem;border-radius:6px}
+.ly-szbar{display:flex;flex-wrap:wrap;gap:.3rem 1rem;align-items:center;font-size:.8rem;margin:.5rem 0 0}.ly-szbar #lysz{font-weight:600;color:var(--burgundy)}.ly-szbar span:nth-child(2){opacity:.7}.ly-szbar .ad-link{margin-left:auto}
 </style>
 </head>
 <body class="lock">
@@ -462,7 +468,7 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
 <script>
 /* ===== CONFIG: edit these ===== */
 /* Paste your Google Apps Script Web App URL (ends with /exec). Leave empty for demo mode (data stays in this browser only). */
-const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbwwK-apBGhRPGmkn5XjNQJfOIPofHNvgETbau2GoC6j-XqkHGC-5PWLtZ2rr3ysiIB1EQ/exec";
+const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxwCaP7_81U9jZHs8aFgaaZdG5MNF63jTCEDFiJFoHbI8PbyQHLNG_xxMfBHbiFjBr36A/exec";
 const CFG={date:new Date(2027,7,29,10,0,0),
  venue:"Arcum Tent, Majma Mall, Lorong P. Ramlee 5A, 93400 Kuching, Sarawak",
  mapUrl:"https://www.google.com/maps/search/?api=1&query=Arcum+Tent+Majma+Mall+Kuching", /* replace with the exact Google Maps link */
@@ -706,7 +712,6 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   </div><div id="list" class="ad-list"></div>`;
  let body="";
  if(tab==="ringkasan")body=`
- <section class="ad-sec">${ciCard()}</section>
  <section class="ad-sec"><h2 class="ad-h">Status kehadiran</h2><div id="sum" class="ad-stats"></div><div id="sides" class="ad-sides"></div></section>
  <section class="ad-sec" id="lsec"><h2 class="ad-h">Senarai semua tetamu</h2>${toolsHTML(true)}</section>
  <section class="ad-sec ad-foot"><button class="btn" id="exp">Eksport senarai (Excel / CSV)</button><button class="btn ghost" id="rst"></button></section>`;
@@ -730,9 +735,9 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    <div class="ly-add"><button type="button" class="btn sm" id="lygen">Jana meja automatik</button><button type="button" class="btn ghost sm" id="lyimp">Tambah meja dari senarai tetamu</button><button type="button" class="btn ghost sm" id="lyclr">Kosongkan pelan</button><span id="lyst" class="ly-st"></span></div>
   </div>
   <div class="ly-wrap"><div class="ly-floor" id="floor" aria-label="Pelan dewan"></div><div id="lypanel" class="ad-card ly-panel"></div></div>
-  <p class="ly-legend"><span class="lg ok"></span>Masih ada kerusi <span class="lg full"></span>Penuh <span class="lg over"></span>Melebihi kerusi <span class="ly-lnote">Pax dikira: tetamu hadir mengikut jawapan RSVP, tetamu belum jawab mengikut had pax.</span></p>
+  <p class="ly-szbar"><span id="lysz"></span><span>Tarik bucu atau tepi pelan (⇲) untuk menambah ruang.</span><button type="button" class="ad-link" id="lyszr">Saiz asal</button></p>
+ <p class="ly-legend"><span class="lg ok"></span>Masih ada kerusi <span class="lg full"></span>Penuh <span class="lg over"></span>Melebihi kerusi <span class="ly-lnote">Pax dikira: tetamu hadir mengikut jawapan RSVP, tetamu belum jawab mengikut had pax.</span></p>
  </section>
- <section class="ad-sec">${ciCard()}</section>
  <section class="ad-sec" id="tprint"><h2 class="ad-h">Senarai mengikut meja <button type="button" class="btn ghost sm" id="prt" style="margin-left:auto">Cetak senarai meja</button></h2><div id="tlist" class="tl-grid"></div></section>`;
  T.innerHTML=`<div class="ad">`+adHead("admin")+nav+body+`<datalist id="tbls"></datalist><datalist id="catl"></datalist></div>`;
 
@@ -782,10 +787,11 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
  /* ---- Table layout tab (4) ---- */
  const occ=name=>guests.filter(g=>g.table===name).reduce((t,g)=>t+expPax(g),0);
  const occClass=(n,s)=>!s?"":n>s?"over":n===s?"full":"ok";
- function drawFloor(){const L=getLayout(),F=$("#floor");
-  F.innerHTML=L.items.length?L.items.map(i=>{const t=LT[i.type]||LT.label,o=t.table?occ(i.name):0;
-   return `<div class="ly-it ly-${i.type} ${t.table?occClass(o,+i.seats||0):""} ${sel===i.id?"sel":""}" data-id="${i.id}" style="left:${i.x}%;top:${i.y}%;width:${i.type==="round"?+(t.w*(L.ts||1)).toFixed(2):t.w}%;aspect-ratio:${t.ar};transform:translate(-50%,-50%) rotate(${+i.r||0}deg)" tabindex="0" role="button" aria-label="${esc(i.name)}"><b>${esc(i.name)}</b>${t.table?`<span>${o}/${+i.seats||0}</span>`:""}</div>`}).join("")
-   :`<div class="ly-empty">Pelan masih kosong.<br>Tekan <b>Jana meja automatik</b> untuk bermula, atau tambah meja satu per satu.</div>`}
+ function drawFloor(){const L=getLayout(),F=$("#floor"),W=+L.W||40,H=+L.H||25,z=40/W;
+  F.style.aspectRatio=W+"/"+H;F.style.backgroundSize=(200/W)+"% "+(200/H)+"%";const sz=$("#lysz");if(sz)sz.textContent=`Saiz pelan: ${Math.round(W)} × ${Math.round(H)} petak`;
+  F.innerHTML=`<div class="ly-h ly-hr" data-h="r" title="Tarik untuk melebarkan pelan"></div><div class="ly-h ly-hb" data-h="b" title="Tarik untuk memanjangkan pelan"></div><div class="ly-h ly-hc" data-h="rb" title="Tarik untuk mengubah saiz pelan"></div>`+(L.items.length?L.items.map(i=>{const t=LT[i.type]||LT.label,o=t.table?occ(i.name):0;
+   return `<div class="ly-it ly-${i.type} ${t.table?occClass(o,+i.seats||0):""} ${sel===i.id?"sel":""}" data-id="${i.id}" style="left:${i.x}%;top:${i.y}%;width:${+(t.w*z*(i.type==="round"?(L.ts||1):1)).toFixed(2)}%;aspect-ratio:${t.ar};transform:translate(-50%,-50%) rotate(${+i.r||0}deg)" tabindex="0" role="button" aria-label="${esc(i.name)}"><b>${esc(i.name)}</b>${t.table?`<span>${o}/${+i.seats||0}</span>`:""}</div>`}).join("")
+   :`<div class="ly-empty">Pelan masih kosong.<br>Tekan <b>Jana meja automatik</b> untuk bermula, atau tambah meja satu per satu.</div>`)}
  function drawPanel(){const P=$("#lypanel"),L=getLayout(),it=L.items.find(i=>i.id===sel);
   if(!it){P.innerHTML=`<h3>Butiran</h3><p class="ad-note" style="margin:.5rem 0 0">Klik mana-mana meja pada pelan untuk melihat dan menetapkan tetamu.</p>
    <div class="ly-sum">${(()=>{const T=layoutTables(),seats=T.reduce((t,i)=>t+(+i.seats||0),0),A=guests.filter(g=>g.status!=="no"),un=A.filter(g=>!g.table);return `<div><b>${T.length}</b><span>meja</span></div><div><b>${seats}</b><span>kerusi (sasaran ${CFG.targetPax} pax)</span></div><div><b>${A.reduce((t,g)=>t+expPax(g),0)}</b><span>pax dijangka</span></div><div><b>${un.length}</b><span>tetamu belum ada meja</span></div>`})()}</div>`;return}
@@ -826,7 +832,6 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   const lo=$("#lyold");if(lo)lo.innerHTML=REMOTE()&&(window.__sv||0)<4?`<div class="ad-old">Skrip Google Sheet belum menyokong susun atur meja, jadi pelan ini disimpan dalam <b>pelayar ini sahaja</b>. Kemas kini <b>Code.gs</b> (Deploy &gt; Manage deployments &gt; Edit &gt; New version) supaya pelan dikongsi dengan semua admin.</div>`:"";
   drawFloor();drawPanel();drawTList()}
 
- $$(".ci-cp").forEach(b=>b.onclick=()=>copy(ciURL(),"Pautan Check-in disalin"));
  const draw=tab==="meja"?drawMeja:drawGuests;
  refresh=draw;draw();
  loadAdmin().then(draw).catch(err=>toast("Gagal memuatkan data: "+err.message));
@@ -860,9 +865,21 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
     let k=1;for(let r=0;r<rows;r++)for(let c=0;c<cols&&k<=n;c++,k++){const inRow=Math.min(cols,n-r*cols),xs=st?(()=>{const h=Math.ceil(inRow/2);return [...spread(7,41,h),...(inRow-h?spread(59,93,inRow-h):[])]})():(inRow===1?[50]:spread(8,92,inRow));
      let nm=pre+k;while(L().items.some(i=>i.name===nm))nm+="*";
      L().items.push({id:uid(),type:ty,name:nm,seats:s,x:+xs[c].toFixed(1),y:+(rows===1?(top+bottom)/2:top+r*((bottom-top)/(rows-1))).toFixed(1)})}
-    { const hx=(st?34:84)/Math.max(1,(st?Math.ceil(cols/2):cols)-1),vy=rows>1?(bottom-top)/(rows-1)/1.6:99; L().ts=+Math.min(1,hx*.85/8.5,vy*.85/8.5).toFixed(2) }
+    { const hx=(st?34:84)/Math.max(1,(st?Math.ceil(cols/2):cols)-1),z=40/(+L().W||40),vy=rows>1?(bottom-top)/(rows-1)*(+L().H||25)/(+L().W||40):99; L().ts=+Math.min(1,hx*.85/(8.5*z),vy*.85/(8.5*z)).toFixed(2) }
     m.remove();sel=null;saveLayout();drawMeja();toast(n+" meja dijana ("+n*s+" kerusi)")}};
   /* drag to move, click to select */
+  const resizeTo=(W1,H1)=>{const Lo=L(),W0=+Lo.W||40,H0=+Lo.H||25;W1=Math.max(20,Math.min(200,Math.round(W1)));H1=Math.max(12,Math.min(200,Math.round(H1)));if(W1===W0&&H1===H0)return;
+   Lo.items.forEach(i=>{i.x=+Math.max(1,Math.min(99,i.x*W0/W1)).toFixed(1);i.y=+Math.max(1,Math.min(99,i.y*H0/H1)).toFixed(1)});Lo.W=W1;Lo.H=H1;saveLayout();drawFloor()};
+  $("#lyszr").onclick=()=>{const Lo=L();const maxX=Math.max(0,...Lo.items.map(i=>i.x*(+Lo.W||40)/100)),maxY=Math.max(0,...Lo.items.map(i=>i.y*(+Lo.H||25)/100));
+   if(maxX>39||maxY>24){if(!confirm("Sesetengah item berada di luar saiz asal dan akan dirapatkan ke dalam. Teruskan?"))return}resizeTo(40,25)};
+  F.addEventListener("pointerdown",e=>{const h=e.target.closest(".ly-h");if(!h)return;e.preventDefault();e.stopPropagation();
+   const r=F.getBoundingClientRect(),W0=+L().W||40,H0=+L().H||25,ppu=r.width/W0,sx=e.clientX,sy=e.clientY,mode=h.dataset.h;window.__dragging=1;
+   const ghost=document.createElement("div");ghost.className="ly-ghost";ghost.style.cssText=`left:${r.left+scrollX}px;top:${r.top+scrollY}px;width:${r.width}px;height:${r.height}px`;document.body.appendChild(ghost);
+   let W1=W0,H1=H0;
+   const mv=ev=>{if(mode.includes("r"))W1=W0+(ev.clientX-sx)/ppu;if(mode.includes("b"))H1=H0+(ev.clientY-sy)/ppu;W1=Math.max(20,Math.min(200,W1));H1=Math.max(12,Math.min(200,H1));
+    ghost.style.width=W1*ppu+"px";ghost.style.height=H1*ppu+"px";ghost.dataset.t=Math.round(W1)+" × "+Math.round(H1)};
+   const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up);removeEventListener("pointercancel",up);ghost.remove();window.__dragging=0;resizeTo(W1,H1)};
+   addEventListener("pointermove",mv);addEventListener("pointerup",up);addEventListener("pointercancel",up)},true);
   F.onpointerdown=e=>{const el=e.target.closest(".ly-it");if(!el)return;const it=L().items.find(i=>i.id===el.dataset.id);if(!it)return;
    e.preventDefault();const r=F.getBoundingClientRect(),sx=e.clientX,sy=e.clientY,ox=it.x,oy=it.y;let moved=false;window.__dragging=1;try{el.setPointerCapture(e.pointerId)}catch(x){}
    el.onpointermove=ev=>{if(!moved&&Math.hypot(ev.clientX-sx,ev.clientY-sy)<5)return;moved=true;el.classList.add("drag");
