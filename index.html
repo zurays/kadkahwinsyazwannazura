@@ -335,6 +335,20 @@ a.ad-side{color:inherit;text-decoration:none;display:block}a.ad-side:hover{borde
 @media (max-width:900px){.ly-wrap{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:560px){.ad-tabbar{display:grid;grid-template-columns:1fr 1fr;overflow:visible}.ad-tabbar a{padding:.55rem .6rem;font-size:.8rem;gap:.4rem}.ad-form .f-2{grid-column:auto}.ad-filters.f3{grid-template-columns:1fr 1fr}.ly-it{font-size:max(7px,1.6cqw)}.ly-st{flex-basis:100%;margin-left:0}}
 @media print{body.print-tl>*:not(#tool){display:none!important}body.print-tl #tool{padding:0!important;background:#fff!important}body.print-tl .ad>*:not(#tprint){display:none!important}body.print-tl #prt,body.print-tl .tl-s{display:none!important}body.print-tl .tl-grid{grid-template-columns:repeat(3,1fr)}body.print-tl .ad-card{break-inside:avoid}}
+.ad-cats.nolink .ctr{cursor:default}.ad-cats.nolink .ctr:hover td{background:transparent}
+.ly-add:has(.ly-btns){flex-wrap:nowrap;align-items:flex-start}.ly-btns{display:flex;flex-wrap:wrap;gap:.4rem;flex:1}.ly-gl-t{padding-top:.45rem;font:600 .72rem 'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.06em;opacity:.65;min-width:9.5rem}
+.ly-aisle{background:repeating-linear-gradient(180deg,#f6e2e4 0 12px,#fbeff0 12px 24px);border-color:#c98b93;border-radius:4px}.ly-aisle b{writing-mode:vertical-rl;white-space:nowrap}
+.ly-rect{border-radius:6px}.ly-it.ly-rect{border-width:3px}
+.ly-akad{border-radius:8px;background:#f4ede3;border-color:var(--burgundy)}
+.ly-kompang{border-radius:20px;background:#f3eefa;border-color:#9a86b8}
+.ly-sound{border-radius:6px;background:#3a3a3a;border-color:#222;color:#fff}
+.ly-reg,.ly-gift{border-radius:6px;background:#eef1f7;border-color:#8b9bbb}
+.ly-photo{border-radius:10px;background:#fdeef3;border-color:#d58aa5;border-style:dashed}
+.ly-cake{border-radius:50%;background:#fff6e8;border-color:#d4a85a}
+.ly-it:not(.ly-aisle) b{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+@media (max-width:560px){.ly-add:has(.ly-btns){flex-direction:column;gap:.3rem}.ly-gl-t{padding-top:0}}
+.ad-cicard{display:flex;gap:1rem;align-items:center;justify-content:space-between;border-left:4px solid #2f6a3d}.ad-cicard p{margin:.25rem 0 .4rem;font-size:.85rem;opacity:.85}.ad-cicard code{font-size:.8rem;word-break:break-all;background:var(--parch);padding:.15rem .4rem;border-radius:4px}.ad-cib{display:flex;gap:.4rem;flex:none}
+@media (max-width:560px){.ad-cicard{flex-direction:column;align-items:stretch}}
 </style>
 </head>
 <body class="lock">
@@ -448,14 +462,14 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
 <script>
 /* ===== CONFIG: edit these ===== */
 /* Paste your Google Apps Script Web App URL (ends with /exec). Leave empty for demo mode (data stays in this browser only). */
-const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxeSgF7g80GGvMJTUt5pJhscYAcrAf8fJKb832WMNfvgzbKfw8r93THdWgUM5jdUl1JFQ/exec";
+const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxwCaP7_81U9jZHs8aFgaaZdG5MNF63jTCEDFiJFoHbI8PbyQHLNG_xxMfBHbiFjBr36A/exec";
 const CFG={date:new Date(2027,7,29,10,0,0),
  venue:"Arcum Tent, Majma Mall, Lorong P. Ramlee 5A, 93400 Kuching, Sarawak",
  mapUrl:"https://www.google.com/maps/search/?api=1&query=Arcum+Tent+Majma+Mall+Kuching", /* replace with the exact Google Maps link */
  contacts:[["Mohd Asriq Syazwan","60164607883"],["Mumtaz Nazura","60136155625"]],
  note:{title:"TETAMU YANG DIHORMATI",text:"Jemputan ini adalah terhad kepada bilangan tetamu yang dinyatakan dalam kad digital/RSVP. Mohon jasa baik tuan/puan untuk tidak membawa tambahan tetamu di luar bilangan yang diperuntukan atau berkongsi kad jemputan ini kepada pihak lain tanpa kebenaran kami. Terima kasih atas pengertian dan kerjasama anda."},
  baseUrl:"",   /* your site, e.g. https://name.github.io/repo/ ; blank = this page */
- publicMaxPax:2,   /* pax limit for anyone who RSVPs without an admin link (name not in the guest list) */
+ publicMaxPax:2,targetPax:500 /* anggaran jumlah tetamu majlis */,   /* pax limit for anyone who RSVPs without an admin link (name not in the guest list) */
  adminPassword:"admin2027",KEY:"wedding_guests_v4",WKEY:"wedding_wishes_v1"};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -620,9 +634,11 @@ function thanks(g){const y=g.status==="yes";
 /* Shared header for Admin and Check-in: title, connection status and page tabs */
 const adHead=active=>`<header class="ad-head">
  <div class="ad-brand"><img class="mono sm" src="initial.png" alt="Monogram S &amp; N" onerror="monoFb(this)"><div><h1>${active==="checkin"?"Check-in Tetamu":"Pengurusan Tetamu"}</h1><p>Walimatulurus Syazwan &amp; Nazura · Ahad, 29 OGOS 2027</p></div></div>
- <nav class="ad-tabs" aria-label="Menu">${active==="checkin"?`<button type="button" class="ad-out">Log keluar</button>`:`<a href="#">Lihat kad</a><button type="button" class="ad-out">Log keluar</button>`}</nav>
+ <nav class="ad-tabs" aria-label="Menu">${active==="checkin"?`<button type="button" class="ad-out">Log keluar</button>`:`<a href="checkin.html" target="_blank" rel="noopener">Check-in ↗</a><a href="#">Lihat kad</a><button type="button" class="ad-out">Log keluar</button>`}</nav>
 </header>
 <div id="oldsc"></div><p class="ad-conn ${REMOTE()?"ok":"demo"}"><span></span>${REMOTE()?"Disambung ke Google Sheet: semua perubahan dikongsi dengan pengguna lain":"Mod demo: data disimpan dalam pelayar ini sahaja"}</p>`;
+const ciURL=()=>(CFG.baseUrl||location.href.split(/[?#]/)[0]).replace(/[^/]*$/,"")+"checkin.html";
+const ciCard=()=>`<div class="ad-card ad-cicard"><div><b>Check-in tetamu &amp; nombor meja (hari majlis)</b><p>Petugas di meja pendaftaran buka pautan ini, log masuk dengan kata laluan admin, taip nama tetamu: nombor meja tetamu akan dipaparkan dan tekan <i>Check in</i>.</p><code>${esc(ciURL())}</code></div><div class="ad-cib"><button type="button" class="btn sm ci-cp">Salin pautan</button><a class="btn ghost sm" href="checkin.html" target="_blank" rel="noopener">Buka ↗</a></div></div>`;
 const hdr=()=>adHead("checkin"),modeNote=()=>"";
 const busyFocus=()=>{const a=document.activeElement;return !!window.__dragging||!!(a&&a.classList&&(a.classList.contains("tb")||a.closest&&a.closest("#af, .ly-panel")))||!!document.querySelector(".modal-bg")};
 /* Invitation message for WhatsApp / "Salin mesej". The parents' line follows the guest's side. */
@@ -646,12 +662,27 @@ linkFor(g),"",
 const sideName=x=>x==="L"?"Pihak Lelaki":x==="P"?"Pihak Perempuan":"";
 
 /* ---------- Tabs ---------- */
-const TABS=[["ringkasan","Ringkasan & Senarai"],["lelaki","Pengantin Lelaki"],["perempuan","Pengantin Perempuan"],["meja","Meja & Susun Atur"]];
+const TABS=[["ringkasan","Keseluruhan"],["lelaki","Pengantin Lelaki"],["perempuan","Pengantin Perempuan"],["meja","Meja & Susun Atur"]];
 const tabNow=()=>{const t=(location.hash.split("/")[1]||"ringkasan");return TABS.some(x=>x[0]===t)?t:"ringkasan"};
 
 /* ---------- Table layout (saved in Google Sheet when the script supports it, and always in this browser) ---------- */
 const LKEY="wedding_layout_v1";let layout=null,layoutT=null;
-const LT={round:{l:"Meja bulat",w:8.5,ar:"1",table:1},rect:{l:"Meja panjang",w:14,ar:"2.6",table:1},stage:{l:"Pelamin",w:26,ar:"3.4"},door:{l:"Pintu masuk",w:10,ar:"2.6"},buffet:{l:"Buffet / hidangan",w:18,ar:"3.2"},label:{l:"Label / ruang",w:14,ar:"2.6"}};
+const LT={
+ round:{l:"Meja tetamu (dome)",w:8.5,ar:"1",table:1,seats:10,g:0},
+ rect:{l:"Meja makan pengantin",w:16,ar:"2.8",table:1,seats:8,g:1,base:"Meja Makan Pengantin"},
+ stage:{l:"Pelamin",w:26,ar:"3.4",g:1},
+ aisle:{l:"Laluan pengantin",w:5,ar:"0.12",g:1},
+ akad:{l:"Meja akad nikah",w:13,ar:"2.2",g:1},
+ kompang:{l:"Kompang / persembahan",w:13,ar:"2.4",g:1},
+ sound:{l:"PA system",w:7,ar:"1.4",g:2},
+ reg:{l:"Meja pendaftaran",w:13,ar:"2.6",g:2},
+ gift:{l:"Meja cenderahati",w:12,ar:"2.6",g:2},
+ photo:{l:"Sudut fotografi",w:11,ar:"1.6",g:2},
+ cake:{l:"Meja kek",w:7,ar:"1.3",g:2},
+ buffet:{l:"Buffet (akad pagi)",w:18,ar:"3.2",g:2},
+ door:{l:"Pintu masuk",w:10,ar:"2.6",g:2},
+ label:{l:"Label / ruang lain",w:14,ar:"2.6",g:2}};
+const LG=["Meja tetamu","Pengantin","Majlis & kemudahan"];
 function parseLayout(v){try{const o=typeof v==="string"?JSON.parse(v):v;if(o&&Array.isArray(o.items))return o}catch(e){}return null}
 function getLayout(){if(!layout)layout=parseLayout(window.__layoutRaw)||parseLayout(lsGet(LKEY))||{v:1,items:[]};return layout}
 function saveLayout(){window.__lyDirty=Date.now();lsSet(LKEY,JSON.stringify(layout));clearTimeout(layoutT);const st=$("#lyst");if(st)st.textContent="Menyimpan…";
@@ -675,19 +706,11 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   </div><div id="list" class="ad-list"></div>`;
  let body="";
  if(tab==="ringkasan")body=`
- <details class="ad-help"><summary>Panduan ringkas (klik untuk buka)</summary><ol>
-  <li><b>Tambah tetamu</b> dalam tab <i>Pengantin Lelaki</i> atau <i>Pengantin Perempuan</i>. Setiap pihak boleh mengisi senarai masing-masing.</li>
-  <li><b>Hantar jemputan</b>: tekan <i>WhatsApp</i> pada nama tetamu, atau <i>Salin mesej</i> dan tampal di mana-mana. Nama ibu bapa dalam mesej mengikut pihak tetamu, dan nama, pihak serta had pax akan terisi sendiri dalam borang RSVP tetamu.</li>
-  <li><b>Pantau jawapan</b> dalam tab ini. Data dikemas kini sendiri setiap 15 saat.</li>
-  <li><b>Atur meja</b> dalam tab <i>Meja &amp; Susun Atur</i>: susun pelan dewan dan tetapkan tetamu kepada setiap meja.</li>
-  <li><b>Hari majlis</b>: berikan pautan Check-in kepada petugas di meja pendaftaran. Halaman ini berasingan dan menggunakan kata laluan yang sama.<div class="ad-ci"><code id="cil"></code><button type="button" class="btn sm" id="cic">Salin pautan Check-in</button></div></li></ol></details>
- <section class="ad-sec"><h2 class="ad-h">Ringkasan</h2><div id="sum" class="ad-stats"></div><div id="sides" class="ad-sides"></div></section>
- <section class="ad-sec"><h2 class="ad-h">Mengikut kategori</h2>
-  <p class="ad-note">Klik mana-mana baris untuk melihat senarai tetamu dalam kategori itu. <label class="ad-chk"><input type="checkbox" id="emp"> Tunjuk kategori yang masih kosong</label></p><div id="cats" class="ad-cats"></div></section>
+ <section class="ad-sec">${ciCard()}</section>
+ <section class="ad-sec"><h2 class="ad-h">Status kehadiran</h2><div id="sum" class="ad-stats"></div><div id="sides" class="ad-sides"></div></section>
  <section class="ad-sec" id="lsec"><h2 class="ad-h">Senarai semua tetamu</h2>${toolsHTML(true)}</section>
  <section class="ad-sec ad-foot"><button class="btn" id="exp">Eksport senarai (Excel / CSV)</button><button class="btn ghost" id="rst"></button></section>`;
  else if(SD)body=`
- <section class="ad-sec"><h2 class="ad-h">Ringkasan ${sideTitle}</h2><div id="sum" class="ad-stats"></div></section>
  <section class="ad-sec"><h2 class="ad-h">Tambah tetamu ${sideTitle.toLowerCase()}</h2>
   <form id="af" class="ad-card ad-form" novalidate>
    <label class="f-name">Nama tetamu<input class="inp" name="n" placeholder="Cth. Encik Ali bin Abu" autocomplete="off"></label>
@@ -696,19 +719,20 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    <label><span>Meja <i>(pilihan)</i></span><input class="inp" name="t" list="tbls" placeholder="Boleh ditetapkan kemudian" autocomplete="off"></label>
    <div class="f-act"><button class="btn">Tambah &amp; salin mesej jemputan</button><small>Tetamu akan disimpan sebagai <b>pihak ${sideTitle.toLowerCase()}</b>. Mesej jemputan bersama pautan akan disalin untuk ditampal dalam WhatsApp.</small></div>
   </form></section>
- <section class="ad-sec"><h2 class="ad-h">Mengikut kategori</h2><p class="ad-note">Klik baris untuk menapis senarai di bawah. <label class="ad-chk"><input type="checkbox" id="emp"> Tunjuk kategori yang masih kosong</label></p><div id="cats" class="ad-cats one"></div></section>
- <section class="ad-sec" id="lsec"><h2 class="ad-h">Senarai tetamu ${sideTitle.toLowerCase()}</h2>${toolsHTML(false)}</section>`;
+ <section class="ad-sec"><h2 class="ad-h">Mengikut kategori</h2><p class="ad-note">Jumlah tetamu yang telah diisi bagi setiap kategori. Senarai penuh dan status RSVP boleh dilihat dalam tab Keseluruhan. <label class="ad-chk"><input type="checkbox" id="emp"> Tunjuk kategori yang masih kosong</label></p><div id="cats" class="ad-cats one nolink"></div></section>
+`;
  else body=`
  <div id="lyold"></div>
  <section class="ad-sec"><h2 class="ad-h">Susun atur dewan</h2>
   <p class="ad-note">Tambah meja dan elemen lain, kemudian <b>seret</b> untuk mengubah kedudukan. <b>Klik</b> satu meja untuk menamakan semula, menukar bilangan kerusi atau menetapkan tetamu. Semua perubahan disimpan secara automatik.</p>
   <div class="ad-card ly-tools">
-   <div class="ly-add">${Object.entries(LT).map(([k,v])=>`<button type="button" class="btn ghost sm" data-add="${k}">+ ${v.l}</button>`).join("")}</div>
+   ${LG.map((gl,gi)=>`<div class="ly-add"><span class="ly-gl-t">${gl}</span><div class="ly-btns">${Object.entries(LT).filter(([k,v])=>v.g===gi).map(([k,v])=>`<button type="button" class="btn ghost sm" data-add="${k}">+ ${v.l}</button>`).join("")}</div></div>`).join("")}
    <div class="ly-add"><button type="button" class="btn sm" id="lygen">Jana meja automatik</button><button type="button" class="btn ghost sm" id="lyimp">Tambah meja dari senarai tetamu</button><button type="button" class="btn ghost sm" id="lyclr">Kosongkan pelan</button><span id="lyst" class="ly-st"></span></div>
   </div>
   <div class="ly-wrap"><div class="ly-floor" id="floor" aria-label="Pelan dewan"></div><div id="lypanel" class="ad-card ly-panel"></div></div>
   <p class="ly-legend"><span class="lg ok"></span>Masih ada kerusi <span class="lg full"></span>Penuh <span class="lg over"></span>Melebihi kerusi <span class="ly-lnote">Pax dikira: tetamu hadir mengikut jawapan RSVP, tetamu belum jawab mengikut had pax.</span></p>
  </section>
+ <section class="ad-sec">${ciCard()}</section>
  <section class="ad-sec" id="tprint"><h2 class="ad-h">Senarai mengikut meja <button type="button" class="btn ghost sm" id="prt" style="margin-left:auto">Cetak senarai meja</button></h2><div id="tlist" class="tl-grid"></div></section>`;
  T.innerHTML=`<div class="ad">`+adHead("admin")+nav+body+`<datalist id="tbls"></datalist><datalist id="catl"></datalist></div>`;
 
@@ -718,7 +742,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
  const tableNames=()=>[...new Set([...layoutTables().map(i=>i.name),...guests.map(g=>g.table).filter(Boolean)])].sort(natSort);
  const oldBanner=()=>{const ob=$("#oldsc");if(ob)ob.innerHTML=REMOTE()&&window.__sv!==undefined&&window.__sv<3?`<div class="ad-old"><b>Skrip Google Sheet belum dikemas kini.</b> Pihak, kategori dan had pax tidak disimpan dalam Sheet, jadi pautan tetamu tidak dapat memilih pihak secara automatik.<br>Buka Google Sheet &gt; Extensions &gt; Apps Script, tampal kod <b>Code.gs</b> yang terkini, Save, kemudian Deploy &gt; Manage deployments &gt; ✎ Edit &gt; Version: <b>New version</b> &gt; Deploy.</div>`:""};
  const statsHTML=G=>{const y=G.filter(g=>g.status==="yes"),no=G.filter(g=>g.status==="no"),pe=G.filter(g=>g.status==="pending");
-  return [["Jumlah jemputan",G.length,"tetamu",sumMax(G)+" pax dijemput",""],["Sah hadir",sumPax(y),"pax",y.length+" tetamu menjawab hadir","yes"],["Tidak hadir",no.length,"tetamu","",""],["Belum jawab",pe.length,"tetamu",sumMax(pe)+" pax belum disahkan","wait"]]
+  return [["Jumlah jemputan",G.length,"tetamu",sumMax(G)+(SD?"":" / "+CFG.targetPax)+" pax dijemput",""],["Sah hadir",sumPax(y),"pax",y.length+" tetamu menjawab hadir","yes"],["Tidak hadir",no.length,"tetamu","",""],["Belum jawab",pe.length,"tetamu",sumMax(pe)+" pax belum disahkan","wait"]]
    .map(s=>`<div class="ad-stat ${s[4]}"><p>${s[0]}</p><b>${s[1]}<small> ${s[2]}</small></b><span>${s[3]}</span></div>`).join("")};
  const catCard=(sd,head)=>{const G=guests.filter(g=>g.side===sd);const list=catsFor(sd);if(G.some(g=>!g.cat))list.push("");
   const rows=list.map(c=>{const A=G.filter(g=>(g.cat||"")===c);if(!A.length&&(!showEmpty||!CATS[sd].includes(c)))return"";const Y=A.filter(g=>g.status==="yes");
@@ -733,7 +757,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   </article>`;
 
  /* ---- Guest-list tabs (1, 2, 3) ---- */
- function drawList(){
+ function drawList(){if(!$("#list"))return;
   const base=SD?guests.filter(g=>g.side===SD):guests;
   const q=$("#q").value.trim().toLowerCase(),sdF=$("#fsd")?$("#fsd").value:"all",ctF=$("#fct").value,fs=$("#fs").value,ft=$("#ft").value;
   const R=base.filter(g=>(sdF==="all"||(sdF==="none"?!g.side:g.side===sdF))&&(ctF==="all"||(ctF==="none"?!g.cat:g.cat===ctF))&&(fs==="all"||g.status===fs)&&(ft==="all"||(ft==="none"?!g.table:g.table===ft))&&g.name.toLowerCase().includes(q)).sort((a,b)=>a.name.localeCompare(b.name));
@@ -741,14 +765,13 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   $("#cnt").textContent=filtered?`Menunjukkan ${R.length} daripada ${base.length} tetamu`:`${base.length} tetamu`;$("#clr").hidden=!filtered;
   $("#list").innerHTML=R.length?R.map(guestCard).join(""):`<div class="ad-card ad-empty">${base.length?"Tiada tetamu sepadan dengan carian atau penapis.":SD?"Belum ada tetamu pihak ini. Tambah tetamu pertama di atas.":"Belum ada tetamu. Tambah tetamu dalam tab Pengantin Lelaki atau Pengantin Perempuan."}</div>`}
  function drawGuests(){oldBanner();
-  if(SD)$("#sum").innerHTML=statsHTML(guests.filter(g=>g.side===SD));
-  else{$("#sum").innerHTML=statsHTML(guests);
+  if(!SD){$("#sum").innerHTML=statsHTML(guests);
    $("#sides").innerHTML=["L","P"].map(sd=>{const G=guests.filter(g=>g.side===sd),Y=G.filter(g=>g.status==="yes"),inv=sumMax(G),pct=inv?Math.round(sumPax(Y)/inv*100):0;
     return `<a class="ad-card ad-side" href="#admin/${sd==="L"?"lelaki":"perempuan"}"><div class="ad-side-t"><b>Pihak Pengantin ${sd==="L"?"Lelaki":"Perempuan"}</b><span>${G.length} tetamu dijemput ›</span></div>
      <div class="ad-bar" role="img" aria-label="${pct}% hadir"><i style="width:${pct}%"></i></div>
      <div class="ad-side-n"><span><b>${sumPax(Y)}</b> / ${inv} pax hadir</span><span>${G.filter(g=>g.status==="pending").length} belum jawab · ${G.filter(g=>g.status==="no").length} tidak hadir</span></div></a>`}).join("")
     +(guests.some(g=>!g.side)?`<p class="ad-warn">${guests.filter(g=>!g.side).length} tetamu belum ditetapkan pihak. Tapis "Pihak: Belum ditetapkan" dalam senarai di bawah dan tekan Edit untuk menetapkannya.</p>`:"")}
-  $("#cats").innerHTML=SD?catCard(SD,false):["L","P"].map(sd=>catCard(sd,true)).join("");
+  if($("#cats"))$("#cats").innerHTML=SD?catCard(SD,false):["L","P"].map(sd=>catCard(sd,true)).join("");
   const sdF=$("#fsd")?$("#fsd").value:SD;
   fill($("#fct"),`<option value="all">Semua</option><option value="none">Tiada kategori</option>`+catsFor(sdF==="L"||sdF==="P"?sdF:"").map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join(""));
   fill($("#ft"),`<option value="all">Semua</option><option value="none">Belum ditetapkan</option>`+tableNames().map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join(""));
@@ -761,11 +784,11 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
  const occClass=(n,s)=>!s?"":n>s?"over":n===s?"full":"ok";
  function drawFloor(){const L=getLayout(),F=$("#floor");
   F.innerHTML=L.items.length?L.items.map(i=>{const t=LT[i.type]||LT.label,o=t.table?occ(i.name):0;
-   return `<div class="ly-it ly-${i.type} ${t.table?occClass(o,+i.seats||0):""} ${sel===i.id?"sel":""}" data-id="${i.id}" style="left:${i.x}%;top:${i.y}%;width:${t.w}%;aspect-ratio:${t.ar}" tabindex="0" role="button" aria-label="${esc(i.name)}"><b>${esc(i.name)}</b>${t.table?`<span>${o}/${+i.seats||0}</span>`:""}</div>`}).join("")
+   return `<div class="ly-it ly-${i.type} ${t.table?occClass(o,+i.seats||0):""} ${sel===i.id?"sel":""}" data-id="${i.id}" style="left:${i.x}%;top:${i.y}%;width:${i.type==="round"?+(t.w*(L.ts||1)).toFixed(2):t.w}%;aspect-ratio:${t.ar};transform:translate(-50%,-50%) rotate(${+i.r||0}deg)" tabindex="0" role="button" aria-label="${esc(i.name)}"><b>${esc(i.name)}</b>${t.table?`<span>${o}/${+i.seats||0}</span>`:""}</div>`}).join("")
    :`<div class="ly-empty">Pelan masih kosong.<br>Tekan <b>Jana meja automatik</b> untuk bermula, atau tambah meja satu per satu.</div>`}
  function drawPanel(){const P=$("#lypanel"),L=getLayout(),it=L.items.find(i=>i.id===sel);
   if(!it){P.innerHTML=`<h3>Butiran</h3><p class="ad-note" style="margin:.5rem 0 0">Klik mana-mana meja pada pelan untuk melihat dan menetapkan tetamu.</p>
-   <div class="ly-sum">${(()=>{const T=layoutTables(),seats=T.reduce((t,i)=>t+(+i.seats||0),0),A=guests.filter(g=>g.status!=="no"),un=A.filter(g=>!g.table);return `<div><b>${T.length}</b><span>meja</span></div><div><b>${seats}</b><span>kerusi</span></div><div><b>${A.reduce((t,g)=>t+expPax(g),0)}</b><span>pax dijangka</span></div><div><b>${un.length}</b><span>tetamu belum ada meja</span></div>`})()}</div>`;return}
+   <div class="ly-sum">${(()=>{const T=layoutTables(),seats=T.reduce((t,i)=>t+(+i.seats||0),0),A=guests.filter(g=>g.status!=="no"),un=A.filter(g=>!g.table);return `<div><b>${T.length}</b><span>meja</span></div><div><b>${seats}</b><span>kerusi (sasaran ${CFG.targetPax} pax)</span></div><div><b>${A.reduce((t,g)=>t+expPax(g),0)}</b><span>pax dijangka</span></div><div><b>${un.length}</b><span>tetamu belum ada meja</span></div>`})()}</div>`;return}
   const t=LT[it.type]||LT.label,G=guests.filter(g=>t.table&&g.table===it.name).sort((a,b)=>a.name.localeCompare(b.name)),o=occ(it.name);
   const free=guests.filter(g=>g.status!=="no"&&!g.table).sort((a,b)=>(a.side||"Z").localeCompare(b.side||"Z")||a.name.localeCompare(b.name));
   P.innerHTML=`<div class="ly-ph"><h3>${esc(t.l)}</h3><button type="button" class="ad-link" id="lyx">Tutup</button></div>
@@ -776,7 +799,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    ${t.table?`<p class="ly-occ ${occClass(o,+it.seats||0)}"><b>${o}</b> / ${+it.seats||0} pax ${o>(+it.seats||0)?"· melebihi kerusi!":""}</p>
    <div class="ly-gl">${G.length?G.map(g=>`<div class="ly-gr" data-id="${esc(g.id)}"><span><b>${esc(g.name)}</b><small>${expPax(g)} pax · ${SL[g.status]}${g.side?" · "+sideName(g.side):""}</small></span><button type="button" class="ad-link ly-rm" title="Keluarkan dari meja">Keluarkan</button></div>`).join(""):`<p class="ad-note" style="margin:0">Belum ada tetamu di meja ini.</p>`}</div>
    <label class="ly-addg">Tambah tetamu ke meja ini<select class="inp" id="lyg"><option value="">${free.length?"Pilih tetamu yang belum ada meja…":"Semua tetamu sudah ada meja"}</option>${["L","P",""].map(sd=>{const A=free.filter(g=>(g.side||"")===sd);return A.length?`<optgroup label="${sd?"Pihak "+(sd==="L"?"Lelaki":"Perempuan"):"Tiada pihak"}">${A.map(g=>`<option value="${esc(g.id)}">${esc(g.name)} (${expPax(g)} pax)</option>`).join("")}</optgroup>`:""}).join("")}</select></label>`:""}
-   <div class="ly-pa"><button type="button" class="btn ghost sm" id="lydup">Salin item ini</button><button type="button" class="btn ghost sm ly-del" id="lydel">Padam dari pelan</button></div>`;
+   <div class="ly-pa">${i_round(it)?"":`<button type="button" class="btn ghost sm" id="lyrot">Putar 90°</button>`}<button type="button" class="btn ghost sm" id="lydup">Salin item ini</button><button type="button" class="btn ghost sm ly-del" id="lydel">Padam dari pelan</button></div>`;
   $("#lyx").onclick=()=>{sel=null;drawMeja()};
   $("#lyf").onsubmit=e=>e.preventDefault();
   $("#lyf [name=nm]").onchange=async e=>{const nv=e.target.value.trim(),old=it.name;if(!nv||nv===old){e.target.value=old;return}
@@ -787,8 +810,10 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   const st=$("#lyf [name=st]");if(st)st.onchange=e=>{it.seats=Math.max(1,Math.min(40,+e.target.value||10));saveLayout();drawMeja()};
   const gs=$("#lyg");if(gs)gs.onchange=async e=>{const g=guests.find(x=>x.id===e.target.value);if(!g)return;try{await act("table",{name:g.name,table:it.name});toast(g.name+" → "+it.name)}catch(err){toast("Ralat: "+err.message)}drawMeja()};
   $$(".ly-rm",P).forEach(b=>b.onclick=async()=>{const g=guests.find(x=>x.id===b.closest(".ly-gr").dataset.id);if(!g)return;try{await act("table",{name:g.name,table:""});toast(g.name+" dikeluarkan dari "+it.name)}catch(err){toast("Ralat: "+err.message)}drawMeja()});
+  const rb=$("#lyrot");if(rb)rb.onclick=()=>{it.r=((+it.r||0)+90)%360;saveLayout();drawMeja()};
   $("#lydup").onclick=()=>{const n={...it,id:uid(),x:Math.min(96,it.x+4),y:Math.min(96,it.y+4),name:nextName(it)};L.items.push(n);sel=n.id;saveLayout();drawMeja()};
   $("#lydel").onclick=()=>{const M=t.table?guests.filter(g=>g.table===it.name):[];if(!confirm(`Padam "${it.name}" dari pelan?`+(M.length?`\n${M.length} tetamu di meja ini akan kekal dengan nama meja tersebut (boleh ditukar kemudian).`:"")))return;L.items=L.items.filter(x=>x!==it);sel=null;saveLayout();drawMeja()}}
+ const i_round=it=>it.type==="round";
  const nextName=it=>{const L=getLayout(),m=/^(.*?)(\d+)$/.exec(it.name);if(m){let k=+m[2]+1;while(L.items.some(x=>x.name===m[1]+k))k++;return m[1]+k}let k=2;while(L.items.some(x=>x.name===it.name+" "+k))k++;return it.name+" "+k};
  function drawTList(){const names=tableNames(),by=n=>guests.filter(g=>g.table===n).sort((a,b)=>a.name.localeCompare(b.name));
   const seatsOf=n=>{const i=layoutTables().find(x=>x.name===n);return i?+i.seats||0:0};
@@ -801,6 +826,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   const lo=$("#lyold");if(lo)lo.innerHTML=REMOTE()&&(window.__sv||0)<4?`<div class="ad-old">Skrip Google Sheet belum menyokong susun atur meja, jadi pelan ini disimpan dalam <b>pelayar ini sahaja</b>. Kemas kini <b>Code.gs</b> (Deploy &gt; Manage deployments &gt; Edit &gt; New version) supaya pelan dikongsi dengan semua admin.</div>`:"";
   drawFloor();drawPanel();drawTList()}
 
+ $$(".ci-cp").forEach(b=>b.onclick=()=>copy(ciURL(),"Pautan Check-in disalin"));
  const draw=tab==="meja"?drawMeja:drawGuests;
  refresh=draw;draw();
  loadAdmin().then(draw).catch(err=>toast("Gagal memuatkan data: "+err.message));
@@ -809,31 +835,33 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
 
  if(tab==="meja"){
   const F=$("#floor"),L=()=>getLayout();
-  const addItem=(type,extra)=>{const t=LT[type],n=L().items.length,base=t.table?(type==="rect"?"Meja Panjang ":"Meja "):t.l;
-   let name=t.table?base+(L().items.filter(i=>LT[i.type]&&LT[i.type].table).length+1):base;while(L().items.some(i=>i.name===name))name=t.table?base+(+(/\d+$/.exec(name)||[0])[0]+1):name+" 2";
-   const it={id:uid(),type,name,seats:t.table?10:0,x:50+((n%5)-2)*5,y:50+((Math.floor(n/5)%3)-1)*8,...extra};L().items.push(it);return it};
+  const addItem=(type,extra)=>{const t=LT[type],n=L().items.length;let name;
+   if(type==="round"){let k=L().items.filter(i=>i.type==="round").length+1;while(L().items.some(i=>i.name==="Meja "+k))k++;name="Meja "+k}
+   else{const b=t.base||t.l.replace(/ \(.*\)$/,"");name=b;let k=2;while(L().items.some(i=>i.name===name))name=b+" "+(k++)}
+   const it={id:uid(),type,name,seats:t.table?t.seats:0,x:50+((n%5)-2)*5,y:50+((Math.floor(n/5)%3)-1)*8,...extra};L().items.push(it);return it};
   $$("[data-add]").forEach(b=>b.onclick=()=>{const it=addItem(b.dataset.add);sel=it.id;saveLayout();drawMeja()});
   $("#lyclr").onclick=()=>{if(!L().items.length)return;if(confirm("Kosongkan seluruh pelan? Tetamu tetap kekal dengan nama meja masing-masing.")){L().items=[];sel=null;saveLayout();drawMeja()}};
   $("#lyimp").onclick=()=>{const have=new Set(L().items.map(i=>i.name)),miss=[...new Set(guests.map(g=>g.table).filter(t=>t&&!have.has(t)))].sort(natSort);
    if(!miss.length){toast("Semua meja dalam senarai tetamu sudah ada pada pelan");return}
    miss.forEach((nm,k)=>L().items.push({id:uid(),type:"round",name:nm,seats:10,x:10+(k%8)*11.4,y:88-Math.floor(k/8)*13}));saveLayout();drawMeja();toast(miss.length+" meja ditambah. Seret ke kedudukan yang betul.")};
   $("#lygen").onclick=()=>{const m=modal(`<h2>Jana meja automatik</h2><p style="font-size:.95rem;margin:.4rem 0 .8rem">Meja akan disusun dalam barisan. Anda boleh seret dan ubah suai selepas itu.</p><form id="gf" class="ad-form ad-form-m" novalidate>
-    <label>Bilangan meja<input class="inp" name="n" type="number" min="1" max="120" value="${Math.max(1,Math.ceil(guests.filter(g=>g.status!=="no").reduce((t,g)=>t+expPax(g),0)/10))||10}"></label>
+    <label>Bilangan meja<input class="inp" name="n" type="number" min="1" max="120" value="${Math.ceil(CFG.targetPax/10)}"></label>
     <label>Kerusi setiap meja<input class="inp" name="s" type="number" min="1" max="40" value="10"></label>
-    <label>Jenis meja<select class="inp" name="t"><option value="round">Meja bulat</option><option value="rect">Meja panjang</option></select></label>
     <label>Nama meja bermula<input class="inp" name="p" value="Meja "></label>
-    <label class="f-name ad-chk" style="flex-direction:row;font-weight:500"><input type="checkbox" name="st" checked> Tambah pelamin di hadapan dan pintu masuk di belakang</label>
+    <label class="f-name ad-chk" style="flex-direction:row;font-weight:500"><input type="checkbox" name="st" checked> Tambah pelamin, laluan pengantin, meja makan pengantin, PA system dan pintu masuk</label>
     <label class="f-name ad-chk" style="flex-direction:row;font-weight:500"><input type="checkbox" name="rp" ${L().items.length?"":"checked"}> Gantikan pelan sedia ada</label>
     <div class="f-act"><button class="btn">Jana</button><button type="button" class="btn ghost" id="gx">Batal</button></div></form>`);
    $("#gx",m).onclick=()=>m.remove();
-   $("#gf",m).onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),n=Math.max(1,Math.min(120,+f.get("n")||10)),s=Math.max(1,Math.min(40,+f.get("s")||10)),ty=f.get("t"),pre=f.get("p")||"Meja ";
+   $("#gf",m).onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),n=Math.max(1,Math.min(120,+f.get("n")||10)),s=Math.max(1,Math.min(40,+f.get("s")||10)),ty="round",pre=f.get("p")||"Meja ";
     if(f.get("rp"))L().items=[];
-    const top=f.get("st")?24:8,bottom=f.get("st")?84:94,cols=Math.min(n,ty==="rect"?5:8),rows=Math.ceil(n/cols);
-    if(f.get("st")){L().items.push({id:uid(),type:"stage",name:"Pelamin",x:50,y:9});L().items.push({id:uid(),type:"door",name:"Pintu masuk",x:50,y:95})}
-    let k=1;for(let r=0;r<rows;r++)for(let c=0;c<cols&&k<=n;c++,k++){const inRow=Math.min(cols,n-r*cols),xs=inRow===1?[50]:Array.from({length:inRow},(_,j)=>8+j*(84/(inRow-1)));
+    const top=f.get("st")?24:8,bottom=f.get("st")?84:94,cols=Math.min(n,n<=16?8:n<=60?10:12),rows=Math.ceil(n/cols);
+    const st=!!f.get("st");if(st)[["stage","Pelamin",50,9,0],["aisle","Laluan pengantin",50,55,0],["rect","Meja Makan Pengantin",83,9,8],["sound","PA system",14,9,0],["door","Pintu masuk",50,95,0]].forEach(([type,name,x,y,seats])=>L().items.push({id:uid(),type,name,x,y,seats}));
+    const spread=(a,b,c)=>c===1?[(a+b)/2]:Array.from({length:c},(_,j)=>a+j*(b-a)/(c-1));
+    let k=1;for(let r=0;r<rows;r++)for(let c=0;c<cols&&k<=n;c++,k++){const inRow=Math.min(cols,n-r*cols),xs=st?(()=>{const h=Math.ceil(inRow/2);return [...spread(7,41,h),...(inRow-h?spread(59,93,inRow-h):[])]})():(inRow===1?[50]:spread(8,92,inRow));
      let nm=pre+k;while(L().items.some(i=>i.name===nm))nm+="*";
      L().items.push({id:uid(),type:ty,name:nm,seats:s,x:+xs[c].toFixed(1),y:+(rows===1?(top+bottom)/2:top+r*((bottom-top)/(rows-1))).toFixed(1)})}
-    m.remove();sel=null;saveLayout();drawMeja();toast(n+" meja dijana")}};
+    { const hx=(st?34:84)/Math.max(1,(st?Math.ceil(cols/2):cols)-1),vy=rows>1?(bottom-top)/(rows-1)/1.6:99; L().ts=+Math.min(1,hx*.85/8.5,vy*.85/8.5).toFixed(2) }
+    m.remove();sel=null;saveLayout();drawMeja();toast(n+" meja dijana ("+n*s+" kerusi)")}};
   /* drag to move, click to select */
   F.onpointerdown=e=>{const el=e.target.closest(".ly-it");if(!el)return;const it=L().items.find(i=>i.id===el.dataset.id);if(!it)return;
    e.preventDefault();const r=F.getBoundingClientRect(),sx=e.clientX,sy=e.clientY,ox=it.x,oy=it.y;let moved=false;window.__dragging=1;try{el.setPointerCapture(e.pointerId)}catch(x){}
@@ -849,11 +877,11 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   return}
 
  /* ---- shared handlers for guest-list tabs ---- */
- const ciU=$("#cil");if(ciU){const ciUrl=(CFG.baseUrl||location.href.split(/[?#]/)[0]).replace(/[^/]*$/,"")+"checkin.html";ciU.textContent=ciUrl;$("#cic").onclick=()=>copy(ciUrl,"Pautan Check-in disalin")}
+
  if($("#rst")){$("#rst").textContent=REMOTE()?"Muat semula data dari Google Sheet":"Set semula data demo";
   $("#rst").onclick=()=>{if(REMOTE()){loadAdmin().then(()=>{draw();toast("Data dikemas kini dari Google Sheet")}).catch(err=>toast("Ralat: "+err.message));return}
    if(confirm("Ganti semua data dengan data demo?")){guests=seed();wishes=seedWishes();save();draw()}}}
- const Ls=$("#list"),gOf=el=>{const r=el.closest("[data-id]");return r?guests.find(x=>x.id===r.dataset.id):null};
+ const Ls=$("#list")||document.createElement("div"),gOf=el=>{const r=el.closest("[data-id]");return r?guests.find(x=>x.id===r.dataset.id):null};
  Ls.onclick=async e=>{const b=e.target.closest("button");if(!b)return;const g=gOf(b);if(!g){toast("Ralat: tetamu tidak dijumpai. Muat semula halaman.");return}
   try{
    if(b.classList.contains("cp"))copy(linkFor(g),"Pautan "+g.name+" disalin");
@@ -884,12 +912,12 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   try{await act("add",{name:n,pax:max,table:f.get("t").trim(),side:SD,cat:(f.get("c")||"").trim()});
    const msg=waText({name:n,side:SD,max});const keepCat=e.target.c.value;e.target.n.value="";e.target.p.value=1;e.target.t.value="";e.target.c.value=keepCat;draw();copy(msg,"✓ "+n+" ditambah. Mesej jemputan & pautan disalin.");e.target.n.focus()}
   catch(err){toast("Ralat: "+err.message)}};
- $("#q").oninput=drawList;["#fsd","#fct","#fs","#ft"].forEach(s=>{const el=$(s);if(el)el.onchange=s==="#fsd"?drawGuests:drawList});
- $("#emp").onchange=e=>{showEmpty=e.target.checked;drawGuests()};
- $("#clr").onclick=()=>{$("#q").value="";["#fsd","#fct","#fs","#ft"].forEach(s=>{const el=$(s);if(el)el.value="all"});drawGuests()};
+ if($("#q"))$("#q").oninput=drawList;["#fsd","#fct","#fs","#ft"].forEach(s=>{const el=$(s);if(el)el.onchange=s==="#fsd"?drawGuests:drawList});
+ if($("#emp"))$("#emp").onchange=e=>{showEmpty=e.target.checked;drawGuests()};
+ if($("#clr"))$("#clr").onclick=()=>{$("#q").value="";["#fsd","#fct","#fs","#ft"].forEach(s=>{const el=$(s);if(el)el.value="all"});drawGuests()};
  const goCat=r=>{if($("#fsd"))$("#fsd").value=r.dataset.sd;drawGuests();$("#fct").value=r.dataset.c||"none";$("#fs").value="all";$("#ft").value="all";$("#q").value="";drawList();$("#lsec").scrollIntoView({behavior:"smooth"})};
- $("#cats").onclick=e=>{const r=e.target.closest(".ctr");if(r)goCat(r)};
- $("#cats").onkeydown=e=>{const r=e.target.closest(".ctr");if(r&&(e.key==="Enter"||e.key===" ")){e.preventDefault();goCat(r)}};
+ if($("#cats")&&$("#lsec")){$("#cats").onclick=e=>{const r=e.target.closest(".ctr");if(r)goCat(r)};
+ $("#cats").onkeydown=e=>{const r=e.target.closest(".ctr");if(r&&(e.key==="Enter"||e.key===" ")){e.preventDefault();goCat(r)}}}
  if($("#exp"))$("#exp").onclick=()=>{const qt=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
   const csv=[["Nama Jemputan","Berapa Pax","Had Pax","RSVP","Pihak","Kategori","Nombor Meja","Pautan","Masa Check-in"].join(",")].concat(guests.map(g=>[g.name,g.status==="yes"?g.pax:"",g.max,SL[g.status],SIDE[g.side]||"",g.cat,g.table,linkFor(g),g.arrived?new Date(g.arrived).toLocaleString():""].map(qt).join(","))).join("\n");
   const m=modal(`<h2>Eksport senarai tetamu</h2><p style="font-size:1rem">Muat turun fail CSV (boleh dibuka dalam Excel atau Google Sheets), atau salin teks di bawah.</p><textarea class="inp" rows="7" readonly style="font-family:monospace;font-size:.75rem;text-align:left">${esc(csv)}</textarea><div class="flex gap-2 mt-3" style="flex-wrap:wrap"><button class="btn" id="dc">Muat turun CSV</button><button class="btn ghost" id="cp">Salin teks</button><button class="btn ghost" id="cl">Tutup</button></div>`);
