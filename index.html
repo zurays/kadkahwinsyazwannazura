@@ -468,7 +468,7 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
 <script>
 /* ===== CONFIG: edit these ===== */
 /* Paste your Google Apps Script Web App URL (ends with /exec). Leave empty for demo mode (data stays in this browser only). */
-const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbwwK-apBGhRPGmkn5XjNQJfOIPofHNvgETbau2GoC6j-XqkHGC-5PWLtZ2rr3ysiIB1EQ/exec";
+const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxwCaP7_81U9jZHs8aFgaaZdG5MNF63jTCEDFiJFoHbI8PbyQHLNG_xxMfBHbiFjBr36A/exec";
 const CFG={date:new Date(2027,7,29,10,0,0),
  venue:"Arcum Tent, Majma Mall, Lorong P. Ramlee 5A, 93400 Kuching, Sarawak",
  mapUrl:"https://www.google.com/maps/search/?api=1&query=Arcum+Tent+Majma+Mall+Kuching", /* replace with the exact Google Maps link */
@@ -650,23 +650,17 @@ const busyFocus=()=>{const a=document.activeElement;return !!window.__dragging||
 /* Invitation message for WhatsApp / "Salin mesej". The parents' line follows the guest's side. */
 const PARENTS={L:"*Haji Abdellah Bin Nahrawi & Hajjah Saerah Binti Sarbini*",P:"*Yusof Bin Ahmad & Selamah Binti Abang Abu Bakar*"};
 const waText=g=>[
-"✨ *UNDANGAN WALIMATUL URUS* ✨",
-"Assalamualaikum & Salam Sejahtera","",
-"Dengan penuh kesyukuran ke hadrat Ilahi, kami","",
-g.side==="L"||g.side==="P"?PARENTS[g.side]:PARENTS.L+"\nserta\n"+PARENTS.P,"",
-"dengan setulus hati ingin menjemput Tuan/Puan/Encik/Cik","",
-"*"+g.name+"*","",
-"ke majlis perkahwinan anakanda kami","",
-"🤵🏻‍♂️ *Mohd Asriq Syazwan & Mumtaz Nazura* 👰🏻‍♀️","",
-"🗓️ AHAD | 29 OGOS 2027","",
-"⛺️ Arcum Tent, Majma Mall","Lorong P. Ramlee 5A, 93400 Kuching, Sarawak","",
-"⏰ 10 Pagi","",
-"Disertakan kad jemputan digital",
-linkFor(g),"",
-"Mohon sahkan kehadiran Tuan/Puan pada ruangan RSVP bagi tujuan kelancaran majlis.",
-"_______________________________________","",
-"Semoga dengan kehadiran Tuan/Puan akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT hendaknya. InshaaAllah Aamiin.","",
-"Terima Kasih."].join("\n");
+"✨ *JEMPUTAN KE MAJLIS WALIMATUL URUS* ✨","",
+"Assalamualaikum warahmatullahi wabarakatuh dan Salam Sejahtera.","",
+"Dengan penuh rasa kesyukuran ke hadrat Allah SWT, "+(g.side==="L"||g.side==="P"?PARENTS[g.side]:PARENTS.L+" serta "+PARENTS.P)+" dengan segala hormatnya menjemput Tuan / Puan / Encik / Cik *"+g.name+"* untuk hadir menyerikan Majlis Walimatul Urus:","",
+"🤍 *Mohd Asriq Syazwan & Mumtaz Nazura* 🤍","",
+"Butiran majlis adalah seperti berikut:","",
+"🗓️ Tarikh: Ahad, 29 Ogos 2027",
+"⏰ Masa: 10.00 pagi",
+"📍 Tempat: Arcum Tent, Majma Mall, Lorong P. Ramlee 5A, 93400 Kuching, Sarawak","",
+"Bersama-sama ini disertakan pautan kad jemputan digital bagi tujuan rujukan lokasi serta pengesahan kehadiran (RSVP):",
+"🔗 "+linkFor(g),"",
+"Kehadiran serta iringan doa restu daripada pihak Tuan/Puan amatlah kami hargai dan didahului dengan ucapan ribuan terima kasih. 🙏"].join("\n");
 const sideName=x=>x==="L"?"Pihak Lelaki":x==="P"?"Pihak Perempuan":"";
 
 /* ---------- Tabs ---------- */
