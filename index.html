@@ -211,7 +211,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 /* ===== Admin layout (own styles, independent of Tailwind) ===== */
 #tool{font-family:'Montserrat',system-ui,sans-serif;color:#3a1418}
-.ad{max-width:480px;margin:0 auto;container:adm/inline-size} /* admin uses the phone layout on every screen */
+.ad{max-width:1080px;margin:0 auto}
 .ad-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-bottom:1rem;border-bottom:1px solid var(--taupe-l)}
 .ad-brand{display:flex;align-items:center;gap:.8rem}.ad-brand h1{font-size:1.25rem!important;letter-spacing:.06em!important}.ad-brand p{margin:.15rem 0 0;font-size:.85rem;opacity:.75}
 .ad-tabs{display:flex;gap:.3rem;flex-wrap:wrap;background:#fff;border:1px solid var(--taupe-l);border-radius:999px;padding:.25rem}
@@ -232,7 +232,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .ad-cip .ad-tabs{width:auto!important}
 .ad-cip #st{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem;text-align:center}
 .ad-cip #st>div{padding:.2rem 0}.ad-cip #st b{display:block;font-size:1.7rem!important;line-height:1.1}.ad-cip #st div div{font-size:.72rem!important;line-height:1.25;opacity:.8}
-@container adm (max-width:560px){.ad-cip .ad-head{flex-direction:row;align-items:center}.ad-cip .ad-brand h1{font-size:1.05rem!important}}
+@media (max-width:560px){.ad-cip .ad-head{flex-direction:row;align-items:center}.ad-cip .ad-brand h1{font-size:1.05rem!important}}
 .ad-warn{grid-column:1/-1;margin:0;padding:.6rem .9rem;border-radius:8px;background:#fbf0dc;color:#7a4b0c;font-size:.88rem}
 /* stats */
 .ad-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem}
@@ -283,8 +283,8 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .ad-g-act .dl{margin-left:auto;color:#8a2a1f;border-color:#e3c3bd}
 .ad-empty{text-align:center;padding:1.6rem;opacity:.8}
 .ad-foot{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;padding:1rem 0 1rem;border-top:1px solid var(--taupe-l)}
-@container adm (max-width:820px){.ad-stats{grid-template-columns:1fr 1fr}.ad-sides,.ad-cats{grid-template-columns:minmax(0,1fr)}.ad-form{grid-template-columns:1fr 1fr}.ad-filters{grid-template-columns:1fr 1fr}}
-@container adm (max-width:560px){.ad-head{flex-direction:column;align-items:flex-start}.ad-tabs{width:100%;justify-content:space-between}.ad-tabs a,.ad-tabs button{padding:.45rem .7rem;font-size:.8rem}
+@media (max-width:820px){.ad-stats{grid-template-columns:1fr 1fr}.ad-sides,.ad-cats{grid-template-columns:minmax(0,1fr)}.ad-form{grid-template-columns:1fr 1fr}.ad-filters{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.ad-head{flex-direction:column;align-items:flex-start}.ad-tabs{width:100%;justify-content:space-between}.ad-tabs a,.ad-tabs button{padding:.45rem .7rem;font-size:.8rem}
  .ad-t{font-size:.78rem}.ad-t th,.ad-t td{padding:.4rem .2rem}.ad-t td:first-child{min-width:0}.ad-t th{font-size:.66rem;letter-spacing:0}.ad-card{padding:.9rem .8rem}
  .ad-form{grid-template-columns:1fr}.ad-g{grid-template-columns:1fr auto;grid-template-areas:"main pax" "tb tb" "act act"}.ad-g-act .dl{margin-left:0}.ad-stat b{font-size:1.6rem}}
 /* admin tabs */
@@ -332,8 +332,8 @@ a.ad-side{color:inherit;text-decoration:none;display:block}a.ad-side:hover{borde
 .tl-c ol{margin:.5rem 0 0;padding-left:1.2rem;font-size:.88rem}.tl-c li{margin:.2rem 0}.tl-c li small{display:block;font-size:.72rem;opacity:.65}
 .tl-ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.4rem;margin-top:.5rem}.tl-s{max-width:150px;padding:.35rem .5rem!important;font-size:.85rem!important}
 #tprint .ad-h{display:flex;align-items:center}
-@container adm (max-width:900px){.ly-wrap{grid-template-columns:minmax(0,1fr)}}
-@container adm (max-width:560px){.ad-tabbar{display:grid;grid-template-columns:1fr 1fr;overflow:visible}.ad-tabbar a{padding:.55rem .6rem;font-size:.8rem;gap:.4rem}.ad-form .f-2{grid-column:auto}.ad-filters.f3{grid-template-columns:1fr 1fr}.ly-it{font-size:max(7px,1.6cqw)}.ly-st{flex-basis:100%;margin-left:0}}
+@media (max-width:900px){.ly-wrap{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.ad-tabbar{display:grid;grid-template-columns:1fr 1fr;overflow:visible}.ad-tabbar a{padding:.55rem .6rem;font-size:.8rem;gap:.4rem}.ad-form .f-2{grid-column:auto}.ad-filters.f3{grid-template-columns:1fr 1fr}.ly-it{font-size:max(7px,1.6cqw)}.ly-st{flex-basis:100%;margin-left:0}}
 @media print{body.print-tl>*:not(#tool){display:none!important}body.print-tl #tool{padding:0!important;background:#fff!important}body.print-tl .ad>*:not(#tprint){display:none!important}body.print-tl #prt,body.print-tl .tl-s{display:none!important}body.print-tl .tl-grid{grid-template-columns:repeat(3,1fr)}body.print-tl .ad-card{break-inside:avoid}}
 .ad-cats.nolink .ctr{cursor:default}.ad-cats.nolink .ctr:hover td{background:transparent}
 .ly-add:has(.ly-btns){flex-wrap:nowrap;align-items:flex-start}.ly-btns{display:flex;flex-wrap:wrap;gap:.4rem;flex:1}.ly-gl-t{padding-top:.45rem;font:600 .72rem 'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.06em;opacity:.65;min-width:9.5rem}
@@ -346,9 +346,9 @@ a.ad-side{color:inherit;text-decoration:none;display:block}a.ad-side:hover{borde
 .ly-photo{border-radius:10px;background:#fdeef3;border-color:#d58aa5;border-style:dashed}
 .ly-cake{border-radius:50%;background:#fff6e8;border-color:#d4a85a}
 .ly-it:not(.ly-aisle) b{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-@container adm (max-width:560px){.ly-add:has(.ly-btns){flex-direction:column;gap:.3rem}.ly-gl-t{padding-top:0}}
+@media (max-width:560px){.ly-add:has(.ly-btns){flex-direction:column;gap:.3rem}.ly-gl-t{padding-top:0}}
 .ad-cicard{display:flex;gap:1rem;align-items:center;justify-content:space-between;border-left:4px solid #2f6a3d}.ad-cicard p{margin:.25rem 0 .4rem;font-size:.85rem;opacity:.85}.ad-cicard code{font-size:.8rem;word-break:break-all;background:var(--parch);padding:.15rem .4rem;border-radius:4px}.ad-cib{display:flex;gap:.4rem;flex:none}
-@container adm (max-width:560px){.ad-cicard{flex-direction:column;align-items:stretch}}
+@media (max-width:560px){.ad-cicard{flex-direction:column;align-items:stretch}}
 .ly-h{position:absolute;z-index:6;touch-action:none}.ly-hr{top:0;right:0;width:14px;height:100%;cursor:ew-resize}.ly-hb{left:0;bottom:0;height:14px;width:100%;cursor:ns-resize}
 .ly-hc{right:0;bottom:0;width:28px;height:28px;cursor:nwse-resize;background:linear-gradient(135deg,transparent 45%,var(--burgundy) 45% 55%,transparent 55% 65%,var(--burgundy) 65% 75%,transparent 75%);opacity:.75;border-bottom-right-radius:10px}
 .ly-hr:hover,.ly-hb:hover{background:rgba(110,20,30,.12)}
@@ -580,6 +580,8 @@ function gate(next){let ok=false;try{ok=sessionStorage.getItem("wed_admin")==="1
 /* ===== Router ===== */
 let opened=false,cdT;
 function route(){const h=location.hash.slice(1);clearInterval(cdT);clearInterval(pollT);scrollTo(0,0);
+ /* Admin shows the desktop layout on every device: phones render it at desktop width (pinch to zoom) */
+ {const vp=document.querySelector('meta[name=viewport]'),adm=h==="admin"||h.startsWith("admin/"),want=adm?"width=1180, viewport-fit=cover":"width=device-width, initial-scale=1, viewport-fit=cover";if(vp&&vp.content!==want)vp.content=want}
  if(h==="admin"||h.startsWith("admin/")||h==="checkin"){$("#intro").style.display="none";$("#main").classList.remove("show");$("#mus").style.display="none";music(false);document.body.classList.remove("lock");const t=$("#tool");t.style.display="block";gate(h==="checkin"?checkin:admin);return}
  $("#tool").style.display="none";invite()}
 addEventListener("hashchange",route);
@@ -797,7 +799,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   F.style.aspectRatio=W+"/"+H;F.style.backgroundSize=(200/W)+"% "+(200/H)+"%";const sz=$("#lysz");if(sz)sz.textContent=`Plan size: ${Math.round(W)} × ${Math.round(H)} squares`;
   F.innerHTML=`<div class="ly-h ly-hr" data-h="r" title="Drag to make the plan wider"></div><div class="ly-h ly-hb" data-h="b" title="Drag to make the plan longer"></div><div class="ly-h ly-hc" data-h="rb" title="Drag to resize the plan"></div>`+(L.items.length?L.items.map(i=>{const t=LT[i.type]||LT.label,o=t.table?occ(i.name):0;
    return `<div class="ly-it ly-${i.type} ${t.table?occClass(o,+i.seats||0):""} ${sel===i.id?"sel":""}" data-id="${i.id}" style="left:${i.x}%;top:${i.y}%;${ISZ(i,L)};transform:translate(-50%,-50%) rotate(${+i.r||0}deg)" tabindex="0" role="button" aria-label="${esc(i.name)}"><b>${esc(i.name)}</b>${t.table?`<span>${o}/${+i.seats||0}</span>`:""}${sel===i.id?`<i class="ly-rs" title="Drag to resize"></i>`:""}</div>`}).join("")
-   :`<div class="ly-empty">The plan is empty.<br>Press <b>Auto-create tables</b> to start, or add tables one by one.</div>`)}
+   :`<div class="ly-empty"><p>The plan is empty.<br>Press <b>Auto-create tables</b> to start, or add tables one by one.</p></div>`)}
  function drawPanel(){const P=$("#lypanel"),L=getLayout(),it=L.items.find(i=>i.id===sel);
   if(!it){P.innerHTML=`<h3>Details</h3><p class="ad-note" style="margin:.5rem 0 0">Click any table on the plan to see and assign guests.</p>
    <div class="ly-sum">${(()=>{const T=layoutTables(),seats=T.reduce((t,i)=>t+(+i.seats||0),0),A=guests.filter(g=>g.status!=="no"),un=A.filter(g=>!g.table);return `<div><b>${T.length}</b><span>tables</span></div><div><b>${seats}</b><span>seats (target ${CFG.targetPax} pax)</span></div><div><b>${A.reduce((t,g)=>t+expPax(g),0)}</b><span>pax expected</span></div><div><b>${un.length}</b><span>guests without a table</span></div>`})()}</div>`;return}
