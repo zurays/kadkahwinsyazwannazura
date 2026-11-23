@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#360002">
 <title>Walimatulurus · Syazwan &amp; Nazura</title>
-<link rel="preload" href="kulit-bunga.webp" as="image" type="image/webp">
-<link rel="preload" href="teks-kulit.png" as="image">
+<link rel="preload" href="kulit-bunga.webp?v=3" as="image" type="image/webp">
+<link rel="preload" href="teks-kulit.png?v=3" as="image">
 <link rel="preload" href="hiasan-atas.jpg" as="image">
 <link rel="preload" href="hiasan-bawah.jpg" as="image">
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
@@ -152,21 +152,21 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .mono.sm{width:48px;max-width:none;flex:none}
 /* wider cover picture: the bouquets continue past the sides of the 9:16 card and fade into the page */
 /* cover: the finished picture (oval + full bouquets + text), fading softly into the page */
-#cover .cv{position:relative;flex:none;margin:0 auto;width:min(100vw,600px,calc(90vh * 0.765));width:min(100vw,600px,calc(90svh * 0.765));aspect-ratio:1400/1830}
-#cover .cv picture{display:block;width:100%;height:100%}
-#cover .cv .art{position:relative!important;inset:auto!important;display:block;width:100%!important;height:100%!important;object-fit:contain}
-#cover .cv .art-txt{object-fit:contain}
+#cover .cv{position:relative;flex:none;margin:0 auto;width:min(100vw,600px,calc(90vh * 0.765));width:min(100vw,600px,calc(90svh * 0.765));height:0;padding-bottom:min(130.714vw,784.3px,calc(90vh * 0.99996));padding-bottom:min(130.714vw,784.3px,calc(90svh * 0.99996))}
+#cover .cv picture{position:absolute;inset:0;display:block;width:100%;height:100%}
+#cover .cv .art{position:absolute!important;inset:0!important;display:block;width:100%!important;height:100%!important;object-fit:contain;object-position:50% 50%}
+#cover .cv .art-txt{object-fit:contain;object-position:50% 50%;top:0;left:0}
 
 /* ===== Intro: embossed burgundy doors, oval frame with flowers, cream seal (tap to open) ===== */
 #intro{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:999;overflow:hidden;background:transparent;text-align:center;color:#fff;transition:opacity .8s}
 #intro.gone{opacity:0;pointer-events:none}
 .door{position:absolute;top:0;bottom:0;width:50.5%;background:#4e101a url("tekstur.jpg") repeat;background-size:clamp(260px,34vh,420px);transition:transform 1.5s cubic-bezier(.7,0,.25,1) .35s}
-.door.l{left:0;background-position:0 0;box-shadow:inset -10px 0 18px -10px rgba(0,0,0,.55)}
-.door.r{right:0;background-position:calc(-49.5vw) 0;box-shadow:inset 10px 0 18px -10px rgba(0,0,0,.55),-1px 0 0 rgba(255,255,255,.06)}
+.door.l{left:0;background-image:radial-gradient(ellipse 120% 50% at 100% 48%,rgba(255,190,180,.42),rgba(255,190,180,.12) 45%,transparent 75%),url("tekstur.jpg");background-size:100% 100%,clamp(260px,34vh,420px);background-repeat:no-repeat,repeat;background-position:0 0,0 0;box-shadow:inset -10px 0 18px -10px rgba(0,0,0,.55)}
+.door.r{right:0;background-image:radial-gradient(ellipse 120% 50% at 0% 48%,rgba(255,190,180,.42),rgba(255,190,180,.12) 45%,transparent 75%),url("tekstur.jpg");background-size:100% 100%,clamp(260px,34vh,420px);background-repeat:no-repeat,repeat;background-position:0 0,calc(-49.5vw) 0;box-shadow:inset 10px 0 18px -10px rgba(0,0,0,.55),-1px 0 0 rgba(255,255,255,.06)}
 #intro.open .door.l{transform:translateX(-101%)}#intro.open .door.r{transform:translateX(101%)}
 #intro::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 48%,transparent 40%,rgba(20,0,4,.45) 100%);transition:opacity .6s}
 #intro.open::after{opacity:0}
-.stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(60vw,400px,calc((100dvh - 60px)*640/1100));aspect-ratio:640/1100;z-index:2;container-type:inline-size;transition:opacity .6s ease,transform .8s ease}
+.stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(65vw,450px,calc((100dvh - 90px)*640/1100));aspect-ratio:640/1100;z-index:2;container-type:inline-size;transition:opacity .6s ease,transform .8s ease}
 #intro.open .stage{opacity:0;transform:translate(-50%,-50%) scale(1.06)}
 .st-frame{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
 .st-spray{position:absolute;left:-24.8%;top:1.2%;width:151%;max-width:none;height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));pointer-events:none}
@@ -175,16 +175,16 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .st-in>*{margin:0}
 .st-top{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(11px,4.4cqw,16px);letter-spacing:.32em;margin-right:-.32em;text-transform:uppercase;color:rgba(255,245,235,.82)}
 /* Seal button: your wax seal picture (image1.png) */
-.seal{position:relative;width:31cqw;aspect-ratio:3/4;border:0;padding:0;background:none;cursor:pointer;display:block;animation:sealpulse 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
+.seal{position:relative;width:34cqw;aspect-ratio:3/4;border:0;padding:0;background:none;cursor:pointer;display:block;animation:sealpulse 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
 .seal-mono{position:absolute;inset:0;background:linear-gradient(170deg,#fff8ec,#eadfca 60%,#cdb994);-webkit-mask:url("initial.png") center/contain no-repeat;mask:url("initial.png") center/contain no-repeat;filter:drop-shadow(0 4px 10px rgba(0,0,0,.45))}
 .seal:active img{transform:scale(.95)}
 
 @keyframes sealpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
-.open-pill{border:1px solid rgba(255,240,220,.75);border-radius:999px;background:rgba(255,248,238,.08);color:#fff6ea;padding:.8em 1.4em;font:600 3.2cqw 'Cormorant Garamond',Georgia,serif;letter-spacing:.2em;margin-right:-.2em;text-transform:uppercase;white-space:nowrap;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.35);transition:background .2s,transform .15s}
+.open-pill{border:1px solid rgba(255,240,220,.75);border-radius:999px;background:rgba(255,248,238,.08);color:#fff6ea;padding:.8em 1.4em;font:600 3.6cqw 'Cormorant Garamond',Georgia,serif;letter-spacing:.2em;margin-right:-.2em;text-transform:uppercase;white-space:nowrap;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.35);transition:background .2s,transform .15s}
 .open-pill:hover{background:rgba(255,248,238,.18)}.open-pill:active{transform:scale(.96)}
 .st-hint{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(12px,4.6cqw,16px);color:rgba(255,245,235,.75);letter-spacing:.04em}
-.to p{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:4.2cqw;color:rgba(255,245,235,.85)}
-.to .script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;text-transform:uppercase;letter-spacing:.03em;font-size:4.8cqw;line-height:1.3;margin:1.2cqw auto 0;max-width:58cqw;color:var(--gold);overflow-wrap:break-word}
+.to p{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:4.9cqw;color:rgba(255,245,235,.85)}
+.to .script{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;text-transform:uppercase;letter-spacing:.03em;font-size:5.6cqw;line-height:1.3;margin:1.2cqw auto 0;max-width:62cqw;color:var(--gold);overflow-wrap:break-word}
 
 /* ===== Main ===== */
 #main{display:none;padding:0 0 6.5rem}
@@ -360,6 +360,107 @@ a.ad-side{color:inherit;text-decoration:none;display:block}a.ad-side:hover{borde
 .ly-rs{position:absolute;right:-7px;bottom:-7px;width:16px;height:16px;border-radius:4px;background:var(--burgundy);border:2px solid #fff;cursor:nwse-resize;touch-action:none;box-shadow:0 1px 4px rgba(0,0,0,.3)}
 .ly-round .ly-rs,.ly-vip .ly-rs{right:4%;bottom:4%}
 .ly-tip{grid-column:1/-1;font-size:.78rem;opacity:.8;margin:0}
+/* ===== iOS-style admin (preview) ===== */
+#tool{--t:#007aff;--t2:rgba(118,118,128,.12);--lbl:#000;--lbl2:rgba(60,60,67,.6);--sep:rgba(60,60,67,.18);--fill:rgba(118,118,128,.12);--g:#34c759;--r:#ff3b30;--o:#ff9500;
+ background:#f2f2f7!important;color:var(--lbl);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Inter,system-ui,sans-serif!important;-webkit-font-smoothing:antialiased}
+#tool .ad,#tool .ad *{font-family:inherit!important;letter-spacing:normal!important}
+#tool .ad{max-width:1020px}
+#tool .ad-head{border:0;padding:.4rem 0 0;position:sticky;top:0;z-index:20;background:rgba(242,242,247,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);margin:0 -1rem;padding:.6rem 1rem .5rem}
+#tool .ad-brand .mono{display:none}
+#tool .ad-brand h1{font-size:2.1rem!important;font-weight:700!important;text-transform:none!important;color:var(--lbl)!important;letter-spacing:-.02em!important;line-height:1.15}
+#tool .ad-brand p{color:var(--lbl2);font-size:.95rem;opacity:1}
+#tool .ad-tabs{background:none;border:0;padding:0;gap:1.1rem}
+#tool .ad-tabs a,#tool .ad-tabs button{background:none!important;border:0!important;color:var(--t)!important;font-size:1.05rem!important;font-weight:400!important;padding:0!important;text-decoration:none}
+#tool .ad-conn{color:var(--lbl2);font-size:.8rem;margin:.2rem 0 0}#tool .ad-conn span{background:var(--g)}#tool .ad-conn.demo span{background:var(--o)}
+/* segmented control */
+#tool .ad-tabbar{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--fill);border-radius:9px;padding:2px;margin:1rem 0 0}
+#tool .ad-tabbar a{justify-content:center;border:0;background:none;border-radius:7px;color:var(--lbl);font-size:.88rem;font-weight:500;padding:.45rem .4rem;position:relative}
+#tool .ad-tabbar a span{display:none}
+#tool .ad-tabbar a+a::before{content:"";position:absolute;left:0;top:25%;height:50%;width:1px;background:var(--sep)}
+#tool .ad-tabbar a.on{background:#fff;color:var(--lbl);font-weight:600;box-shadow:0 3px 8px rgba(0,0,0,.12),0 3px 1px rgba(0,0,0,.04)}
+#tool .ad-tabbar a.on::before,#tool .ad-tabbar a.on+a::before{display:none}
+#tool .ad-tabbar a:hover:not(.on){background:none}
+/* grouped sections */
+#tool .ad-sec{margin-top:1.6rem}
+#tool .ad-h{font-size:.8rem!important;font-weight:400!important;text-transform:uppercase!important;color:var(--lbl2)!important;margin:0 0 .45rem 1rem!important;letter-spacing:.01em!important}
+#tool .ad-note{color:var(--lbl2);opacity:1;font-size:.82rem;margin:0 1rem .6rem}
+#tool .ad-card,#tool .ad-stat,#tool .ad-side{background:#fff;border:0!important;border-radius:12px;box-shadow:none}
+#tool .ad-stats{gap:.6rem}
+#tool .ad-stat{padding:.8rem 1rem}#tool .ad-stat p{color:var(--lbl2);font-size:.8rem;font-weight:500}
+#tool .ad-stat b{color:var(--lbl);font-size:1.9rem;font-weight:700;letter-spacing:-.02em!important}
+#tool .ad-stat.yes b{color:var(--g)}#tool .ad-stat.wait b{color:var(--o)}
+#tool .ad-stat span{color:var(--lbl2)}
+#tool .ad-side b{color:var(--lbl)}#tool .ad-side-t span{color:var(--t)}
+#tool .ad-bar{background:var(--fill);height:.45rem}#tool .ad-bar i{background:var(--g)}
+#tool .ad-warn{background:#fff;color:var(--lbl);border-radius:12px;border-left:0;padding:.7rem 1rem}
+#tool .ad-warn::before{content:"⚠︎ ";color:var(--o)}
+/* inputs */
+#tool .ad .inp{background:#fff;border:0;border-radius:10px;font-size:1rem;color:var(--lbl);padding:.65rem .8rem;box-shadow:none}
+#tool .ad-card .inp{background:var(--fill)}
+#tool .ad .inp:focus{outline:2px solid var(--t);outline-offset:0}
+#tool .ad-q{background:var(--fill)!important;padding-left:2.1rem!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E")!important;background-repeat:no-repeat!important;background-position:.7rem 50%!important}
+#tool .ad label,#tool .ad-filters label,#tool .ad-g-tb{color:var(--lbl2)!important;text-transform:none!important;font-size:.8rem!important;font-weight:500!important}
+#tool .ad-form small{color:var(--lbl2)}
+/* buttons */
+#tool .ad .btn{background:var(--t);border:0;color:#fff;border-radius:10px;font-weight:600;font-size:.95rem;padding:.6rem 1.1rem}
+#tool .ad .btn.sm{border-radius:999px;padding:.32rem .8rem;font-size:.82rem}
+#tool .ad .btn.ghost{background:var(--t2);color:var(--t)}
+#tool .ad .btn.wa{background:var(--g)!important;color:#fff}
+#tool .ad .btn.dl,#tool .ad .ly-del{background:rgba(255,59,48,.12)!important;color:var(--r)!important}
+#tool .ad .ad-link{color:var(--t);text-decoration:none;font-weight:400}
+/* badges */
+#tool .ad .bdg,#tool .ad .chip{border-radius:6px;font-size:.72rem;font-weight:600;padding:.12rem .45rem;border:0}
+#tool .ad .b-yes{background:rgba(52,199,89,.15);color:#248a3d}#tool .ad .b-no{background:rgba(255,59,48,.12);color:#d70015}#tool .ad .b-pending{background:rgba(255,149,0,.15);color:#c93400}
+#tool .ad .chip{background:var(--fill);color:var(--lbl2)}#tool .ad .chip.warn{background:rgba(255,149,0,.15);color:#c93400}
+/* guest list as inset grouped list */
+#tool .ad-list{gap:0;background:#fff;border-radius:12px;overflow:hidden}
+#tool .ad-g{border-radius:0;border:0!important;border-bottom:1px solid var(--sep)!important;margin-left:0;padding:.9rem 1rem}
+#tool .ad-g:last-child{border-bottom:0!important}
+#tool .ad-g h3{color:var(--lbl);font-size:1.02rem;font-weight:600}
+#tool .ad-g-pax b{color:var(--lbl)}
+#tool .ad-g-act{border-top:0;padding-top:0}
+#tool .ad-tools{background:transparent!important;padding:0!important}
+#tool .ad-count{color:var(--lbl2);opacity:1;padding:0 .2rem}
+/* tables */
+#tool .ad-t th{color:var(--lbl2);font-weight:500;text-transform:none;border-color:var(--sep)}#tool .ad-t td{border-color:var(--sep);color:var(--lbl)}
+#tool .ad-foot{border-top:0}
+/* floor plan */
+#tool .ly-floor{background-color:#fff;border:0;border-radius:14px;background-image:radial-gradient(rgba(60,60,67,.18) 1px,transparent 1.2px)!important}
+#tool .ly-it{border-width:1.5px;box-shadow:0 1px 3px rgba(0,0,0,.12);color:var(--lbl)}
+#tool .ly-it.ok{border-color:var(--g);background:#effaf2}#tool .ly-it.full{border-color:var(--o);background:#fff5e6}#tool .ly-it.over{border-color:var(--r);background:#ffecea}
+#tool .ly-stage{background:#1c1c1e;border-color:#1c1c1e;color:#fff}
+#tool .ly-it.sel{outline:3px solid var(--t)}
+#tool .ly-sum div,#tool .ly-occ{background:var(--fill);border-radius:10px}#tool .ly-sum b{color:var(--lbl)}
+#tool .ly-gl-t{color:var(--lbl2);opacity:1}
+#tool .ly-gr{border-color:var(--sep)}
+#tool .tl-c{border-top:0!important;border-left:4px solid var(--sep)!important}#tool .tl-c.ok{border-left-color:var(--g)!important}#tool .tl-c.full{border-left-color:var(--o)!important}#tool .tl-c.over{border-left-color:var(--r)!important}
+#tool .tl-h b{color:var(--lbl)}
+#tool .ad-old{background:#fff;color:var(--lbl);border:0;border-left:4px solid var(--r)}
+
+/* login */
+#tool #lg{background:#fff;border:0;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08);padding:2rem 1.6rem!important;color:var(--lbl);font-family:inherit}
+#tool #lg *{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Inter,system-ui,sans-serif!important}
+#tool #lg h1{font-size:1.9rem!important;font-weight:700!important;text-transform:none!important;letter-spacing:-.02em!important;color:#000!important}
+#tool #lg p{color:var(--lbl2);font-size:.95rem!important}
+#tool #lg .inp{background:var(--fill);border:0;border-radius:10px;font-size:1rem;padding:.75rem .9rem;color:var(--lbl)}
+#tool #lg .inp:focus{outline:2px solid var(--t)}
+#tool #lg .btn{background:var(--t);border:0;border-radius:12px;color:#fff;font-weight:600;font-size:1.02rem;padding:.8rem}
+#tool #lg #eye{color:var(--lbl2)!important}
+#tool #lg a{color:var(--t)!important;text-decoration:none;font-size:.95rem!important}
+#tool #lg #e{color:var(--r)!important}
+/* check-in */
+#tool .ad-cip .pc{background:#fff;border:0;border-radius:14px;color:var(--lbl);padding:1rem 1.1rem}#tool .ad-cip #st{margin-bottom:.8rem}#tool .ad-cip #res{margin-top:.8rem;display:grid;gap:.7rem}
+#tool .ad-cip #st b{color:#000!important;font-weight:700}
+#tool .ad-cip #st div div{color:var(--lbl2)}
+#tool .ad-cip #s{background:#fff!important;border:0;border-radius:12px;padding-left:2.4rem!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E")!important;background-repeat:no-repeat!important;background-position:.8rem 50%!important}
+#tool .ad-cip #res .pc b{color:var(--lbl)}
+#tool .ad-cip #res .pc .text-right b{color:var(--t)!important}
+#tool .ad-cip #res .pc[style*="2f6a3d"]{box-shadow:inset 4px 0 0 var(--g)}
+#tool .ad-cip .btn.ok{background:var(--g);border-radius:12px}
+#tool .ad-cip .btn.ghost{background:var(--fill);color:var(--t)}
+#tool .ad-cip .dupwarn{background:rgba(255,59,48,.12)!important;color:var(--r)!important;border-radius:10px!important}
+#tool .ad-cip .mt-3.p-3{background:rgba(52,199,89,.15)!important;color:#248a3d!important;border-radius:10px!important}
+.toast{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,system-ui,sans-serif}
 </style>
 </head>
 <body class="lock">
@@ -393,8 +494,8 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
  <!-- Scene 1: oval cover -->
  <section class="scene" id="cover" aria-label="Walimatulurus Syazwan dan Nazura">
   <div class="cv">
-   <picture><source srcset="kulit-bunga.webp" type="image/webp"><img class="art" src="kulit-bunga.png" alt="" aria-hidden="true"></picture>
-   <img class="art-txt" src="teks-kulit.png" alt="" aria-hidden="true">
+   <picture><source srcset="kulit-bunga.webp?v=3" type="image/webp"><img class="art" src="kulit-bunga.png?v=3" alt="" aria-hidden="true"></picture>
+   <img class="art-txt" src="teks-kulit.png?v=3" alt="" aria-hidden="true">
   </div>
   <!-- Text taken straight from the video frame, so the script font is exactly the same -->
   <h2 class="sr-only">Walimatulurus Syazwan &amp; Nazura. Ahad, 29 Ogos 2027. Dan Kami ciptakan kamu berpasang-pasangan, An-Naba 78:8</h2>
@@ -404,14 +505,14 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
  <section class="scene deco" id="salam">
   <img class="bism rv" src="bismillah.png" alt="Bismillahirrahmanirrahim">
   <p class="it rv">Assalamualaikum &amp; Salam Sejahtera<br>Dengan penuh kesyukuran ke hadrat Ilahi, kami</p>
-  <p class="kp rv" style="margin-top:5cqw">Abdellah bin Nahrawi<br>&amp; Saerah binti Sarbini</p>
+  <p class="kp rv" style="margin-top:5cqw">Haji Abdellah bin Nahrawi<br>&amp; Hajjah Saerah binti Sarbini</p>
   <p class="it s rv" style="margin:1.5cqw 0">serta</p>
   <p class="kp rv" style="letter-spacing:.06em;margin-right:-.06em">Yusof bin Ahmad<br>&amp; Selamah binti Abang Abu Bakar</p>
   <p class="it rv" style="margin-top:5cqw">Dengan setulus hati ingin menjemput<br>Tuan / Puan / Encik / Cik</p>
   <p class="guest rv" id="gn2" style="margin-top:1cqw"></p>
   <p class="it rv">ke majlis perkahwinan anakanda kami</p>
   <p class="nm-img rv" style="margin-top:4cqw"><img class="n-l" src="nama-lelaki.png" alt="Mohd Asriq Syazwan"></p>
-  <p class="par rv">Putera kepada Abdellah bin Nahrawi &amp; Saerah binti Sarbini</p>
+  <p class="par rv">Putera kepada Haji Abdellah bin Nahrawi &amp; Hajjah Saerah binti Sarbini</p>
   <p class="nm-img rv" style="margin-top:4cqw"><img class="n-d" src="nama-dan.png" alt="dan"></p>
   <p class="nm-img rv" style="margin-top:2cqw"><img class="n-p" src="nama-perempuan.png" alt="Mumtaz Nazura"></p>
   <p class="par rv">Puteri kepada Yusof bin Ahmad &amp; Selamah binti Abang Abu Bakar</p>
@@ -502,7 +603,7 @@ const fromRsvp=t=>t==="Hadir"?"yes":t==="Tidak Hadir"?"no":"pending",toRsvp=s=>s
 
 /* ===== Data layer: Google Sheet when GOOGLE_SCRIPT_URL is set, otherwise localStorage (demo mode) ===== */
 let guests=[],wishes=[],refresh=()=>{},pollT=null;
-function seed(){return[["Encik Ali",2,"yes","Table 1","L"],["Puan Aisyah",3,"yes","VIP Table","P"],["Cik Farah",1,"no","","P"],["Dr. Hafiz",2,"pending","Table 2","L"],["Puan Zainab",3,"pending","Table 2",""]].map((a,i)=>({id:uid(),name:a[0],pax:a[1],max:a[1],status:a[2],table:a[3],side:a[4],cat:["Family Ibu Pengantin Lelaki","Rakan Kerja Pengantin Perempuan","Jiran","Rakan Sekolah Pengantin Lelaki",""][i],arrived:null,submittedAt:0}))}
+function seed(){return[["Encik Ali",2,"yes","Meja 1","L"],["Puan Aisyah",3,"yes","Meja VIP","P"],["Cik Farah",1,"no","","P"],["Dr. Hafiz",2,"pending","Meja 2","L"],["Puan Zainab",3,"pending","Meja 2",""]].map((a,i)=>({id:uid(),name:a[0],pax:a[1],max:a[1],status:a[2],table:a[3],side:a[4],cat:["Family Ibu Pengantin Lelaki","Rakan Kerja Pengantin Perempuan","Jiran","Rakan Sekolah Pengantin Lelaki",""][i],arrived:null,submittedAt:0}))}
 function seedWishes(){const n=Date.now();return[{name:"Encik Ali",text:"Semoga berbahagia hingga ke syurga. Barakallahu lakuma!",at:n-6e4},{name:"Puan Aisyah",text:"Tahniah Syazwan dan Nazura! Moga rumah tangga sentiasa dirahmati.",at:n-12e4}]}
 function normalize(a){const seen=new Set();return(Array.isArray(a)?a:[]).filter(g=>g&&typeof g==="object"&&String(g.name||"").trim()).map(g=>{let id=g.id?String(g.id):"";while(!id||seen.has(id))id=uid();seen.add(id);
  return{id,name:String(g.name).trim(),pax:Math.max(1,+g.pax||1),status:["yes","no","pending"].includes(g.status)?g.status:"pending",table:String(g.table||""),side:["L","P"].includes(g.side)?g.side:"",max:Math.max(1,+g.max||+g.pax||1),cat:String(g.cat||"").trim(),arrived:+g.arrived||null,submittedAt:+g.submittedAt||0}})}
@@ -658,7 +759,7 @@ const ciCard=()=>`<div class="ad-card ad-cicard"><div><b>Check-in tetamu &amp; n
 const hdr=()=>adHead("checkin"),modeNote=()=>"";
 const busyFocus=()=>{const a=document.activeElement;return !!window.__dragging||!!(a&&a.classList&&(a.classList.contains("tb")||a.closest&&a.closest("#af, .ly-panel")))||!!document.querySelector(".modal-bg")};
 /* Invitation message for WhatsApp / "Salin mesej". The parents' line follows the guest's side. */
-const PARENTS={L:"*Haji Abdellah Bin Nahrawi & Hajjah Saerah Binti Sarbini*",P:"*Yusof Bin Ahmad & Selamah Binti Abang Abu Bakar*"};
+const PARENTS={L:"*Haji Abdellah bin Nahrawi & Hajjah Saerah binti Sarbini*",P:"*Yusof Bin Ahmad & Selamah Binti Abang Abu Bakar*"};
 const waText=g=>[
 "✨ *JEMPUTAN KE MAJLIS WALIMATUL URUS* ✨","",
 "Assalamualaikum warahmatullahi wabarakatuh dan Salam Sejahtera.","",
@@ -680,23 +781,23 @@ const tabNow=()=>{const t=(location.hash.split("/")[1]||"ringkasan");return TABS
 /* ---------- Table layout (saved in Google Sheet when the script supports it, and always in this browser) ---------- */
 const LKEY="wedding_layout_v1";let layout=null,layoutT=null;
 const LT={
- round:{l:"Guest table (dome)",w:8.5,ar:"1",table:1,seats:10,g:0},
- vip:{l:"VIP table",w:10,ar:"1",table:1,seats:10,g:0,base:"VIP Table"},
- rect:{l:"Bride & groom table",w:16,ar:"2.8",table:1,seats:8,g:1,base:"Bride & Groom Table"},
- stage:{l:"Pelamin (dais)",w:26,ar:"3.4",g:1},
- aisle:{l:"Bridal walkway",w:5,ar:"0.12",g:1},
- akad:{l:"Akad nikah table",w:13,ar:"2.2",g:1},
- kompang:{l:"Kompang / performance",w:13,ar:"2.4",g:1},
+ round:{l:"Meja tetamu (dome)",w:8.5,ar:"1",table:1,seats:10,g:0},
+ vip:{l:"Meja VIP",w:10,ar:"1",table:1,seats:10,g:0,base:"Meja VIP"},
+ rect:{l:"Meja makan pengantin",w:16,ar:"2.8",table:1,seats:8,g:1,base:"Meja Makan Pengantin"},
+ stage:{l:"Pelamin",w:26,ar:"3.4",g:1},
+ aisle:{l:"Laluan pengantin",w:5,ar:"0.12",g:1},
+ akad:{l:"Meja akad nikah",w:13,ar:"2.2",g:1},
+ kompang:{l:"Kompang / persembahan",w:13,ar:"2.4",g:1},
  sound:{l:"PA system",w:7,ar:"1.4",g:2},
- reg:{l:"Registration desk",w:13,ar:"2.6",g:2},
- gift:{l:"Door gift table",w:12,ar:"2.6",g:2},
- photo:{l:"Photo corner",w:11,ar:"1.6",g:2},
- cake:{l:"Cake table",w:7,ar:"1.3",g:2},
- buffet:{l:"Buffet (morning akad)",w:18,ar:"3.2",g:2},
- door:{l:"Entrance",w:10,ar:"2.6",g:2},
- label:{l:"Label / other area",w:14,ar:"2.6",g:2}};
+ reg:{l:"Meja pendaftaran",w:13,ar:"2.6",g:2},
+ gift:{l:"Meja cenderahati",w:12,ar:"2.6",g:2},
+ photo:{l:"Sudut fotografi",w:11,ar:"1.6",g:2},
+ cake:{l:"Meja kek",w:7,ar:"1.3",g:2},
+ buffet:{l:"Buffet (akad pagi)",w:18,ar:"3.2",g:2},
+ door:{l:"Pintu masuk",w:10,ar:"2.6",g:2},
+ label:{l:"Label / ruang lain",w:14,ar:"2.6",g:2}};
 const ISZ=(i,L)=>{const t=LT[i.type]||LT.label,z=40/(+L.W||40),rd=t.ar==="1",ws=+i.ws||1,hs=rd?ws:(+i.hs||1);return `width:${+(t.w*z*(i.type==="round"?(L.ts||1):1)*ws).toFixed(2)}%;aspect-ratio:${+(parseFloat(t.ar)*ws/hs).toFixed(4)}`};
-const LG=["Guest tables","Bride & groom","Event & facilities"];
+const LG=["Meja tetamu","Pengantin","Majlis & kemudahan"];
 function parseLayout(v){try{const o=typeof v==="string"?JSON.parse(v):v;if(o&&Array.isArray(o.items))return o}catch(e){}return null}
 function getLayout(){if(!layout)layout=parseLayout(window.__layoutRaw)||parseLayout(lsGet(LKEY))||{v:1,items:[]};return layout}
 function saveLayout(){window.__lyDirty=Date.now();lsSet(LKEY,JSON.stringify(layout));clearTimeout(layoutT);const st=$("#lyst");if(st)st.textContent="Saving…";
@@ -766,7 +867,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
     <div class="ad-chips">${bdg(g.status)}${SD?"":g.side?`<span class="chip">${sideName(g.side)}</span>`:`<span class="chip warn">Side not set</span>`}${g.cat?`<span class="chip">${esc(g.cat)}</span>`:""}${g.arrived?`<span class="bdg b-yes">Arrived ${fmtT(g.arrived)}</span>`:""}</div></div>
    <div class="ad-g-pax"><b>${g.status==="yes"?g.pax:"–"}</b><span>/ ${g.max} pax</span><small>${g.status==="yes"?"attending / limit":"pax limit"}</small></div>
    <label class="ad-g-tb">Table<input class="inp tb" list="tbls" value="${esc(g.table)}" placeholder="Choose / type table" aria-label="Table for ${esc(g.name)}"></label>
-   <div class="ad-g-act"><button class="btn sm cp">Copy link</button><button class="btn sm cm">Copy message</button><a class="btn sm wa" href="https://wa.me/?text=${encodeURIComponent(waText(g))}" target="_blank" rel="noopener">WhatsApp</a><button class="btn ghost sm ed">Edit</button><button class="btn ghost sm pv">Preview</button>${g.arrived?`<button class="btn ghost sm un">Undo arrival</button>`:""}<button class="btn ghost sm dl">Delete</button></div>
+   <div class="ad-g-act"><button class="btn sm cm">Copy message</button><a class="btn sm wa" href="https://wa.me/?text=${encodeURIComponent(waText(g))}" target="_blank" rel="noopener">WhatsApp</a><button class="btn ghost sm ed">Edit</button><button class="btn ghost sm pv">Preview</button>${g.arrived?`<button class="btn ghost sm un">Undo arrival</button>`:""}<button class="btn ghost sm dl">Delete</button></div>
   </article>`;
 
  /* ---- Guest-list tabs (1, 2, 3) ---- */
@@ -845,15 +946,16 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   drawFloor();drawPanel();drawTList()}
 
  const draw=tab==="meja"?drawMeja:drawGuests;
- refresh=draw;draw();
- loadAdmin().then(draw).catch(err=>toast("Could not load data: "+err.message));
- startPoll(()=>{if(busyFocus())return;loadAdmin().then(draw).catch(()=>{})},15000);
+ const ROOT=T.firstElementChild,live=()=>ROOT.isConnected;
+ refresh=()=>{if(live())draw()};draw();
+ loadAdmin().then(refresh).catch(err=>{if(live())toast("Could not load data: "+err.message)});
+ startPoll(()=>{if(busyFocus())return;if(!live())return;loadAdmin().then(refresh).catch(()=>{})},15000);
  $(".ad-out").onclick=()=>{try{sessionStorage.removeItem("wed_admin")}catch(e){delete mem.adm}location.hash="#admin";route()};
 
  if(tab==="meja"){
   const F=$("#floor"),L=()=>getLayout();
   const addItem=(type,extra)=>{const t=LT[type],n=L().items.length;let name;
-   if(type==="round"){const ex=L().items.find(i=>i.type==="round"&&/\d+$/.test(i.name)),pre=ex?ex.name.replace(/\d+$/,""):"Table ";let k=L().items.filter(i=>i.type==="round").length+1;while(L().items.some(i=>i.name===pre+k))k++;name=pre+k}
+   if(type==="round"){const ex=L().items.find(i=>i.type==="round"&&/\d+$/.test(i.name)),pre=ex?ex.name.replace(/\d+$/,""):"Meja ";let k=L().items.filter(i=>i.type==="round").length+1;while(L().items.some(i=>i.name===pre+k))k++;name=pre+k}
    else{const b=t.base||t.l.replace(/ \(.*\)$/,"");name=b;let k=2;while(L().items.some(i=>i.name===name))name=b+" "+(k++)}
    const it={id:uid(),type,name,seats:t.table?t.seats:0,x:50+((n%5)-2)*5,y:50+((Math.floor(n/5)%3)-1)*8,...extra};L().items.push(it);return it};
   $$("[data-add]").forEach(b=>b.onclick=()=>{const it=addItem(b.dataset.add);sel=it.id;saveLayout();drawMeja()});
@@ -864,15 +966,15 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   $("#lygen").onclick=()=>{const m=modal(`<h2>Auto-create tables</h2><p style="font-size:.95rem;margin:.4rem 0 .8rem">Tables will be placed in rows. You can drag and adjust them afterwards.</p><form id="gf" class="ad-form ad-form-m" novalidate>
     <label>Number of tables<input class="inp" name="n" type="number" min="1" max="120" value="${Math.ceil(CFG.targetPax/10)}"></label>
     <label>Seats per table<input class="inp" name="s" type="number" min="1" max="40" value="10"></label>
-    <label>Table name prefix<input class="inp" name="p" value="Table "></label>
-    <label class="f-name ad-chk" style="flex-direction:row;font-weight:500"><input type="checkbox" name="st" checked> Also add the pelamin (dais), bridal walkway, bride &amp; groom table, PA system and entrance</label>
+    <label>Table name prefix<input class="inp" name="p" value="Meja "></label>
+    <label class="f-name ad-chk" style="flex-direction:row;font-weight:500"><input type="checkbox" name="st" checked> Also add the pelamin, laluan pengantin, meja makan pengantin, PA system and pintu masuk</label>
     <label class="f-name ad-chk" style="flex-direction:row;font-weight:500"><input type="checkbox" name="rp" ${L().items.length?"":"checked"}> Replace the current plan</label>
     <div class="f-act"><button class="btn">Create</button><button type="button" class="btn ghost" id="gx">Cancel</button></div></form>`);
    $("#gx",m).onclick=()=>m.remove();
-   $("#gf",m).onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),n=Math.max(1,Math.min(120,+f.get("n")||10)),s=Math.max(1,Math.min(40,+f.get("s")||10)),ty="round",pre=f.get("p")||"Table ";
+   $("#gf",m).onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),n=Math.max(1,Math.min(120,+f.get("n")||10)),s=Math.max(1,Math.min(40,+f.get("s")||10)),ty="round",pre=f.get("p")||"Meja ";
     if(f.get("rp"))L().items=[];
     const top=f.get("st")?24:8,bottom=f.get("st")?84:94,cols=Math.min(n,n<=16?8:n<=60?10:12),rows=Math.ceil(n/cols);
-    const st=!!f.get("st");if(st)[["stage","Pelamin",50,9,0],["aisle","Bridal walkway",50,55,0],["rect","Bride & Groom Table",83,9,8],["sound","PA system",14,9,0],["door","Entrance",50,95,0]].forEach(([type,name,x,y,seats])=>L().items.push({id:uid(),type,name,x,y,seats}));
+    const st=!!f.get("st");if(st)[["stage","Pelamin",50,9,0],["aisle","Laluan pengantin",50,55,0],["rect","Meja Makan Pengantin",83,9,8],["sound","PA system",14,9,0],["door","Pintu masuk",50,95,0]].forEach(([type,name,x,y,seats])=>L().items.push({id:uid(),type,name,x,y,seats}));
     const spread=(a,b,c)=>c===1?[(a+b)/2]:Array.from({length:c},(_,j)=>a+j*(b-a)/(c-1));
     let k=1;for(let r=0;r<rows;r++)for(let c=0;c<cols&&k<=n;c++,k++){const inRow=Math.min(cols,n-r*cols),xs=st?(()=>{const h=Math.ceil(inRow/2);return [...spread(7,41,h),...(inRow-h?spread(59,93,inRow-h):[])]})():(inRow===1?[50]:spread(8,92,inRow));
      let nm=pre+k;while(L().items.some(i=>i.name===nm))nm+="*";
@@ -978,9 +1080,10 @@ function checkin(){let q="";const T=$("#tool");
    try{const r=await act("checkin",{name:g.name});draw();
     if(r&&r.error==="already"){const c2=$(`#res [data-id="${CSS.escape(g.id)}"]`);if(c2)warn(c2,g.arrived)}else toast(g.name+" checked in")}
    catch(err){btn.disabled=false;toast("Error: "+err.message)}}})}
- refresh=draw;draw();$("#s").oninput=e=>{q=e.target.value.trim().toLowerCase();draw()};
- loadAdmin().then(draw).catch(err=>toast("Could not load data: "+err.message));
- startPoll(()=>{if(busyFocus())return;loadAdmin().then(draw).catch(()=>{})},10000)}
+ const ROOT=T.firstElementChild,live=()=>ROOT.isConnected;
+ refresh=()=>{if(live())draw()};draw();$("#s").oninput=e=>{q=e.target.value.trim().toLowerCase();draw()};
+ loadAdmin().then(refresh).catch(err=>{if(live())toast("Could not load data: "+err.message)});
+ startPoll(()=>{if(busyFocus())return;if(!live())return;loadAdmin().then(refresh).catch(()=>{})},10000)}
 
 /* ===== Save-the-date: Google Calendar (link) and Apple Calendar (majlis.ics, opens the iPhone/Mac "Add to Calendar" sheet) ===== */
 const ICS=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Syazwan Nazura//Walimatulurus//MS","CALSCALE:GREGORIAN","METHOD:PUBLISH","BEGIN:VEVENT","UID:walimatulurus-syazwan-nazura-20270829@jemputan","DTSTAMP:20261121T000000Z","DTSTART:20270829T020000Z","DTEND:20270829T040000Z","SUMMARY:Walimatulurus Syazwan & Nazura","LOCATION:Arcum Tent\\, Majma Mall\\, Lorong P. Ramlee 5A\\, 93400 Kuching\\, Sarawak","DESCRIPTION:Majlis Perkahwinan Mohd Asriq Syazwan & Mumtaz Nazura. Kehadiran tetamu 10:00 pagi.","BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:Walimatulurus Syazwan & Nazura esok","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
