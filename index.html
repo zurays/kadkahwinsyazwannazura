@@ -108,7 +108,7 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .act svg{width:1.2em;height:1.2em;color:var(--gold)}
 /* Doa */
 #doa{--pt:22cqw}
-#doa .bism{width:clamp(95px,24cqw,150px);margin-bottom:7cqw}
+#doa .bism{width:clamp(95px,24cqw,150px);margin-bottom:4.5cqw}
 #doa .t{font-size:clamp(12.5px,3.35cqw,16px);line-height:1.65}
 /* Doa section: Cormorant Garamond (spaced capitals for the names, classic serif for the prayer) */
 #doa .ttl-i{font-family:'Cormorant Garamond',Georgia,serif;font-style:normal;font-weight:500;letter-spacing:.24em;margin-right:-.24em;font-size:clamp(19px,5.6cqw,30px)}
@@ -171,6 +171,8 @@ input:checked+.pill{background:var(--burgundy);color:var(--parch)}
 .st-frame{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
 .st-spray{position:absolute;left:-24.8%;top:1.2%;width:151%;max-width:none;height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));pointer-events:none}
 @keyframes sway2{to{transform:rotate(-1.6deg)}}
+/* each side of the flowers is nudged in so its cut edge tucks behind the frame */
+.st-spray.sl{clip-path:inset(0 50% 0 0);transform:translateX(var(--fl,5.2%))}.st-spray.sr{clip-path:inset(0 0 0 50%);transform:translateX(calc(-1 * var(--fr,3.2%)))}
 .st-in{position:absolute;left:18%;right:18%;top:20%;bottom:16%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6cqw}
 .st-in>*{margin:0}
 .st-top{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(11px,4.4cqw,16px);letter-spacing:.32em;margin-right:-.32em;text-transform:uppercase;color:rgba(255,245,235,.82)}
@@ -497,7 +499,7 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
 <section id="intro" aria-label="Pintu masuk undangan">
  <div class="door l" aria-hidden="true"></div><div class="door r" aria-hidden="true"></div>
  <div class="stage">
-  <img class="st-spray" src="bunga-intro.png" alt="" aria-hidden="true">
+  <img class="st-spray sl" src="bunga-intro.png" alt="" aria-hidden="true"><img class="st-spray sr" src="bunga-intro.png" alt="" aria-hidden="true">
   <img class="st-frame" src="bingkai-oval.png" alt="" aria-hidden="true">
   <div class="st-in">
    <h1 class="sr-only">Undangan Perkahwinan Syazwan &amp; Nazura</h1>
@@ -582,7 +584,7 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
  <!-- Doa (last section) -->
  <section class="scene deco" id="doa">
   <img class="bism rv" src="bismillah.png" alt="Bismillahirrahmanirrahim">
-  <p class="t rv" style="margin-top:8cqw">Ya Allah Ya Tuhan kami,<br>Kurniakanlah kepada mereka zuriat<br>yang soleh dan solehah, serta rezeki<br>yang luas dan diberkati. Lindungilah<br>mereka daripada segala fitnah, dugaan<br>yang melemahkan, dan godaan yang<br>menyesatkan.</p>
+  <p class="t rv" style="margin-top:0">Ya Allah Ya Tuhan kami,<br>Kurniakanlah kepada mereka zuriat<br>yang soleh dan solehah, serta rezeki<br>yang luas dan diberkati. Lindungilah<br>mereka daripada segala fitnah, dugaan<br>yang melemahkan, dan godaan yang<br>menyesatkan.</p>
   <p class="t rv" style="margin-top:5cqw">Ya Allah Yang Maha Pengampun,<br>Jadikanlah rumah tangga ini sebagai<br>taman-taman syurga, tempat berlindung<br>dari keletihan dunia. Peliharalah mereka<br>dalam iman, dan himpunkanlah mereka<br>semula di syurga-Mu nanti,<br>sebagaimana Engkau himpunkan<br>mereka hari ini dalam ikatan yang halal.</p>
   <p class="t rv" style="margin-top:5cqw"><i>Amin Ya Rabbal 'Alamin.</i></p>
  </section>
@@ -623,7 +625,11 @@ const normCats=()=>guests.forEach(g=>{if(CAT_OLD[g.cat])g.cat=CAT_OLD[g.cat]});
 /* category list per side: the defaults above, or the admin's edited list (saved with the floor plan so all admins share it) */
 const catList=sd=>{try{const o=getLayout().cats;if(o&&Array.isArray(o[sd]))return[...o[sd]]}catch(e){}return[...(CATS[sd]||[])]};
 const setCatList=(sd,arr)=>{const L=getLayout();L.cats=L.cats||{};L.cats[sd]=[...new Set(arr.filter(Boolean))];saveLayout()};
-const catsFor=sd=>{normCats();const extra=guests.filter(g=>g.cat&&(!sd||g.side===sd)).map(g=>g.cat);return[...new Set([...(sd?catList(sd):[...catList("L"),...catList("P")]),...extra])]};
+/* categories are always shown sorted A–Z (groom's side first, then bride's), with "Others" at the end */
+const catSort=a=>{const isO=c=>/^(others|lain-lain)$/i.test(c);return[...new Set(a)].sort((x,y)=>(isO(x)-isO(y))||x.localeCompare(y,undefined,{numeric:true,sensitivity:"base"}))};
+const catsFor=sd=>{normCats();const one=x=>catSort([...catList(x),...guests.filter(g=>g.cat&&g.side===x).map(g=>g.cat)]);
+ if(sd)return one(sd);const L=one("L"),P=one("P").filter(c=>!L.includes(c)),rest=guests.filter(g=>g.cat&&!g.side).map(g=>g.cat).filter(c=>!L.includes(c)&&!P.includes(c));
+ const all=[...L.filter(c=>!/^(others|lain-lain)$/i.test(c)),...P.filter(c=>!/^(others|lain-lain)$/i.test(c)),...catSort(rest)];if([...L,...P].some(c=>/^(others|lain-lain)$/i.test(c)))all.push(...[...L,...P].filter(c=>/^(others|lain-lain)$/i.test(c)).slice(0,1));return[...new Set(all)]};
 const fromRsvp=t=>t==="Hadir"?"yes":t==="Tidak Hadir"?"no":"pending",toRsvp=s=>s==="yes"?"Hadir":s==="no"?"Tidak Hadir":"";
 
 /* ===== Data layer: Google Sheet when GOOGLE_SCRIPT_URL is set, otherwise localStorage (demo mode) ===== */
