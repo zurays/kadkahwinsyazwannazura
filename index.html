@@ -461,6 +461,7 @@ a.ad-side{color:inherit;text-decoration:none;display:block}a.ad-side:hover{borde
 #tool .ad-cip .dupwarn{background:rgba(255,59,48,.12)!important;color:var(--r)!important;border-radius:10px!important}
 #tool .ad-cip .mt-3.p-3{background:rgba(52,199,89,.15)!important;color:#248a3d!important;border-radius:10px!important}
 .toast{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,system-ui,sans-serif}
+#tool .cat-f{display:flex;flex-direction:column;gap:.35rem}#tool .cat-f .cat-new{margin-top:.1rem}
 </style>
 </head>
 <body class="lock">
@@ -805,6 +806,11 @@ function saveLayout(){window.__lyDirty=Date.now();lsSet(LKEY,JSON.stringify(layo
 const expPax=g=>g.status==="yes"?g.pax:g.status==="pending"?g.max:0;   /* expected seats: confirmed pax, or the limit while waiting for an answer */
 const natSort=(a,b)=>a.localeCompare(b,undefined,{numeric:true});
 
+/* Category picker: a plain dropdown (no need to clear text), with an option to type a new one */
+const catOpts=(sd,val)=>{const L=catsFor(sd);if(val&&!L.includes(val))L.push(val);return `<option value="">No category</option>`+L.map(c=>`<option value="${esc(c)}"${c===val?" selected":""}>${esc(c)}</option>`).join("")+`<option value="__new">+ Add new category…</option>`};
+const catSel=(sd,val)=>`<select class="inp cat-s" name="c">${catOpts(sd,val)}</select><input class="inp cat-new" name="cnew" placeholder="Type the new category" autocomplete="off" hidden>`;
+const catVal=f=>f.get("c")==="__new"?String(f.get("cnew")||"").trim():String(f.get("c")||"").trim();
+document.addEventListener("change",e=>{const s=e.target;if(!s.classList||!s.classList.contains("cat-s"))return;const n=s.parentElement.querySelector(".cat-new");if(!n)return;n.hidden=s.value!=="__new";if(!n.hidden){n.value="";n.focus()}});
 function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="perempuan"?"P":"";let showEmpty=false,sel=null;
  const nav=`<nav class="ad-tabbar" aria-label="Sections">${TABS.map(([k,l],i)=>`<a href="#admin${k==="ringkasan"?"":"/"+k}" class="${k===tab?"on":""}"><span>${i+1}</span>${l}</a>`).join("")}</nav>`;
  const sideTitle=SD==="L"?"Groom's":"Bride's";
@@ -827,7 +833,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
  <section class="ad-sec"><h2 class="ad-h">Add ${sideTitle.toLowerCase()} guest</h2>
   <form id="af" class="ad-card ad-form" novalidate>
    <label class="f-name">Guest name<input class="inp" name="n" placeholder="e.g. Encik Ali bin Abu" autocomplete="off"></label>
-   <label class="f-2">Category<input class="inp" name="c" list="catl" placeholder="Choose, or type a new category" autocomplete="off"></label>
+   <label class="f-2 cat-f">Category${catSel(SD,"")}</label>
    <label>Pax limit<input class="inp" name="p" type="number" min="1" max="20" value="1" inputmode="numeric"><small>Maximum number of people</small></label>
    <label><span>Table <i>(optional)</i></span><input class="inp" name="t" list="tbls" placeholder="Can be set later" autocomplete="off"></label>
    <div class="f-act"><button class="btn">Add &amp; copy invitation message</button><small>The guest will be saved on the <b>${sideTitle.toLowerCase()} side</b>. The invitation message with the link will be copied so you can paste it into WhatsApp.</small></div>
@@ -888,7 +894,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   const sdF=$("#fsd")?$("#fsd").value:SD;
   fill($("#fct"),`<option value="all">All</option><option value="none">No category</option>`+catsFor(sdF==="L"||sdF==="P"?sdF:"").map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join(""));
   fill($("#ft"),`<option value="all">All</option><option value="none">Not set</option>`+tableNames().map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join(""));
-  $("#catl").innerHTML=catsFor(SD).map(c=>`<option value="${esc(c)}">`).join("");
+  {const cs=$("#af .cat-s");if(cs&&cs.value!=="__new"&&document.activeElement!==cs){const v=cs.value;cs.innerHTML=catOpts(SD,v);cs.value=v}}
   $("#tbls").innerHTML=tableNames().map(t=>`<option value="${esc(t)}">`).join("");
   drawList()}
 
@@ -1032,20 +1038,20 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
  function editGuest(g){const m=modal(`<h2>Edit guest</h2><form id="ef" class="ad-form ad-form-m" novalidate>
    <label class="f-name">Name<input class="inp" name="n" value="${esc(g.name)}"></label>
    <label>Side<select class="inp" name="sd"><option value="">Not set</option><option value="L">Groom's side</option><option value="P">Bride's side</option></select></label>
-   <label>Category<input class="inp" name="c" list="catl2" value="${esc(g.cat)}" placeholder="Choose or type a new category"><datalist id="catl2">${catsFor(g.side).map(c=>`<option value="${esc(c)}">`).join("")}</datalist></label>
+   <label class="cat-f">Category${catSel(g.side,g.cat||"")}</label>
    <label>Pax limit<input class="inp" type="number" min="1" max="20" name="p" value="${g.max}"></label>
    <label>RSVP status<select class="inp" name="s"><option value="pending">No reply yet</option><option value="yes">Attending</option><option value="no">Not attending</option></select></label>
    <div class="f-name ad-linkbox"><small>Invitation link</small><code>${esc(linkFor(g))}</code></div>
    <div class="f-act"><button class="btn">Save</button><button type="button" class="btn ghost" id="cx">Cancel</button></div></form>`);
-  $("[name=s]",m).value=g.status;$("[name=sd]",m).value=g.side||"";$("#cx",m).onclick=()=>m.remove();
+  $("[name=s]",m).value=g.status;$("[name=sd]",m).value=g.side||"";$("[name=sd]",m).onchange=e=>{const cs=$(".cat-s",m),v=cs.value==="__new"?"":cs.value;cs.innerHTML=catOpts(e.target.value,v);cs.value=v};$("#cx",m).onclick=()=>m.remove();
   $("#ef",m).onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim()||g.name;if(guests.some(x=>x!==g&&same(x.name,n))){toast("This name is already on the list");return}
-   try{await act("update",{oldName:g.name,name:n,pax:Math.max(1,+f.get("p")||1),status:f.get("s"),side:f.get("sd")||"",cat:(f.get("c")||"").trim()});m.remove();draw();toast(n+" updated")}catch(err){toast("Error: "+err.message)}}}
+   try{await act("update",{oldName:g.name,name:n,pax:Math.max(1,+f.get("p")||1),status:f.get("s"),side:f.get("sd")||"",cat:catVal(f)});m.remove();draw();toast(n+" updated")}catch(err){toast("Error: "+err.message)}}}
  if($("#af"))$("#af").onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim();
   if(!n){toast("Please enter the guest name");e.target.n.focus();return}
   const dup=guests.find(g=>same(g.name,n));if(dup){toast("This name is already on the list"+(dup.side&&dup.side!==SD?" ("+(dup.side==="L"?"groom's":"bride's")+" side)":""));return}
   const max=Math.max(1,Math.min(20,+f.get("p")||1));
-  try{await act("add",{name:n,pax:max,table:f.get("t").trim(),side:SD,cat:(f.get("c")||"").trim()});
-   const msg=waText({name:n,side:SD,max});const keepCat=e.target.c.value;e.target.n.value="";e.target.p.value=1;e.target.t.value="";e.target.c.value=keepCat;draw();copy(msg,"✓ "+n+" added. Invitation message & link copied.");e.target.n.focus()}
+  try{await act("add",{name:n,pax:max,table:f.get("t").trim(),side:SD,cat:catVal(f)});
+   const msg=waText({name:n,side:SD,max});const keepCat=catVal(f);e.target.n.value="";e.target.p.value=1;e.target.t.value="";draw();{const cs=$("#af .cat-s"),cn=$("#af .cat-new");cs.innerHTML=catOpts(SD,keepCat);cs.value=keepCat;cn.hidden=true;cn.value=""}copy(msg,"✓ "+n+" added. Invitation message & link copied.");e.target.n.focus()}
   catch(err){toast("Error: "+err.message)}};
  if($("#q"))$("#q").oninput=drawList;["#fsd","#fct","#fs","#ft"].forEach(s=>{const el=$(s);if(el)el.onchange=s==="#fsd"?drawGuests:drawList});
  if($("#emp"))$("#emp").onchange=e=>{showEmpty=e.target.checked;drawGuests()};
