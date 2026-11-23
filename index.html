@@ -461,7 +461,7 @@ a.ad-side{color:inherit;text-decoration:none;display:block}a.ad-side:hover{borde
 #tool .ad-cip .dupwarn{background:rgba(255,59,48,.12)!important;color:var(--r)!important;border-radius:10px!important}
 #tool .ad-cip .mt-3.p-3{background:rgba(52,199,89,.15)!important;color:#248a3d!important;border-radius:10px!important}
 .toast{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,system-ui,sans-serif}
-#tool .cat-f{display:flex;flex-direction:column;gap:.35rem}#tool .cat-f .cat-new{margin-top:.1rem}
+.cat-new[hidden],.cat-ed[hidden]{display:none!important}.cat-f{display:flex!important;flex-direction:column;gap:.35rem}.cat-row{display:flex!important;flex-direction:row!important;gap:.4rem;align-items:center}.cat-row .cat-s{flex:1;min-width:0}.cat-row .cat-ed{flex:none;white-space:nowrap}#tool .cat-f{display:flex;flex-direction:column;gap:.35rem}#tool .cat-row{display:flex;gap:.4rem;align-items:center}#tool .cat-row .cat-s{flex:1;min-width:0}#tool .cat-row .cat-ed{flex:none;white-space:nowrap}#tool .cat-f .cat-new{margin-top:.1rem}
 </style>
 </head>
 <body class="lock">
@@ -598,7 +598,10 @@ const CATS={
 /* older Malay category names saved in the Sheet are shown with the English names */
 const CAT_OLD={"Jiran":"Neighbours","Lain-lain":"Others"};[["Lelaki","Groom's"],["Perempuan","Bride's"]].forEach(([m,e])=>Object.assign(CAT_OLD,{[`Family Ibu Pengantin ${m}`]:`${e} Mother's Family`,[`Family Ayah Pengantin ${m}`]:`${e} Father's Family`,[`Rakan Ibu Pengantin ${m}`]:`${e} Mother's Friends`,[`Rakan Ayah Pengantin ${m}`]:`${e} Father's Friends`,[`Rakan Sekolah Pengantin ${m}`]:`${e} School Friends`,[`Rakan Kerja Pengantin ${m}`]:`${e} Colleagues`}));
 const normCats=()=>guests.forEach(g=>{if(CAT_OLD[g.cat])g.cat=CAT_OLD[g.cat]});
-const catsFor=sd=>{normCats();const extra=guests.filter(g=>g.cat&&(!sd||g.side===sd)).map(g=>g.cat);return[...new Set([...(sd?CATS[sd]:[...CATS.L,...CATS.P]),...extra])]};
+/* category list per side: the defaults above, or the admin's edited list (saved with the floor plan so all admins share it) */
+const catList=sd=>{try{const o=getLayout().cats;if(o&&Array.isArray(o[sd]))return[...o[sd]]}catch(e){}return[...(CATS[sd]||[])]};
+const setCatList=(sd,arr)=>{const L=getLayout();L.cats=L.cats||{};L.cats[sd]=[...new Set(arr.filter(Boolean))];saveLayout()};
+const catsFor=sd=>{normCats();const extra=guests.filter(g=>g.cat&&(!sd||g.side===sd)).map(g=>g.cat);return[...new Set([...(sd?catList(sd):[...catList("L"),...catList("P")]),...extra])]};
 const fromRsvp=t=>t==="Hadir"?"yes":t==="Tidak Hadir"?"no":"pending",toRsvp=s=>s==="yes"?"Hadir":s==="no"?"Tidak Hadir":"";
 
 /* ===== Data layer: Google Sheet when GOOGLE_SCRIPT_URL is set, otherwise localStorage (demo mode) ===== */
@@ -808,9 +811,18 @@ const natSort=(a,b)=>a.localeCompare(b,undefined,{numeric:true});
 
 /* Category picker: a plain dropdown (no need to clear text), with an option to type a new one */
 const catOpts=(sd,val)=>{const L=catsFor(sd);if(val&&!L.includes(val))L.push(val);return `<option value="">No category</option>`+L.map(c=>`<option value="${esc(c)}"${c===val?" selected":""}>${esc(c)}</option>`).join("")+`<option value="__new">+ Add new category…</option>`};
-const catSel=(sd,val)=>`<select class="inp cat-s" name="c">${catOpts(sd,val)}</select><input class="inp cat-new" name="cnew" placeholder="Type the new category" autocomplete="off" hidden>`;
+const catSel=(sd,val)=>`<span class="cat-row"><select class="inp cat-s" name="c" data-sd="${sd||""}">${catOpts(sd,val)}</select><button type="button" class="btn ghost sm cat-ed"${val?"":" hidden"} title="Rename this category">✎ Edit</button></span><input class="inp cat-new" name="cnew" placeholder="Type the new category" autocomplete="off" hidden>`;
 const catVal=f=>f.get("c")==="__new"?String(f.get("cnew")||"").trim():String(f.get("c")||"").trim();
-document.addEventListener("change",e=>{const s=e.target;if(!s.classList||!s.classList.contains("cat-s"))return;const n=s.parentElement.querySelector(".cat-new");if(!n)return;n.hidden=s.value!=="__new";if(!n.hidden){n.value="";n.focus()}});
+document.addEventListener("change",e=>{const s=e.target;if(!s.classList||!s.classList.contains("cat-s"))return;const box=s.closest(".cat-f"),n=box&&box.querySelector(".cat-new"),ed=box&&box.querySelector(".cat-ed");if(ed)ed.hidden=!s.value||s.value==="__new";if(!n)return;n.hidden=s.value!=="__new";if(!n.hidden){n.value="";n.focus()}});
+/* rename a category: updates the list and every guest on that side who has it */
+document.addEventListener("click",async e=>{const b=e.target.closest&&e.target.closest(".cat-ed");if(!b)return;const box=b.closest(".cat-f"),s=box.querySelector(".cat-s"),old=s.value;if(!old||old==="__new")return;
+ const sdSel=box.closest("form")&&box.closest("form").querySelector("[name=sd]"),sd=sdSel?sdSel.value:(s.dataset.sd||"");
+ const nv=(prompt("Rename category:",old)||"").trim();if(!nv||nv===old)return;
+ const sides=sd?[sd]:["L","P"];sides.forEach(x=>{const L=catList(x);const i=L.indexOf(old);if(i>=0)L[i]=nv;else if(guests.some(g=>g.side===x&&g.cat===old))L.push(nv);setCatList(x,L)});
+ const M=guests.filter(g=>g.cat===old&&(!sd||g.side===sd));
+ for(const g of M){try{await act("update",{oldName:g.name,name:g.name,pax:g.max,status:g.status,side:g.side||"",cat:nv})}catch(err){toast("Error: "+err.message)}}
+ document.querySelectorAll(".cat-s").forEach(x=>{const v=x.value===old?nv:x.value;const xs=(x.closest("form")&&x.closest("form").querySelector("[name=sd]"))?x.closest("form").querySelector("[name=sd]").value:(x.dataset.sd||"");x.innerHTML=catOpts(xs,v);x.value=v});
+ toast(`Category renamed to "${nv}"`+(M.length?` · ${M.length} guest(s) updated`:""));if(typeof refresh==="function")refresh()});
 function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="perempuan"?"P":"";let showEmpty=false,sel=null;
  const nav=`<nav class="ad-tabbar" aria-label="Sections">${TABS.map(([k,l],i)=>`<a href="#admin${k==="ringkasan"?"":"/"+k}" class="${k===tab?"on":""}"><span>${i+1}</span>${l}</a>`).join("")}</nav>`;
  const sideTitle=SD==="L"?"Groom's":"Bride's";
@@ -864,7 +876,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   return [["Total invited",G.length,"guests",sumMax(G)+(SD?"":" / "+CFG.targetPax)+" pax invited",""],["Confirmed",sumPax(y),"pax",y.length+" guests said yes","yes"],["Not attending",no.length,"guests","",""],["No reply yet",pe.length,"guests",sumMax(pe)+" pax not confirmed","wait"]]
    .map(s=>`<div class="ad-stat ${s[4]}"><p>${s[0]}</p><b>${s[1]}<small> ${s[2]}</small></b><span>${s[3]}</span></div>`).join("")};
  const catCard=(sd,head)=>{const G=guests.filter(g=>g.side===sd);const list=catsFor(sd);if(G.some(g=>!g.cat))list.push("");
-  const rows=list.map(c=>{const A=G.filter(g=>(g.cat||"")===c);if(!A.length&&(!showEmpty||!CATS[sd].includes(c)))return"";const Y=A.filter(g=>g.status==="yes");
+  const rows=list.map(c=>{const A=G.filter(g=>(g.cat||"")===c);if(!A.length&&(!showEmpty||!catList(sd).includes(c)))return"";const Y=A.filter(g=>g.status==="yes");
    return `<tr class="ctr${A.length?"":" emp"}" data-sd="${sd}" data-c="${esc(c)}" tabindex="0"><td>${c?esc(c):"<i>No category</i>"}</td><td>${A.length}</td><td>${sumMax(A)}</td><td><b>${sumPax(Y)}</b></td><td>${A.filter(g=>g.status==="pending").length}</td></tr>`}).join("");
   return `<div class="ad-card">${head?`<h3>${sd==="L"?"Groom's":"Bride's"} side</h3>`:""}${rows?`<div class="ad-tw"><table class="ad-t"><thead><tr><th>Category</th><th>Guests</th><th>Invited<br><small>pax</small></th><th>Attending<br><small>pax</small></th><th>No<br><small>reply</small></th></tr></thead><tbody>${rows}</tbody></table></div>`:`<p class="ad-note" style="margin:.4rem 0 0">No guests on this side yet.</p>`}</div>`};
  const guestCard=g=>`<article class="ad-card ad-g st-${g.status}" data-id="${esc(g.id)}">
@@ -1038,19 +1050,19 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
  function editGuest(g){const m=modal(`<h2>Edit guest</h2><form id="ef" class="ad-form ad-form-m" novalidate>
    <label class="f-name">Name<input class="inp" name="n" value="${esc(g.name)}"></label>
    <label>Side<select class="inp" name="sd"><option value="">Not set</option><option value="L">Groom's side</option><option value="P">Bride's side</option></select></label>
-   <label class="cat-f">Category${catSel(g.side,g.cat||"")}</label>
+   <label class="cat-f f-name">Category${catSel(g.side,g.cat||"")}</label>
    <label>Pax limit<input class="inp" type="number" min="1" max="20" name="p" value="${g.max}"></label>
    <label>RSVP status<select class="inp" name="s"><option value="pending">No reply yet</option><option value="yes">Attending</option><option value="no">Not attending</option></select></label>
    <div class="f-name ad-linkbox"><small>Invitation link</small><code>${esc(linkFor(g))}</code></div>
    <div class="f-act"><button class="btn">Save</button><button type="button" class="btn ghost" id="cx">Cancel</button></div></form>`);
   $("[name=s]",m).value=g.status;$("[name=sd]",m).value=g.side||"";$("[name=sd]",m).onchange=e=>{const cs=$(".cat-s",m),v=cs.value==="__new"?"":cs.value;cs.innerHTML=catOpts(e.target.value,v);cs.value=v};$("#cx",m).onclick=()=>m.remove();
   $("#ef",m).onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim()||g.name;if(guests.some(x=>x!==g&&same(x.name,n))){toast("This name is already on the list");return}
-   try{await act("update",{oldName:g.name,name:n,pax:Math.max(1,+f.get("p")||1),status:f.get("s"),side:f.get("sd")||"",cat:catVal(f)});m.remove();draw();toast(n+" updated")}catch(err){toast("Error: "+err.message)}}}
+   try{const nc=catVal(f),ns=f.get("sd")||"";if(nc&&ns&&!catList(ns).includes(nc))setCatList(ns,[...catList(ns),nc]);await act("update",{oldName:g.name,name:n,pax:Math.max(1,+f.get("p")||1),status:f.get("s"),side:ns,cat:nc});m.remove();draw();toast(n+" updated")}catch(err){toast("Error: "+err.message)}}}
  if($("#af"))$("#af").onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim();
   if(!n){toast("Please enter the guest name");e.target.n.focus();return}
   const dup=guests.find(g=>same(g.name,n));if(dup){toast("This name is already on the list"+(dup.side&&dup.side!==SD?" ("+(dup.side==="L"?"groom's":"bride's")+" side)":""));return}
   const max=Math.max(1,Math.min(20,+f.get("p")||1));
-  try{await act("add",{name:n,pax:max,table:f.get("t").trim(),side:SD,cat:catVal(f)});
+  try{const nc=catVal(f);if(nc&&!catList(SD).includes(nc))setCatList(SD,[...catList(SD),nc]);await act("add",{name:n,pax:max,table:f.get("t").trim(),side:SD,cat:nc});
    const msg=waText({name:n,side:SD,max});const keepCat=catVal(f);e.target.n.value="";e.target.p.value=1;e.target.t.value="";draw();{const cs=$("#af .cat-s"),cn=$("#af .cat-new");cs.innerHTML=catOpts(SD,keepCat);cs.value=keepCat;cn.hidden=true;cn.value=""}copy(msg,"✓ "+n+" added. Invitation message & link copied.");e.target.n.focus()}
   catch(err){toast("Error: "+err.message)}};
  if($("#q"))$("#q").oninput=drawList;["#fsd","#fct","#fs","#ft"].forEach(s=>{const el=$(s);if(el)el.onchange=s==="#fsd"?drawGuests:drawList});
