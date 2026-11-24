@@ -1185,7 +1185,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    <div class="f-act"><button class="btn">Save</button><button type="button" class="btn ghost" id="cx">Close</button></div></form>`);
   {const kids=()=>guests.filter(x=>same(x.under,g.name));
    const paint=()=>{const K=kids();$("#fml",m).innerHTML=K.length?K.map(x=>`<div class="fm-row" data-n="${esc(x.name)}"><span>↳ ${esc(x.name)}</span><span class="fm-r"><b>${x.max} pax</b><button type="button" class="ad-link fm-un" title="Remove from this family (the guest stays on the list)">Remove</button></span></div>`).join(""):`<p class="fm-empty">No family members added yet.</p>`;
-    $("#fmdl",m).innerHTML=guests.filter(x=>x!==g&&!same(x.under,g.name)).sort((a,b)=>(a.side!==(g.side||a.side))-(b.side!==(g.side||b.side))||a.name.localeCompare(b.name)).map(x=>`<option value="${esc(x.name)}">`).join("");
+    $("#fmdl",m).innerHTML=guests.filter(x=>x!==g&&!(x.under&&guests.some(y=>same(y.name,x.under)))).sort((a,b)=>(a.side!==(g.side||a.side))-(b.side!==(g.side||b.side))||a.name.localeCompare(b.name)).map(x=>`<option value="${esc(x.name)}">`).join("");
     $$(".fm-un",m).forEach(b=>b.onclick=async()=>{const x=guests.find(y=>same(y.name,b.closest(".fm-row").dataset.n));if(!x)return;try{await act("update",{oldName:x.name,name:x.name,pax:x.max,status:x.status,side:x.side||"",cat:x.cat||"",under:""});paint();draw();toast(x.name+" removed from this family")}catch(err){toast("Error: "+err.message)}})};
    $("#fmp",m).value=(kids().slice(-1)[0]||g).max||1;paint();
    const addKid=async()=>{const n=$("#fmn",m).value.trim(),px=Math.max(1,Math.min(20,+$("#fmp",m).value||1));if(!n){$("#fmn",m).focus();return}
