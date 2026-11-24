@@ -513,6 +513,8 @@ body.adm-on .modal .ad-bar{background:rgba(118,118,128,.12);height:.45rem;border
 body.adm-on .modal .fm-add .inp{background:rgba(118,118,128,.12);padding:.5rem .7rem}
 .fm-hint{font-size:.72rem!important;color:rgba(60,60,67,.5)!important}
 .ced-td{white-space:nowrap;text-align:right}.ced-td .ad-link{font-size:.82rem;margin-left:.6rem;background:none;border:0;cursor:pointer;padding:0}.ced-td .cdel{color:#ff3b30!important}
+.cdrag{display:inline-block;white-space:nowrap;vertical-align:middle;padding:.1rem .15rem;margin-right:.45rem;color:#aeaeb2;cursor:grab;touch-action:none;user-select:none;font-size:1.05rem;line-height:1}.cdrag:hover{color:#8e8e93}.cdrag-sp{display:inline-block;width:1.5rem}
+.ctr.cdragging td{background:rgba(0,122,255,.08)!important}.ctr.cdragging .cdrag{cursor:grabbing;color:#007aff}
 </style>
 </head>
 <body class="lock">
@@ -654,7 +656,12 @@ const catList=sd=>{try{const o=getLayout().cats;if(o&&Array.isArray(o[sd]))retur
 const setCatList=(sd,arr)=>{const L=getLayout();L.cats=L.cats||{};L.cats[sd]=[...new Set(arr.filter(Boolean))];saveLayout()};
 /* categories are always shown sorted A–Z (groom's side first, then bride's), with "Others" at the end */
 const catSort=a=>{const isO=c=>/^(others|lain-lain)$/i.test(c);return[...new Set(a)].sort((x,y)=>(isO(x)-isO(y))||x.localeCompare(y,undefined,{numeric:true,sensitivity:"base"}))};
-const catsFor=sd=>{normCats();const one=x=>catSort([...catList(x),...guests.filter(g=>g.cat&&g.side===x).map(g=>g.cat)]);
+const catOrder=sd=>{try{const o=getLayout().catOrder;return o&&Array.isArray(o[sd])?o[sd]:null}catch(e){return null}};
+const setCatOrder=(sd,arr)=>{const L=getLayout();L.catOrder=L.catOrder||{};L.catOrder[sd]=arr;saveLayout()};
+const catsFor=sd=>{normCats();const one=x=>{const base=catSort([...catList(x),...guests.filter(g=>g.cat&&g.side===x).map(g=>g.cat)]),o=catOrder(x);if(!o)return base;
+  /* the admin's own order (dragged in the By category table); categories added later go in A–Z before "Others" */
+  const isO=c=>/^(others|lain-lain)$/i.test(c),first=o.filter(c=>base.includes(c)),rest=base.filter(c=>!first.includes(c));
+  const out=first.filter(c=>!isO(c));rest.filter(c=>!isO(c)).forEach(c=>out.push(c));[...first,...rest].filter(isO).forEach(c=>out.push(c));return[...new Set(out)]};
  if(sd)return one(sd);const L=one("L"),P=one("P").filter(c=>!L.includes(c)),rest=guests.filter(g=>g.cat&&!g.side).map(g=>g.cat).filter(c=>!L.includes(c)&&!P.includes(c));
  const all=[...L.filter(c=>!/^(others|lain-lain)$/i.test(c)),...P.filter(c=>!/^(others|lain-lain)$/i.test(c)),...catSort(rest)];if([...L,...P].some(c=>/^(others|lain-lain)$/i.test(c)))all.push(...[...L,...P].filter(c=>/^(others|lain-lain)$/i.test(c)).slice(0,1));return[...new Set(all)]};
 const fromRsvp=t=>t==="Hadir"?"yes":t==="Tidak Hadir"?"no":"pending",toRsvp=s=>s==="yes"?"Hadir":s==="no"?"Tidak Hadir":"";
@@ -902,6 +909,7 @@ async function renameCat(sd,old,nv){nv=String(nv||"").trim();if(!nv||nv===old)re
  const sides=sd?[sd]:["L","P"];sides.forEach(x=>{const L=catList(x);const i=L.indexOf(old);if(i>=0)L[i]=nv;else if(guests.some(g=>g.side===x&&g.cat===old))L.push(nv);setCatList(x,L)});
  const M=guests.filter(g=>g.cat===old&&(!sd||g.side===sd));
  for(const g of M){try{await act("update",{oldName:g.name,name:g.name,pax:g.max,status:g.status,side:g.side||"",cat:nv})}catch(err){toast("Error: "+err.message)}}
+ {const sides2=sd?[sd]:["L","P"];sides2.forEach(x=>{const o=catOrder(x);if(o)setCatOrder(x,o.map(k=>k===old?nv:k))})}
  return M.length}
 async function deleteCat(sd,c){const sides=sd?[sd]:["L","P"];sides.forEach(x=>setCatList(x,catList(x).filter(k=>k!==c)));
  const M=guests.filter(g=>g.cat===c&&(!sd||g.side===sd));
@@ -944,7 +952,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    <label class="f-2">Family of <i>(optional)</i><select class="inp" name="u"><option value="">— Not part of another family —</option></select><small>For a married child or the unmarried children of someone already on the list</small></label>
    <div class="f-act"><button class="btn">Add &amp; copy invitation message</button><small>The guest will be saved on the <b>${sideTitle.toLowerCase()} side</b>. The invitation message with the link will be copied so you can paste it into WhatsApp.</small></div>
   </form></section>
- <section class="ad-sec"><h2 class="ad-h">By category</h2><p class="ad-note">Number of guests added in each category. Click a row to see those guests in the list below. <label class="ad-chk"><input type="checkbox" id="emp"> Show empty categories</label></p><div id="cats" class="ad-cats one"></div></section>
+ <section class="ad-sec"><h2 class="ad-h">By category</h2><p class="ad-note">Number of guests added in each category. Click a row to see those guests in the list below. Drag ⠿ to change the order. <label class="ad-chk"><input type="checkbox" id="emp"> Show empty categories</label></p><div id="cats" class="ad-cats one"></div></section>
  <section class="ad-sec" id="lsec"><h2 class="ad-h ad-h-row">${sideTitle} guest list<button type="button" class="btn sm" id="small">▶ Send invitations 1 by 1</button></h2><div class="ad-card ad-tools"><input class="inp ad-q" id="q" placeholder="Search guest name…" aria-label="Search name" autocomplete="off"><div class="ad-filters f3"><label>Invitation<select class="inp" id="fsent"><option value="all">All</option><option value="no">Not sent yet</option><option value="yes">Sent</option></select></label><label>Sort by<select class="inp fsort" id="fsort"><option value="name">Name (A–Z)</option><option value="first">First added</option><option value="last">Latest added</option><option value="cat">Category</option></select></label><label>Category<select class="inp" id="fct"></select></label></div><div class="ad-count"><span id="cnt"></span><button type="button" class="ad-link" id="clr">Clear filters</button></div></div><div id="list" class="ad-list"></div></section>
 `;
  else body=`
@@ -972,7 +980,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    .map(s=>`<div class="ad-stat ${s[4]}"><p>${s[0]}</p><b>${s[1]}<small> ${s[2]}</small></b><span>${s[3]}</span></div>`).join("")};
  const catCard=(sd,head)=>{const G=guests.filter(g=>g.side===sd);const list=catsFor(sd);if(G.some(g=>!g.cat))list.push("");
   const rows=list.map(c=>{const A=G.filter(g=>(g.cat||"")===c);if(!A.length&&(!showEmpty||!catList(sd).includes(c)))return"";const Y=A.filter(g=>g.status==="yes");
-   return `<tr class="ctr${A.length?"":" emp"}" data-sd="${sd}" data-c="${esc(c)}" tabindex="0"><td>${c?esc(c):"<i>No category</i>"}</td><td>${A.length}</td><td>${sumMax(A)}</td><td><b>${sumPax(Y)}</b></td><td>${A.filter(g=>g.status==="pending").length}</td><td class="snt-td">${A.length?`${A.filter(g=>g.sent).length}/${A.length}`:"–"}</td><td class="inv-td">${c&&A.length?`<button type="button" class="btn ghost sm grp" title="Copy one invitation for the whole family WhatsApp group">Group link</button><button type="button" class="btn ghost sm one" title="Send personal invitations one by one">Send 1 by 1</button>`:""}</td><td class="ced-td">${c?`<button type="button" class="ad-link cren" title="Rename this category">✎ Rename</button><button type="button" class="ad-link cdel" title="Delete this category">Delete</button>`:""}</td></tr>`}).join("");
+   return `<tr class="ctr${A.length?"":" emp"}" data-sd="${sd}" data-c="${esc(c)}" tabindex="0"><td>${c?`<span class="cdrag" title="Drag to reorder" aria-label="Drag to reorder">⠿</span>`:`<span class="cdrag-sp"></span>`}${c?esc(c):"<i>No category</i>"}</td><td>${A.length}</td><td>${sumMax(A)}</td><td><b>${sumPax(Y)}</b></td><td>${A.filter(g=>g.status==="pending").length}</td><td class="snt-td">${A.length?`${A.filter(g=>g.sent).length}/${A.length}`:"–"}</td><td class="inv-td">${c&&A.length?`<button type="button" class="btn ghost sm grp" title="Copy one invitation for the whole family WhatsApp group">Group link</button><button type="button" class="btn ghost sm one" title="Send personal invitations one by one">Send 1 by 1</button>`:""}</td><td class="ced-td">${c?`<button type="button" class="ad-link cren" title="Rename this category">✎ Rename</button><button type="button" class="ad-link cdel" title="Delete this category">Delete</button>`:""}</td></tr>`}).join("");
   return `<div class="ad-card">${head?`<h3>${sd==="L"?"Groom's":"Bride's"} side</h3>`:""}${rows?`<div class="ad-tw"><table class="ad-t"><thead><tr><th>Category</th><th>Guests</th><th>Invited<br><small>pax</small></th><th>Attending<br><small>pax</small></th><th>No<br><small>reply</small></th><th>Sent</th><th>Invite</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`:`<p class="ad-note" style="margin:.4rem 0 0">No guests on this side yet.</p>`}</div>`};
  const underOpts=(sd,val,self,none)=>{const bad=new Set();if(self){const add=n=>guests.forEach(x=>{if(same(x.under,n)&&!bad.has(x)){bad.add(x);add(x.name)}});bad.add(self);add(self.name)}
   const L=guests.filter(x=>(!sd||x.side===sd)&&!bad.has(x));return `<option value="">${none||"— None (main invitation) —"}</option>`+famOrder(L,(a,b)=>a.name.localeCompare(b.name)).map(([x,d])=>`<option value="${esc(x.name)}"${same(x.name,val)?" selected":""}>${"\u00a0\u00a0".repeat(d)}${d?"↳ ":""}${esc(x.name)}</option>`).join("")};
@@ -1228,12 +1236,20 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
  if($("#emp"))$("#emp").onchange=e=>{showEmpty=e.target.checked;drawGuests()};
  if($("#clr"))$("#clr").onclick=()=>{$("#q").value="";["#fsd","#fct","#fs","#ft","#fsent"].forEach(s=>{const el=$(s);if(el)el.value="all"});drawGuests()};
  const goCat=r=>{if($("#fsd"))$("#fsd").value=r.dataset.sd;drawGuests();$("#fct").value=r.dataset.c||"none";["#fs","#ft"].forEach(x=>{if($(x))$(x).value="all"});$("#q").value="";drawList();$("#lsec").scrollIntoView({behavior:"smooth"})};
+ /* drag ⋮⋮ to reorder categories (saved for all admins) */
+ if($("#cats"))$("#cats").addEventListener("pointerdown",e=>{const h=e.target.closest(".cdrag");if(!h)return;e.preventDefault();e.stopPropagation();
+  const row=h.closest(".ctr"),tb=row.parentElement,sd=row.dataset.sd;window.__dragging=1;row.classList.add("cdragging");document.body.style.userSelect="none";
+  const mv=ev=>{const el=document.elementFromPoint(ev.clientX,ev.clientY),r=el&&el.closest&&el.closest(".ctr");if(!r||r===row||r.parentElement!==tb||!r.dataset.c)return;const bx=r.getBoundingClientRect();tb.insertBefore(row,ev.clientY<bx.top+bx.height/2?r:r.nextSibling);
+   const nc=[...tb.querySelectorAll(".ctr")].filter(x=>!x.dataset.c);nc.forEach(x=>tb.appendChild(x))};
+  const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up);removeEventListener("pointercancel",up);row.classList.remove("cdragging");document.body.style.userSelect="";window.__dragging=0;
+   const vis=[...tb.querySelectorAll(".ctr")].map(x=>x.dataset.c).filter(Boolean),all=catsFor(sd);setCatOrder(sd,[...vis,...all.filter(c=>!vis.includes(c))]);window.__cdragJust=1;setTimeout(()=>{window.__cdragJust=0},350);toast("Category order saved");draw()};
+  addEventListener("pointermove",mv);addEventListener("pointerup",up);addEventListener("pointercancel",up)},true);
  if($("#cats")){$("#cats").addEventListener("click",async e=>{const b=e.target.closest("button.grp,button.one,button.cren,button.cdel");if(!b)return;e.stopPropagation();const r=b.closest(".ctr"),sd=r.dataset.sd,c=r.dataset.c,A=guests.filter(g=>g.side===sd&&(g.cat||"")===c);
   if(b.classList.contains("cren")){const nv=(prompt("Rename category:",c)||"").trim();if(!nv||nv===c)return;if(catsFor(sd).some(k=>k!==c&&k.toLowerCase()===nv.toLowerCase())&&!confirm(`"${nv}" already exists. Merge "${c}" into it?`))return;const n=await renameCat(sd,c,nv);toast(`Category renamed to "${nv}"`+(n?` · ${n} guest(s) updated`:""));draw();return}
   if(b.classList.contains("cdel")){if(!confirm(`Delete the category "${c}"?`+(A.length?`\n\nThe ${A.length} guest(s) in it will stay on the list, with no category. You can give them a new category with Edit.`:"")))return;const n=await deleteCat(sd,c);toast(`Category "${c}" deleted`+(n?` · ${n} guest(s) now have no category`:""));draw();return}
   if(b.classList.contains("one")){sendMode(A,c);return}
   grpModal(sd,c,A)},true)}
- if($("#cats")&&$("#lsec")){$("#cats").onclick=e=>{if(e.target.closest("button"))return;const r=e.target.closest(".ctr");if(r)goCat(r)};
+ if($("#cats")&&$("#lsec")){$("#cats").onclick=e=>{if(e.target.closest("button,.cdrag")||window.__cdragJust)return;const r=e.target.closest(".ctr");if(r)goCat(r)};
  $("#cats").onkeydown=e=>{const r=e.target.closest(".ctr");if(r&&(e.key==="Enter"||e.key===" ")){e.preventDefault();goCat(r)}}}
  if($("#exp"))$("#exp").onclick=()=>{const qt=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
   const csv=[["Guest Name","Attending Pax","Pax Limit","RSVP","Side","Category","Table","Link","Check-in Time"].join(",")].concat(guests.map(g=>[g.name,g.status==="yes"?g.pax:"",g.max,SL[g.status],sideName(g.side),g.cat,g.table,linkFor(g),g.arrived?new Date(g.arrived).toLocaleString():""].map(qt).join(","))).join("\n");
