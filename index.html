@@ -1181,7 +1181,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    <div class="f-name ad-linkbox"><small>Invitation link</small><code>${esc(linkFor(g))}</code></div>
    <div class="f-name fm-box"><small>Family members of ${esc(g.name)} <i>(each gets their own invitation)</i></small><div id="fml"></div>
     <div class="fm-add"><input class="inp" id="fmn" list="fmdl" placeholder="Type a new name, or pick someone already on the list" autocomplete="off" aria-label="Family member name"><datalist id="fmdl"></datalist><input class="inp" id="fmp" type="number" min="1" max="20" aria-label="Pax limit"><button type="button" class="btn sm" id="fma">+ Add</button></div>
-    <small class="fm-hint">New names get the pax shown (it follows the last one you entered; change it if needed) and the same side and category as ${esc(g.name)}. Names already on the list are simply moved under ${esc(g.name)}.</small></div>
+    <small class="fm-hint">New names: pax follows the last one you entered, with the same side and category as ${esc(g.name)}. Names already on the list keep their own pax (shown when you pick them); change the number before tapping + Add if needed. Every value can still be changed later with Edit.</small></div>
    <div class="f-act"><button class="btn">Save</button><button type="button" class="btn ghost" id="cx">Close</button></div></form>`);
   {const kids=()=>guests.filter(x=>same(x.under,g.name));
    const paint=()=>{const K=kids();$("#fml",m).innerHTML=K.length?K.map(x=>`<div class="fm-row" data-n="${esc(x.name)}"><span>↳ ${esc(x.name)}</span><span class="fm-r"><b>${x.max} pax</b><button type="button" class="ad-link fm-un" title="Remove from this family (the guest stays on the list)">Remove</button></span></div>`).join(""):`<p class="fm-empty">No family members added yet.</p>`;
@@ -1194,10 +1194,13 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
      /* moving an existing guest under this one; if this guest was under them (or their family), undo that so the tree stays correct */
      let up=g,loop=false;const seen=new Set();while(up&&up.under&&!seen.has(up)){seen.add(up);if(same(up.under,ex.name)){loop=true;break}up=guests.find(y=>same(y.name,up.under))}
      try{if(loop){await act("update",{oldName:g.name,name:g.name,pax:g.max,status:g.status,side:g.side||"",cat:g.cat||"",under:""});$("[name=u]",m).value=""}
-      await act("update",{oldName:ex.name,name:ex.name,pax:ex.max,status:ex.status,side:ex.side||"",cat:ex.cat||"",under:g.name});
-      $("#fmn",m).value="";paint();draw();toast("✓ "+ex.name+" is now under "+g.name);$("#fmn",m).focus()}catch(err){toast("Error: "+err.message)}return}
+      await act("update",{oldName:ex.name,name:ex.name,pax:px,status:ex.status,side:ex.side||"",cat:ex.cat||"",under:g.name});
+      $("#fmn",m).value="";$("#fmp",m).value=lastPx;paint();draw();toast("✓ "+ex.name+" is now under "+g.name);$("#fmn",m).focus()}catch(err){toast("Error: "+err.message)}return}
     const sd=$("[name=sd]",m).value||g.side||"",cs=$(".cat-s",m),cat=cs&&cs.value&&cs.value!=="__new"?cs.value:(g.cat||"");
-    try{await act("add",{name:n,pax:px,table:g.table||"",side:sd,cat,under:g.name});$("#fmn",m).value="";$("#fmp",m).value=px;paint();draw();toast("✓ "+n+" added under "+g.name);$("#fmn",m).focus()}catch(err){toast("Error: "+err.message)}};
+    try{await act("add",{name:n,pax:px,table:g.table||"",side:sd,cat,under:g.name});lastPx=px;$("#fmn",m).value="";$("#fmp",m).value=px;paint();draw();toast("✓ "+n+" added under "+g.name);$("#fmn",m).focus()}catch(err){toast("Error: "+err.message)}};
+   let lastPx=+$("#fmp",m).value||1;
+   $("#fmn",m).addEventListener("input",()=>{const ex=guests.find(x=>same(x.name,$("#fmn",m).value));if(ex&&ex!==g){$("#fmp",m).value=ex.max;$("#fmp",m).dataset.ex="1"}else if($("#fmp",m).dataset.ex){$("#fmp",m).value=lastPx;delete $("#fmp",m).dataset.ex}});
+   $("#fmp",m).addEventListener("input",()=>{if(!$("#fmp",m).dataset.ex)lastPx=+$("#fmp",m).value||lastPx});
    $("#fma",m).onclick=addKid;$("#fmn",m).onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addKid()}};$("#fmp",m).onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addKid()}}}
   $("[name=s]",m).value=g.status;$("[name=sd]",m).value=g.side||"";{const upd=()=>{const c=$(".ad-linkbox code",m);if(c)c.textContent=linkFor({name:$("[name=n]",m).value||g.name,side:$("[name=sd]",m).value,max:+$("[name=p]",m).value||g.max})};["n","sd","p"].forEach(k=>$(`[name=${k}]`,m).addEventListener("input",upd));$("[name=sd]",m).addEventListener("change",upd)}$("[name=sd]",m).onchange=e=>{const cs=$(".cat-s",m),v=cs.value==="__new"?"":cs.value;cs.innerHTML=catOpts(e.target.value,v);cs.value=v};$("#cx",m).onclick=()=>m.remove();
   $("#ef",m).onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim()||g.name;if(guests.some(x=>x!==g&&same(x.name,n))){toast("This name is already on the list");return}
