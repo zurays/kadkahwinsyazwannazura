@@ -487,6 +487,25 @@ body.adm-on .modal-bg .modal input[type=checkbox]{accent-color:var(--g)}
 body.adm-on .modal-bg .modal .ad-chk{color:var(--lbl)!important;font-size:.92rem!important}
 body.adm-on .toast{background:rgba(30,30,30,.88);color:#fff;border:0;border-radius:14px;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,system-ui,sans-serif;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .ad-filters.f5{grid-template-columns:repeat(5,minmax(0,1fr))}.ad-filters.f2{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+/* invitation checklist, families, send mode */
+.ad-filters.f4{grid-template-columns:repeat(4,minmax(0,1fr))}.ad-filters.f6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.snt{display:inline-flex;align-items:center;gap:.35rem;font-size:.75rem;font-weight:600;padding:.15rem .55rem .15rem .35rem;border-radius:999px;background:rgba(255,149,0,.14);color:#c93400;cursor:pointer;margin-bottom:.35rem;user-select:none}
+.snt input{width:15px;height:15px;margin:0;accent-color:#34c759;cursor:pointer}
+.snt.on{background:rgba(52,199,89,.15);color:#248a3d}
+.ad-g.sub{margin-left:calc(var(--d,1) * 2rem)!important;box-shadow:inset 3px 0 0 rgba(0,122,255,.35)!important}
+.fam-ar{color:#8e8e93;margin-right:.35rem;font-weight:400}
+.fam-of{margin:.1rem 0 .3rem;font-size:.78rem;color:#8e8e93}
+.ad-count b.snt-c{color:#248a3d}
+.snt-td{white-space:nowrap;font-weight:600;color:#248a3d}
+.inv-td{white-space:nowrap;text-align:right}.inv-td .btn{margin-left:.3rem}
+.ad-h-row{display:flex!important;align-items:center;justify-content:space-between;gap:1rem}
+.ad-h-row .btn{text-transform:none!important;font-size:.82rem!important;letter-spacing:0!important}
+.sm-card{background:#fff;border-radius:14px;padding:1rem 1.1rem}.sm-card small{color:#8e8e93}.sm-card h3{margin:.2rem 0 .3rem;font-size:1.3rem}.sm-card p{margin:0;color:#3c3c43}
+.sm-st{margin-top:.5rem!important;font-weight:600}
+body.adm-on .modal .btn.wa{background:#34c759;color:#fff}
+body.adm-on .modal .btn[disabled]{opacity:.4}
+body.adm-on .modal .ad-bar{background:rgba(118,118,128,.12);height:.45rem;border-radius:9px;overflow:hidden}body.adm-on .modal .ad-bar i{display:block;height:100%;background:#34c759}
 </style>
 </head>
 <body class="lock">
@@ -599,7 +618,7 @@ function openFallback(){try{var i=document.getElementById("intro"),m=document.ge
 <script>
 /* ===== CONFIG: edit these ===== */
 /* Paste your Google Apps Script Web App URL (ends with /exec). Leave empty for demo mode (data stays in this browser only). */
-const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbwwK-apBGhRPGmkn5XjNQJfOIPofHNvgETbau2GoC6j-XqkHGC-5PWLtZ2rr3ysiIB1EQ/exec";
+const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbyUv4DEi3qGBgQs3BiEp3nJdWQ0GzQy8bMOktAJakv8mRfboOmndupNHLRY0qAEC-TGLQ/exec";
 const CFG={date:new Date(2027,7,29,10,0,0),
  venue:"Arcum Tent, Majma Mall, Lorong P. Ramlee 5A, 93400 Kuching, Sarawak",
  mapUrl:"https://www.google.com/maps/search/?api=1&query=Arcum+Tent+Majma+Mall+Kuching", /* replace with the exact Google Maps link */
@@ -638,7 +657,7 @@ let guests=[],wishes=[],refresh=()=>{},pollT=null;
 function seed(){return[["Encik Ali",2,"yes","Meja 1","L"],["Puan Aisyah",3,"yes","Meja VIP","P"],["Cik Farah",1,"no","","P"],["Dr. Hafiz",2,"pending","Meja 2","L"],["Puan Zainab",3,"pending","Meja 2",""]].map((a,i)=>({id:uid(),name:a[0],pax:a[1],max:a[1],status:a[2],table:a[3],side:a[4],cat:["Family Ibu Pengantin Lelaki","Rakan Kerja Pengantin Perempuan","Jiran","Rakan Sekolah Pengantin Lelaki",""][i],arrived:null,submittedAt:0}))}
 function seedWishes(){const n=Date.now();return[{name:"Encik Ali",text:"Semoga berbahagia hingga ke syurga. Barakallahu lakuma!",at:n-6e4},{name:"Puan Aisyah",text:"Tahniah Syazwan dan Nazura! Moga rumah tangga sentiasa dirahmati.",at:n-12e4}]}
 function normalize(a){const seen=new Set();return(Array.isArray(a)?a:[]).filter(g=>g&&typeof g==="object"&&String(g.name||"").trim()).map(g=>{let id=g.id?String(g.id):"";while(!id||seen.has(id))id=uid();seen.add(id);
- return{id,name:String(g.name).trim(),pax:Math.max(1,+g.pax||1),status:["yes","no","pending"].includes(g.status)?g.status:"pending",table:String(g.table||""),side:["L","P"].includes(g.side)?g.side:"",max:Math.max(1,+g.max||+g.pax||1),cat:String(g.cat||"").trim(),arrived:+g.arrived||null,submittedAt:+g.submittedAt||0}})}
+ return{id,name:String(g.name).trim(),pax:Math.max(1,+g.pax||1),status:["yes","no","pending"].includes(g.status)?g.status:"pending",table:String(g.table||""),side:["L","P"].includes(g.side)?g.side:"",max:Math.max(1,+g.max||+g.pax||1),cat:String(g.cat||"").trim(),arrived:+g.arrived||null,submittedAt:+g.submittedAt||0,sent:+g.sent||0,under:String(g.under||"").trim()}})}
 function save(){if(REMOTE())return;lsSet(CFG.KEY,JSON.stringify(guests));lsSet(CFG.WKEY,JSON.stringify(wishes))}
 function loadLocal(){let g=null,w=null;try{const r=lsGet(CFG.KEY);if(r)g=normalize(JSON.parse(r))}catch(e){}try{const r=lsGet(CFG.WKEY);if(r)w=JSON.parse(r)}catch(e){}guests=g||seed();wishes=Array.isArray(w)?w:seedWishes()}
 if(!REMOTE()){loadLocal();save()}
@@ -646,12 +665,21 @@ addEventListener("storage",e=>{if(!REMOTE()&&(e.key===CFG.KEY||e.key===CFG.WKEY)
 /* Remote transport (Apps Script web app). POST uses text/plain so no CORS preflight is needed. */
 async function remotePost(action,data){const r=await fetch(GOOGLE_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action,key:CFG.adminPassword,...data})});return r.json()}
 async function remoteGet(q){const r=await fetch(GOOGLE_SCRIPT_URL+"?"+q);return r.json()}
-const guestsFromSheet=a=>normalize((a||[]).map(r=>({id:String(r.name).trim().toLowerCase(),name:r.name,pax:r.pax,status:fromRsvp(r.rsvp),table:r.table,side:sideOf(r.side),max:r.max,cat:r.cat,arrived:r.checkin?Date.parse(r.checkin):null,submittedAt:r.submitted?Date.parse(r.submitted):0})));
+const guestsFromSheet=a=>normalize((a||[]).map(r=>({id:String(r.name).trim().toLowerCase(),name:r.name,pax:r.pax,status:fromRsvp(r.rsvp),table:r.table,side:sideOf(r.side),max:r.max,cat:r.cat,arrived:r.checkin?Date.parse(r.checkin):null,submittedAt:r.submitted?Date.parse(r.submitted):0,sent:r.sent?Date.parse(r.sent)||1:0,under:r.under||""})));
 const wishesFromSheet=a=>(a||[]).map(w=>({name:w.name,text:w.text,at:w.time?Date.parse(w.time):0}));
 async function loadAdmin(){if(!REMOTE()){loadLocal();return}const j=await remoteGet("action=list&key="+encodeURIComponent(CFG.adminPassword));if(!j.ok)throw new Error(j.error||"Tidak dibenarkan");window.__sv=+j.version||0;if(j.layout!==undefined&&Date.now()-(window.__lyDirty||0)>8000&&!window.__dragging){window.__layoutRaw=j.layout;layout=null}guests=guestsFromSheet(j.guests);wishes=wishesFromSheet(j.wishes)}
 async function loadPublic(){if(!REMOTE()){loadLocal();return}const j=await remoteGet("action=wishes");if(j.ok)wishes=wishesFromSheet(j.wishes)}
 async function getMine(n){if(!n)return null;if(!REMOTE())return guests.find(x=>same(x.name,n))||null;
  try{const j=await remoteGet("action=status&name="+encodeURIComponent(n));if(j.ok&&j.found)return{name:n,status:fromRsvp(j.rsvp),pax:+j.pax||1,max:+j.max||0,side:sideOf(j.side)}}catch(e){}return null}
+/* Names in one category, for the family group link (?kat=…&pihak=…) */
+async function getGroup(kat,pihak){const sd=sideOf(pihak);
+ if(!REMOTE())return guests.filter(g=>same(g.cat,kat)&&(!sd||g.side===sd)).map(g=>({name:g.name,max:g.max,under:g.under||"",side:g.side}));
+ try{const j=await remoteGet("action=group&kat="+encodeURIComponent(kat)+(pihak?"&pihak="+encodeURIComponent(pihak):""));if(j.ok)return(j.guests||[]).map(g=>({name:String(g.name),max:+g.max||1,under:g.under||"",side:sideOf(g.side)}))}catch(e){}return null}
+/* parents first, each followed by their family members (one level, then deeper) */
+function famOrder(list,cmp){const by=new Map(list.map(g=>[g.name.toLowerCase(),g])),kids=new Map(),top=[];
+ list.forEach(g=>{const p=g.under&&by.get(g.under.toLowerCase());if(p&&p!==g){if(!kids.has(p))kids.set(p,[]);kids.get(p).push(g)}else top.push(g)});
+ const out=[],seen=new Set(),walk=(g,d)=>{if(seen.has(g))return;seen.add(g);out.push([g,d]);(kids.get(g)||[]).sort(cmp).forEach(k=>walk(k,d+1))};
+ top.sort(cmp).forEach(g=>walk(g,0));list.forEach(g=>walk(g,0));return out}
 /* Live guest count for the RSVP section (totals only, no names) */
 async function liveStats(){
  if(!REMOTE()){const y=guests.filter(g=>g.status==="yes"),c=x=>y.filter(g=>g.side===x);return{ok:true,total:y.reduce((a,g)=>a+g.pax,0),L:c("L").reduce((a,g)=>a+g.pax,0),P:c("P").reduce((a,g)=>a+g.pax,0)}}
@@ -665,10 +693,11 @@ const newId=n=>REMOTE()?String(n).trim().toLowerCase():uid();
 function applyLocal(a,d,r){const find=n=>guests.find(g=>same(g.name,n));
  if(a==="rsvp"){let g=find(d.name);if(!g){g={id:newId(d.name),name:String(d.name).trim(),pax:1,max:CFG.publicMaxPax,status:"pending",table:"",side:"",cat:"",arrived:null,submittedAt:0};guests.push(g)}g.status=d.status;if(d.side)g.side=d.side;if(d.status==="yes")g.pax=Math.min(g.max||99,Math.max(1,+d.pax||1));g.submittedAt=Date.now()}
  else if(a==="wish")wishes.unshift({name:d.name,text:d.text,at:Date.now()});
- else if(a==="add")guests.push({id:newId(d.name),name:String(d.name).trim(),pax:Math.max(1,+d.pax||1),max:Math.max(1,+d.pax||1),status:"pending",table:d.table||"",side:d.side||"",cat:d.cat||"",arrived:null,submittedAt:0});
+ else if(a==="add")guests.push({id:newId(d.name),name:String(d.name).trim(),pax:Math.max(1,+d.pax||1),max:Math.max(1,+d.pax||1),status:"pending",table:d.table||"",side:d.side||"",cat:d.cat||"",arrived:null,submittedAt:0,sent:0,under:d.under||""});
+ else if(a==="sent"){const t=r&&r.time?Date.parse(r.time):Date.now();(d.names||[d.name]).forEach(n=>{const g=find(n);if(g)g.sent=d.on?t:0})}
  else{const g=find(d.oldName||d.name);if(!g)return{ok:false,error:"not found"};
   if(a==="table")g.table=d.table;
-  else if(a==="update"){g.name=d.name;g.max=Math.max(1,+d.pax||1);g.pax=Math.min(g.pax,g.max);if(d.cat!==undefined)g.cat=d.cat;g.status=d.status;if(d.side!==undefined)g.side=d.side}
+  else if(a==="update"){if(!same(g.name,d.name))guests.forEach(x=>{if(same(x.under,g.name))x.under=d.name});if(d.under!==undefined)g.under=d.under;g.name=d.name;g.max=Math.max(1,+d.pax||1);g.pax=Math.min(g.pax,g.max);if(d.cat!==undefined)g.cat=d.cat;g.status=d.status;if(d.side!==undefined)g.side=d.side}
   else if(a==="checkin"){if(g.arrived)return{ok:false,error:"already",time:g.arrived};g.arrived=r&&r.time?Date.parse(r.time):Date.now()}
   else if(a==="uncheckin")g.arrived=null;
   else if(a==="delete")guests=guests.filter(x=>x!==g)}
@@ -756,8 +785,22 @@ function wall(){const w=$("#wishes");if(!w)return;const W=wishes.slice().sort((a
  const one=W.map(x=>`<div class="wish"><b>${esc(x.name)}</b><div>${esc(x.text)}</div></div>`).join("");
  const reps=Math.max(1,Math.ceil(5/W.length)),half=one.repeat(reps),secs=Math.max(14,W.length*reps*5);
  w.innerHTML=`<div class="wall"><div class="track scroll" style="animation-duration:${secs}s"><div>${half}</div><div class="dup" aria-hidden="true">${half}</div></div></div>`}
-function form(n,g){
+/* Family group link: the guest picks their own name from the names in that category */
+function groupPick(U){const kat=U.get("kat"),pihak=U.get("pihak")||"";
+ $("#rbox").innerHTML=`<div class="grid gap-3"><p style="margin:0;font-size:.95em">Sila pilih nama anda daripada senarai di bawah.</p><select class="inp" id="gsel" aria-label="Pilih nama anda"><option value="">Memuatkan senarai…</option></select><p id="er" class="err" role="alert"></p></div>`;
+ getGroup(kat,pihak).then(list=>{const sel=$("#gsel");if(!sel)return;
+  if(!list||!list.length){sel.outerHTML="";$("#er").textContent="Senarai nama tidak dapat dimuatkan. Sila hubungi keluarga pengantin.";return}
+  const by=(a,b)=>a.name.localeCompare(b.name);
+  sel.innerHTML=`<option value="">Pilih nama anda…</option>`+famOrder(list,by).map(([g,d])=>`<option value="${esc(g.name)}">${d?"\u00a0\u00a0".repeat(d)+"↳ ":""}${esc(g.name)}</option>`).join("");
+  sel.onchange=async()=>{const nm=sel.value;if(!nm)return;const x=list.find(g=>g.name===nm);
+   $("#gn2").textContent=nm;$("#gname").textContent=nm;try{sessionStorage.setItem("wed_grp_"+kat,nm)}catch(e){}
+   const mine=await getMine(nm);const gg=mine||{name:nm,status:"pending",pax:1,max:x.max,side:x.side};if(!gg.max)gg.max=x.max;if(!gg.side)gg.side=x.side;
+   if(gg.status!=="pending")thanks(gg,true);else form(nm,gg,true)};
+  let prev="";try{prev=sessionStorage.getItem("wed_grp_"+kat)||""}catch(e){}
+  if(prev&&list.some(g=>g.name===prev)){sel.value=prev;sel.onchange()}})}
+function form(n,g,grp){
  const U=(()=>{try{return new URLSearchParams(location.search)}catch(e){return new Map()}})();
+ if(!n&&U.get("kat")){groupPick(U);return}
  const lim=Math.min(20,Math.max(1,(g&&+g.max)||+U.get("pax")||CFG.publicMaxPax)),fromLink=!!n,sideSet=(g&&g.side)||sideOf(U.get("pihak"));
  const opts=Array.from({length:lim},(_,i)=>`<option value="${i+1}">Jumlah pax: ${i+1}</option>`).join("");
  $("#rbox").innerHTML=`<form id="rf" class="grid gap-3" novalidate><input class="inp" id="rn" value="${esc(n||"")}" placeholder="Nama" aria-label="Nama" autocomplete="name"${fromLink?" readonly":""}>
@@ -765,7 +808,8 @@ function form(n,g){
  <div><p style="margin:0 0 .3em;font-size:.85em">Tetamu dari pihak</p><div class="grid grid-cols-2 gap-2"><label><input type="radio" name="sd" value="L" class="sr-only"><span class="pill">Pengantin Lelaki</span></label><label><input type="radio" name="sd" value="P" class="sr-only"><span class="pill">Pengantin Perempuan</span></label></div></div>
  <div id="paxw"><select class="inp" id="px" aria-label="Jumlah pax">${opts}</select>${(g&&+g.max)||U.get("pax")?`<p style="margin:.35em 0 0;font-size:.8em;opacity:.8">Jemputan ini untuk ${lim} orang.</p>`:""}</div>
  <div><label for="wt" style="display:block;font-size:.85em;margin-bottom:.2em">Tulis ucapan anda</label><textarea class="inp" id="wt" rows="2" maxlength="240" placeholder="Ucapan untuk pengantin"></textarea></div>
- <p id="er" class="err" role="alert"></p><button class="btn" id="sb">Hantar</button></form>`;
+ <p id="er" class="err" role="alert"></p><button class="btn" id="sb">Hantar</button>${grp?`<button type="button" class="btn ghost" id="notme" style="font-size:.85em">Bukan nama anda? Pilih semula</button>`:""}</form>`;
+ if(grp)$("#notme").onclick=()=>{try{sessionStorage.removeItem("wed_grp_"+U.get("kat"))}catch(e){}$("#gn2").textContent="Tetamu Undangan";$("#gname").textContent="Tetamu Undangan";groupPick(U)};
  $("#px").value=String(g&&g.status==="yes"?Math.min(g.pax,lim):lim);
  if(sideSet){const r=$(`[name=sd][value="${sideSet}"]`);if(r)r.checked=true;$$("[name=sd]").forEach(x=>{x.disabled=true});$$("[name=sd]").forEach(x=>x.closest("label").style.opacity=x.checked?"1":".45")}
  const sync=()=>{$("#paxw").style.display=$("[name=at]:checked").value==="yes"?"":"none"};$$("[name=at]").forEach(r=>r.onchange=sync);
@@ -773,11 +817,11 @@ function form(n,g){
   if(!name){$("#er").textContent="Sila isi nama anda.";return}
   if(!side){$("#er").textContent="Sila pilih tetamu dari pihak pengantin lelaki atau perempuan.";return}
   const b=$("#sb");b.disabled=true;b.textContent="Menghantar…";
-  try{await act("rsvp",{name,pax,status:st,side});const wish=$("#wt").value.trim();if(wish){await act("wish",{name,text:wish});wall()}thanks({name,status:st,pax:pax||1,side,max:lim});drawStats();toast("✓ RSVP anda berjaya dihantar. Terima kasih!")}
+  try{await act("rsvp",{name,pax,status:st,side});const wish=$("#wt").value.trim();if(wish){await act("wish",{name,text:wish});wall()}thanks({name,status:st,pax:pax||1,side,max:lim},grp);drawStats();toast("✓ RSVP anda berjaya dihantar. Terima kasih!")}
   catch(err){b.disabled=false;b.textContent="Hantar";$("#er").textContent="Gagal menghantar. Semak sambungan internet dan cuba lagi."}}}
-function thanks(g){const y=g.status==="yes";
+function thanks(g,grp){const y=g.status==="yes";
  $("#rbox").innerHTML=`<div class="flex flex-col gap-3" style="align-items:center"><p class="lead" style="margin:0">${y?"Terima kasih, kami nantikan kehadiran anda":"Terima kasih atas doa anda"}</p><span class="bdg b-yes" style="align-self:center">✓ RSVP berjaya dihantar</span><p style="margin:0">${esc(g.name)} · ${SL[g.status]}${y?" · "+g.pax+" pax":""}${g.side?" · Pihak "+(g.side==="L"?"Lelaki":"Perempuan"):""}</p><button class="btn ghost" id="chg">Ubah jawapan</button></div>`;
- $("#chg").onclick=()=>form(g.name,g)}
+ $("#chg").onclick=()=>form(g.name,g,grp)}
 
 /* ===== Admin ===== */
 /* Shared header for Admin and Check-in: title, connection status and page tabs */
@@ -792,18 +836,21 @@ const hdr=()=>adHead("checkin"),modeNote=()=>"";
 const busyFocus=()=>{const a=document.activeElement;return !!window.__dragging||!!(a&&a.classList&&(a.classList.contains("tb")||a.closest&&a.closest("#af, .ly-panel")))||!!document.querySelector(".modal-bg")};
 /* Invitation message for WhatsApp / "Salin mesej". The parents' line follows the guest's side. */
 const PARENTS={L:"*Haji Abdellah bin Nahrawi & Hajjah Saerah binti Sarbini*",P:"*Yusof Bin Ahmad & Selamah Binti Abang Abu Bakar*"};
-const waText=g=>[
+const waText=(g,o={})=>[
 "✨ *JEMPUTAN KE MAJLIS WALIMATUL URUS* ✨","",
 "Assalamualaikum warahmatullahi wabarakatuh dan Salam Sejahtera.","",
-"Dengan penuh rasa kesyukuran ke hadrat Allah SWT, "+(g.side==="L"||g.side==="P"?PARENTS[g.side]:PARENTS.L+" serta "+PARENTS.P)+" dengan segala hormatnya menjemput Tuan / Puan / Encik / Cik *"+g.name+"* untuk hadir menyerikan Majlis Walimatul Urus:","",
+"Dengan penuh rasa kesyukuran ke hadrat Allah SWT, "+(g.side==="L"||g.side==="P"?PARENTS[g.side]:PARENTS.L+" serta "+PARENTS.P)+" dengan segala hormatnya menjemput Tuan / Puan / Encik / Cik "+(o.who||"*"+g.name+"*")+" untuk hadir menyerikan Majlis Walimatul Urus:","",
 "🤍 *Mohd Asriq Syazwan & Mumtaz Nazura* 🤍","",
 "Butiran majlis adalah seperti berikut:","",
 "🗓️ Tarikh: Ahad, 29 Ogos 2027",
 "⏰ Masa: 10.00 pagi",
 "📍 Tempat: Arcum Tent, Majma Mall, Lorong P. Ramlee 5A, 93400 Kuching, Sarawak","",
 "Bersama-sama ini disertakan pautan kad jemputan digital bagi tujuan rujukan lokasi serta pengesahan kehadiran (RSVP):",
-"🔗 "+linkFor(g),"",
+"🔗 "+(o.link||linkFor(g)),"",
 "Kehadiran serta iringan doa restu daripada pihak Tuan/Puan amatlah kami hargai dan didahului dengan ucapan ribuan terima kasih. 🙏"].join("\n");
+const groupLink=(sd,cat)=>(CFG.baseUrl||location.href.split(/[?#]/)[0])+"?kat="+encodeURIComponent(cat)+(sd?"&pihak="+sd:"");
+const groupText=(sd,cat)=>waText({side:sd,name:""},{who:"sekeluarga",link:groupLink(sd,cat)});
+const fmtD=t=>{try{return new Date(t).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}catch(e){return""}};
 const sideName=x=>x==="L"?"Groom's side":x==="P"?"Bride's side":"";
 
 /* ---------- Tabs ---------- */
@@ -857,7 +904,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
  const sideTitle=SD==="L"?"Groom's":"Bride's";
  const toolsHTML=withSide=>`<div class="ad-card ad-tools">
    <input class="inp ad-q" id="q" placeholder="Search guest name…" aria-label="Search name" autocomplete="off">
-   <div class="ad-filters ${withSide?"f5":"f3"}">
+   <div class="ad-filters ${withSide?"f6":"f4"}"><label>Invitation<select class="inp" id="fsent"><option value="all">All</option><option value="no">Not sent yet</option><option value="yes">Sent</option></select></label>
     <label>Sort by<select class="inp fsort" id="fsort"><option value="name">Name (A–Z)</option><option value="first">First added</option><option value="last">Latest added</option><option value="cat">Category</option></select></label>
     ${withSide?`<label>Side<select class="inp" id="fsd"><option value="all">All</option><option value="L">Groom's side</option><option value="P">Bride's side</option><option value="none">Not set</option></select></label>`:""}
     <label>Category<select class="inp" id="fct"></select></label>
@@ -878,10 +925,11 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    <label class="f-2 cat-f">Category${catSel(SD,"")}</label>
    <label>Pax limit<input class="inp" name="p" type="number" min="1" max="20" value="1" inputmode="numeric"><small>Maximum number of people</small></label>
    <label><span>Table <i>(optional)</i></span><input class="inp" name="t" list="tbls" placeholder="Can be set later" autocomplete="off"></label>
+   <label class="f-2">Family of <i>(optional)</i><select class="inp" name="u"><option value="">— Not part of another family —</option></select><small>For a married child or the unmarried children of someone already on the list</small></label>
    <div class="f-act"><button class="btn">Add &amp; copy invitation message</button><small>The guest will be saved on the <b>${sideTitle.toLowerCase()} side</b>. The invitation message with the link will be copied so you can paste it into WhatsApp.</small></div>
   </form></section>
  <section class="ad-sec"><h2 class="ad-h">By category</h2><p class="ad-note">Number of guests added in each category. Click a row to see those guests in the list below. <label class="ad-chk"><input type="checkbox" id="emp"> Show empty categories</label></p><div id="cats" class="ad-cats one"></div></section>
- <section class="ad-sec" id="lsec"><h2 class="ad-h">${sideTitle} guest list</h2><div class="ad-card ad-tools"><input class="inp ad-q" id="q" placeholder="Search guest name…" aria-label="Search name" autocomplete="off"><div class="ad-filters f2"><label>Sort by<select class="inp fsort" id="fsort"><option value="name">Name (A–Z)</option><option value="first">First added</option><option value="last">Latest added</option><option value="cat">Category</option></select></label><label>Category<select class="inp" id="fct"></select></label></div><div class="ad-count"><span id="cnt"></span><button type="button" class="ad-link" id="clr">Clear filters</button></div></div><div id="list" class="ad-list"></div></section>
+ <section class="ad-sec" id="lsec"><h2 class="ad-h ad-h-row">${sideTitle} guest list<button type="button" class="btn sm" id="small">▶ Send invitations 1 by 1</button></h2><div class="ad-card ad-tools"><input class="inp ad-q" id="q" placeholder="Search guest name…" aria-label="Search name" autocomplete="off"><div class="ad-filters f3"><label>Invitation<select class="inp" id="fsent"><option value="all">All</option><option value="no">Not sent yet</option><option value="yes">Sent</option></select></label><label>Sort by<select class="inp fsort" id="fsort"><option value="name">Name (A–Z)</option><option value="first">First added</option><option value="last">Latest added</option><option value="cat">Category</option></select></label><label>Category<select class="inp" id="fct"></select></label></div><div class="ad-count"><span id="cnt"></span><button type="button" class="ad-link" id="clr">Clear filters</button></div></div><div id="list" class="ad-list"></div></section>
 `;
  else body=`
  <div id="lyold"></div>
@@ -908,26 +956,29 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    .map(s=>`<div class="ad-stat ${s[4]}"><p>${s[0]}</p><b>${s[1]}<small> ${s[2]}</small></b><span>${s[3]}</span></div>`).join("")};
  const catCard=(sd,head)=>{const G=guests.filter(g=>g.side===sd);const list=catsFor(sd);if(G.some(g=>!g.cat))list.push("");
   const rows=list.map(c=>{const A=G.filter(g=>(g.cat||"")===c);if(!A.length&&(!showEmpty||!catList(sd).includes(c)))return"";const Y=A.filter(g=>g.status==="yes");
-   return `<tr class="ctr${A.length?"":" emp"}" data-sd="${sd}" data-c="${esc(c)}" tabindex="0"><td>${c?esc(c):"<i>No category</i>"}</td><td>${A.length}</td><td>${sumMax(A)}</td><td><b>${sumPax(Y)}</b></td><td>${A.filter(g=>g.status==="pending").length}</td></tr>`}).join("");
-  return `<div class="ad-card">${head?`<h3>${sd==="L"?"Groom's":"Bride's"} side</h3>`:""}${rows?`<div class="ad-tw"><table class="ad-t"><thead><tr><th>Category</th><th>Guests</th><th>Invited<br><small>pax</small></th><th>Attending<br><small>pax</small></th><th>No<br><small>reply</small></th></tr></thead><tbody>${rows}</tbody></table></div>`:`<p class="ad-note" style="margin:.4rem 0 0">No guests on this side yet.</p>`}</div>`};
- const guestCard=g=>`<article class="ad-card ad-g st-${g.status}" data-id="${esc(g.id)}">
-   <div class="ad-g-main"><h3>${esc(g.name)}</h3>
+   return `<tr class="ctr${A.length?"":" emp"}" data-sd="${sd}" data-c="${esc(c)}" tabindex="0"><td>${c?esc(c):"<i>No category</i>"}</td><td>${A.length}</td><td>${sumMax(A)}</td><td><b>${sumPax(Y)}</b></td><td>${A.filter(g=>g.status==="pending").length}</td><td class="snt-td">${A.length?`${A.filter(g=>g.sent).length}/${A.length}`:"–"}</td><td class="inv-td">${c&&A.length?`<button type="button" class="btn ghost sm grp" title="Copy one invitation for the whole family WhatsApp group">Group link</button><button type="button" class="btn ghost sm one" title="Send personal invitations one by one">Send 1 by 1</button>`:""}</td></tr>`}).join("");
+  return `<div class="ad-card">${head?`<h3>${sd==="L"?"Groom's":"Bride's"} side</h3>`:""}${rows?`<div class="ad-tw"><table class="ad-t"><thead><tr><th>Category</th><th>Guests</th><th>Invited<br><small>pax</small></th><th>Attending<br><small>pax</small></th><th>No<br><small>reply</small></th><th>Sent</th><th>Invite</th></tr></thead><tbody>${rows}</tbody></table></div>`:`<p class="ad-note" style="margin:.4rem 0 0">No guests on this side yet.</p>`}</div>`};
+ const underOpts=(sd,val,self)=>{const bad=new Set();if(self){const add=n=>guests.forEach(x=>{if(same(x.under,n)&&!bad.has(x)){bad.add(x);add(x.name)}});bad.add(self);add(self.name)}
+  const L=guests.filter(x=>(!sd||x.side===sd)&&!bad.has(x));return `<option value="">— Not part of another family —</option>`+famOrder(L,(a,b)=>a.name.localeCompare(b.name)).map(([x,d])=>`<option value="${esc(x.name)}"${same(x.name,val)?" selected":""}>${"\u00a0\u00a0".repeat(d)}${d?"↳ ":""}${esc(x.name)}</option>`).join("")};
+ const fillUnder=()=>{const u=$("#af [name=u]");if(!u||document.activeElement===u)return;const v=u.value;u.innerHTML=underOpts(SD,v);u.value=v};
+ const guestCard=(g,d=0)=>`<article class="ad-card ad-g st-${g.status}${d?" sub":""}" data-id="${esc(g.id)}" style="--d:${Math.min(d,3)}">
+   <div class="ad-g-main"><label class="snt${g.sent?" on":""}" title="Tick when the invitation has been sent"><input type="checkbox" class="sentcb"${g.sent?" checked":""}><span>${g.sent?"Sent "+fmtD(g.sent):"Not sent"}</span></label><h3>${d?`<span class="fam-ar">↳</span>`:""}${esc(g.name)}</h3>${g.under&&!d?`<p class="fam-of">Family of ${esc(g.under)}</p>`:""}
     <div class="ad-chips">${bdg(g.status)}${SD?"":g.side?`<span class="chip">${sideName(g.side)}</span>`:`<span class="chip warn">Side not set</span>`}${g.cat?`<span class="chip">${esc(g.cat)}</span>`:""}${g.arrived?`<span class="bdg b-yes">Arrived ${fmtT(g.arrived)}</span>`:""}</div></div>
    <div class="ad-g-pax"><b>${g.status==="yes"?g.pax:"–"}</b><span>/ ${g.max} pax</span><small>${g.status==="yes"?"attending / limit":"pax limit"}</small></div>
    <label class="ad-g-tb">Table<input class="inp tb" list="tbls" value="${esc(g.table)}" placeholder="Choose / type table" aria-label="Table for ${esc(g.name)}"></label>
-   <div class="ad-g-act"><button class="btn sm cm">Copy message</button><a class="btn sm wa" href="https://wa.me/?text=${encodeURIComponent(waText(g))}" target="_blank" rel="noopener">WhatsApp</a><button class="btn ghost sm ed">Edit</button><button class="btn ghost sm pv">Preview</button>${g.arrived?`<button class="btn ghost sm un">Undo arrival</button>`:""}<button class="btn ghost sm dl">Delete</button></div>
+   <div class="ad-g-act"><button class="btn sm cm">Copy message</button><a class="btn sm wa" href="https://wa.me/?text=${encodeURIComponent(waText(g))}" target="_blank" rel="noopener">WhatsApp</a><button class="btn ghost sm ed">Edit</button>${SD?`<button class="btn ghost sm addfam">+ Family member</button>`:""}<button class="btn ghost sm pv">Preview</button>${g.arrived?`<button class="btn ghost sm un">Undo arrival</button>`:""}<button class="btn ghost sm dl">Delete</button></div>
   </article>`;
 
  /* ---- Guest-list tabs (1, 2, 3) ---- */
  function drawList(){if(!$("#list"))return;
   const base=SD?guests.filter(g=>g.side===SD):guests;
-  const V=id=>$(id)?$(id).value:"all",q=$("#q").value.trim().toLowerCase(),sdF=V("#fsd"),ctF=V("#fct"),fs=V("#fs"),ft=V("#ft"),so=$("#fsort")?$("#fsort").value:"name";
+  const V=id=>$(id)?$(id).value:"all",q=$("#q").value.trim().toLowerCase(),sdF=V("#fsd"),ctF=V("#fct"),fs=V("#fs"),ft=V("#ft"),fse=V("#fsent"),so=$("#fsort")?$("#fsort").value:"name";
   const idx=new Map(guests.map((g,i)=>[g,i])),byName=(a,b)=>a.name.localeCompare(b.name);
   const SRT={name:byName,first:(a,b)=>idx.get(a)-idx.get(b),last:(a,b)=>idx.get(b)-idx.get(a),cat:(a,b)=>(!a.cat-!b.cat)||(a.cat||"").localeCompare(b.cat||"")||byName(a,b)}[so]||byName;
-  const R=base.filter(g=>(sdF==="all"||(sdF==="none"?!g.side:g.side===sdF))&&(ctF==="all"||(ctF==="none"?!g.cat:g.cat===ctF))&&(fs==="all"||g.status===fs)&&(ft==="all"||(ft==="none"?!g.table:g.table===ft))&&g.name.toLowerCase().includes(q)).sort(SRT);
-  const filtered=q||sdF!=="all"||ctF!=="all"||fs!=="all"||ft!=="all";
-  $("#cnt").textContent=filtered?`Showing ${R.length} of ${base.length} guests`:`${base.length} guests`;$("#clr").hidden=!filtered;
-  $("#list").innerHTML=R.length?R.map(guestCard).join(""):`<div class="ad-card ad-empty">${base.length?"No guests match your search or filters.":SD?"No guests on this side yet. Add the first guest above.":"No guests yet. Add guests in the Groom's Guests or Bride's Guests tab."}</div>`}
+  const R=base.filter(g=>(sdF==="all"||(sdF==="none"?!g.side:g.side===sdF))&&(ctF==="all"||(ctF==="none"?!g.cat:g.cat===ctF))&&(fs==="all"||g.status===fs)&&(ft==="all"||(ft==="none"?!g.table:g.table===ft))&&(fse==="all"||(fse==="yes")===!!g.sent)&&g.name.toLowerCase().includes(q));
+  const filtered=q||sdF!=="all"||ctF!=="all"||fs!=="all"||ft!=="all"||fse!=="all";const ns=base.filter(g=>g.sent).length;
+  $("#cnt").innerHTML=(filtered?`Showing ${R.length} of ${base.length} guests`:`${base.length} guests`)+` · <b class="snt-c">✓ ${ns} sent</b> · ${base.length-ns} not sent yet`;$("#clr").hidden=!filtered;
+  $("#list").innerHTML=R.length?famOrder(R,SRT).map(([g,d])=>guestCard(g,d)).join(""):`<div class="ad-card ad-empty">${base.length?"No guests match your search or filters.":SD?"No guests on this side yet. Add the first guest above.":"No guests yet. Add guests in the Groom's Guests or Bride's Guests tab."}</div>`}
  function drawGuests(){oldBanner();
   if(!SD){$("#sum").innerHTML=statsHTML(guests);
    $("#sides").innerHTML=["L","P"].map(sd=>{const G=guests.filter(g=>g.side===sd),Y=G.filter(g=>g.status==="yes"),inv=sumMax(G),pct=inv?Math.round(sumPax(Y)/inv*100):0;
@@ -939,6 +990,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   const sdF=$("#fsd")?$("#fsd").value:SD;
   fill($("#fct"),`<option value="all">All</option><option value="none">No category</option>`+catsFor(sdF==="L"||sdF==="P"?sdF:"").map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join(""));
   fill($("#ft"),`<option value="all">All</option><option value="none">Not set</option>`+tableNames().map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join(""));
+  fillUnder();
   {const cs=$("#af .cat-s");if(cs&&cs.value!=="__new"&&document.activeElement!==cs){const v=cs.value;cs.innerHTML=catOpts(SD,v);cs.value=v}}
   $("#tbls").innerHTML=tableNames().map(t=>`<option value="${esc(t)}">`).join("");
   drawList()}
@@ -1068,42 +1120,80 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   $("#rst").onclick=()=>{if(REMOTE()){loadAdmin().then(()=>{draw();toast("Data updated from Google Sheet")}).catch(err=>toast("Error: "+err.message));return}
    if(confirm("Replace all data with demo data?")){guests=seed();wishes=seedWishes();save();draw()}}}
  const Ls=$("#list")||document.createElement("div"),gOf=el=>{const r=el.closest("[data-id]");return r?guests.find(x=>x.id===r.dataset.id):null};
+ const grpModal=(sd,c,A)=>{const txt=groupText(sd,c),un=A.filter(g=>!g.sent);
+  const m=modal(`<h2>Group invitation</h2><p style="font-size:.95rem;margin:.3rem 0 .8rem">Post this once in the <b>${esc(c)}</b> WhatsApp group. Each person opens the link and picks their own name from the ${A.length} name(s) in this category, so their side and pax limit fill in automatically.</p>
+   <textarea class="inp" rows="8" readonly style="font-size:.8rem;text-align:left">${esc(txt)}</textarea>
+   <div class="flex gap-2 mt-3" style="flex-wrap:wrap"><button class="btn" id="gcp">Copy message</button><a class="btn wa" id="gwa" href="https://wa.me/?text=${encodeURIComponent(txt)}" target="_blank" rel="noopener">Open WhatsApp</a><button class="btn ghost" id="glk">Copy link only</button><button class="btn ghost" id="gx">Close</button></div>
+   ${un.length?`<label class="ad-chk" style="margin-top:.9rem;display:flex;gap:.5rem;align-items:center"><input type="checkbox" id="gmk" checked><span>After sending, mark all ${un.length} not-yet-sent guest(s) in this category as <b>Sent</b></span></label>`:`<p class="ad-note" style="margin:.8rem 0 0">✓ Everyone in this category is already marked as sent.</p>`}`);
+  const done=async()=>{const k=$("#gmk",m);if(k&&k.checked){await markSent(un,true);toast(`✓ ${un.length} guest(s) marked as sent`);k.closest("label").remove();draw()}};
+  $("#gcp",m).onclick=()=>{copy(txt,"Group message copied");done()};$("#gwa",m).onclick=()=>{done()};$("#glk",m).onclick=()=>copy(groupLink(sd,c),"Group link copied");$("#gx",m).onclick=()=>m.remove()};
+ /* Send mode: one guest at a time, WhatsApp opens with their personal message, then on to the next */
+ const sendMode=(A,label)=>{const byName=(a,b)=>a.name.localeCompare(b.name);let Q=famOrder(A,byName).map(x=>x[0]);let onlyNew=true,i=0;
+  const m=modal(`<div id="smb"></div>`);
+  const list=()=>onlyNew?Q.filter(g=>!g.sent||g.__justSent):Q;
+  const paint=()=>{const L=list(),n=L.length;if(i>=n)i=Math.max(0,n-1);const g=L[i];const done=Q.filter(x=>x.sent).length;
+   $("#smb",m).innerHTML=`<h2>Send invitations</h2><p style="margin:.2rem 0 .7rem;font-size:.9rem">${esc(label||"Selected guests")} · ✓ ${done} of ${Q.length} sent</p>
+    <div class="ad-bar" style="margin-bottom:.8rem"><i style="width:${Q.length?Math.round(done/Q.length*100):0}%"></i></div>
+    <label class="ad-chk" style="display:flex;gap:.5rem;align-items:center;margin-bottom:.8rem"><input type="checkbox" id="smo"${onlyNew?" checked":""}> Show only guests not sent yet</label>
+    ${g?`<div class="sm-card"><small>${i+1} of ${n}</small><h3>${esc(g.name)}</h3><p>${g.under?"Family of "+esc(g.under)+" · ":""}${g.max} pax${g.cat?" · "+esc(g.cat):""}</p><p class="sm-st">${g.sent?"✓ Sent "+fmtD(g.sent):"Not sent yet"}</p></div>
+    <div class="flex gap-2 mt-3" style="flex-wrap:wrap"><a class="btn wa" id="smw" href="https://wa.me/?text=${encodeURIComponent(waText(g))}" target="_blank" rel="noopener">Open WhatsApp &amp; mark sent</a><button class="btn ghost" id="smc">Copy message</button></div>
+    <div class="flex gap-2 mt-3" style="flex-wrap:wrap;justify-content:space-between"><button class="btn ghost" id="smp"${i?"":" disabled"}>‹ Previous</button><button class="btn ghost" id="smk">${g.sent?"Mark not sent":"Mark sent"}</button><button class="btn" id="smn"${i<n-1?"":" disabled"}>Next ›</button></div>`
+    :`<div class="sm-card"><h3>🎉 All done</h3><p>Every guest here has been sent an invitation.</p></div>`}
+    <div style="margin-top:1rem;text-align:right"><button class="btn ghost" id="smx">Close</button></div>`;
+   $("#smx",m).onclick=()=>{m.remove();draw()};$("#smo",m).onchange=e=>{onlyNew=e.target.checked;Q.forEach(x=>delete x.__justSent);i=0;paint()};
+   if(!g)return;
+   const mark=async on=>{await markSent([g],on);g.__justSent=on;paint()};
+   $("#smw",m).onclick=()=>{if(!g.sent)mark(true)};$("#smc",m).onclick=()=>copy(waText(g),"Message for "+g.name+" copied");
+   $("#smk",m).onclick=()=>mark(!g.sent);$("#smp",m).onclick=()=>{i--;paint()};$("#smn",m).onclick=()=>{i++;paint()}};
+  paint()};
+ window.__sendMode=sendMode;
+ if($("#small"))$("#small").onclick=()=>sendMode(guests.filter(g=>g.side===SD),SD==="L"?"All groom's guests":"All bride's guests");
+ const markSent=async(list,on)=>{const names=list.map(g=>g.name);if(!names.length)return;try{await act("sent",{names,on});}catch(err){toast("Error: "+err.message)}};
+ window.__markSent=markSent;
+ Ls.addEventListener("click",e=>{const a=e.target.closest("a.wa");if(!a)return;const g=gOf(a);if(g&&!g.sent)markSent([g],true).then(()=>{toast("✓ "+g.name+" marked as sent");draw()})});
  Ls.onclick=async e=>{const b=e.target.closest("button");if(!b)return;const g=gOf(b);if(!g){toast("Error: guest not found. Please reload the page.");return}
   try{
    if(b.classList.contains("cp"))copy(linkFor(g),"Link for "+g.name+" copied");
    else if(b.classList.contains("cm"))copy(waText(g),"Invitation message for "+g.name+" copied");
    else if(b.classList.contains("pv")){window.__to=g.name;location.hash=""}
    else if(b.classList.contains("ed"))editGuest(g);
+   else if(b.classList.contains("addfam")){const f=$("#af");if(!f)return;fillUnder();f.querySelector("[name=u]").value=g.name;const cs=f.querySelector(".cat-s");if(g.cat){cs.innerHTML=catOpts(SD,g.cat);cs.value=g.cat;const ed=f.querySelector(".cat-ed");if(ed)ed.hidden=false}f.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>f.querySelector("[name=n]").focus(),400);toast("Adding a family member of "+g.name)}
    else if(b.classList.contains("un")){await act("uncheckin",{name:g.name});draw();toast("Check-in undone")}
    else if(b.classList.contains("dl")){if(confirm("Delete "+g.name+" from the guest list?\nThis cannot be undone.")){await act("delete",{name:g.name});draw();toast("Guest deleted")}}
   }catch(err){toast("Error: "+err.message)}};
- Ls.onchange=async e=>{if(!e.target.classList.contains("tb"))return;const g=gOf(e.target);if(!g)return;
+ Ls.onchange=async e=>{if(e.target.classList.contains("sentcb")){const g=gOf(e.target);if(!g)return;await markSent([g],e.target.checked);draw();return}
+  if(!e.target.classList.contains("tb"))return;const g=gOf(e.target);if(!g)return;
   try{await act("table",{name:g.name,table:e.target.value.trim()})}catch(err){toast("Error: "+err.message);return}
   toast("Table for "+g.name+" saved")};
  function editGuest(g){const m=modal(`<h2>Edit guest</h2><form id="ef" class="ad-form ad-form-m" novalidate>
    <label class="f-name">Name<input class="inp" name="n" value="${esc(g.name)}"></label>
    <label>Side<select class="inp" name="sd"><option value="">Not set</option><option value="L">Groom's side</option><option value="P">Bride's side</option></select></label>
    <label class="cat-f f-name">Category${catSel(g.side,g.cat||"")}</label>
+   <label class="f-name">Family of<select class="inp" name="u">${underOpts(g.side,g.under||"",g)}</select></label>
    <label>Pax limit<input class="inp" type="number" min="1" max="20" name="p" value="${g.max}"></label>
    <label>RSVP status<select class="inp" name="s"><option value="pending">No reply yet</option><option value="yes">Attending</option><option value="no">Not attending</option></select></label>
    <div class="f-name ad-linkbox"><small>Invitation link</small><code>${esc(linkFor(g))}</code></div>
    <div class="f-act"><button class="btn">Save</button><button type="button" class="btn ghost" id="cx">Cancel</button></div></form>`);
   $("[name=s]",m).value=g.status;$("[name=sd]",m).value=g.side||"";{const upd=()=>{const c=$(".ad-linkbox code",m);if(c)c.textContent=linkFor({name:$("[name=n]",m).value||g.name,side:$("[name=sd]",m).value,max:+$("[name=p]",m).value||g.max})};["n","sd","p"].forEach(k=>$(`[name=${k}]`,m).addEventListener("input",upd));$("[name=sd]",m).addEventListener("change",upd)}$("[name=sd]",m).onchange=e=>{const cs=$(".cat-s",m),v=cs.value==="__new"?"":cs.value;cs.innerHTML=catOpts(e.target.value,v);cs.value=v};$("#cx",m).onclick=()=>m.remove();
   $("#ef",m).onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim()||g.name;if(guests.some(x=>x!==g&&same(x.name,n))){toast("This name is already on the list");return}
-   try{const nc=catVal(f),ns=f.get("sd")||"";if(nc&&ns&&!catList(ns).includes(nc))setCatList(ns,[...catList(ns),nc]);await act("update",{oldName:g.name,name:n,pax:Math.max(1,+f.get("p")||1),status:f.get("s"),side:ns,cat:nc});m.remove();draw();toast(n+" updated")}catch(err){toast("Error: "+err.message)}}}
+   try{const nc=catVal(f),ns=f.get("sd")||"";if(nc&&ns&&!catList(ns).includes(nc))setCatList(ns,[...catList(ns),nc]);await act("update",{oldName:g.name,name:n,pax:Math.max(1,+f.get("p")||1),status:f.get("s"),side:ns,cat:nc,under:f.get("u")||""});m.remove();draw();toast(n+" updated")}catch(err){toast("Error: "+err.message)}}}
+ if($("#af [name=u]"))$("#af [name=u]").onchange=e=>{const pg=guests.find(x=>same(x.name,e.target.value)),cs=$("#af .cat-s");if(pg&&pg.cat&&cs&&!cs.value){cs.innerHTML=catOpts(SD,pg.cat);cs.value=pg.cat;const ed=$("#af .cat-ed");if(ed)ed.hidden=false}};
  if($("#af"))$("#af").onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim();
   if(!n){toast("Please enter the guest name");e.target.n.focus();return}
   const dup=guests.find(g=>same(g.name,n));if(dup){toast("This name is already on the list"+(dup.side&&dup.side!==SD?" ("+(dup.side==="L"?"groom's":"bride's")+" side)":""));return}
   const max=Math.max(1,Math.min(20,+f.get("p")||1));
-  try{const nc=catVal(f);if(nc&&!catList(SD).includes(nc))setCatList(SD,[...catList(SD),nc]);await act("add",{name:n,pax:max,table:f.get("t").trim(),side:SD,cat:nc});
+  try{const nc=catVal(f);if(nc&&!catList(SD).includes(nc))setCatList(SD,[...catList(SD),nc]);await act("add",{name:n,pax:max,table:f.get("t").trim(),side:SD,cat:nc,under:f.get("u")||""});
    const msg=waText({name:n,side:SD,max});const keepCat=catVal(f);e.target.n.value="";e.target.p.value=1;e.target.t.value="";draw();{const cs=$("#af .cat-s"),cn=$("#af .cat-new");cs.innerHTML=catOpts(SD,keepCat);cs.value=keepCat;cn.hidden=true;cn.value=""}copy(msg,"✓ "+n+" added. Invitation message & link copied.");e.target.n.focus()}
   catch(err){toast("Error: "+err.message)}};
  if($("#fsort")){$("#fsort").value=lsGet("wed_sort")||"name";$("#fsort").onchange=e=>{lsSet("wed_sort",e.target.value);drawList()}}
- if($("#q"))$("#q").oninput=drawList;["#fsd","#fct","#fs","#ft"].forEach(s=>{const el=$(s);if(el)el.onchange=s==="#fsd"?drawGuests:drawList});
+ if($("#q"))$("#q").oninput=drawList;["#fsd","#fct","#fs","#ft","#fsent"].forEach(s=>{const el=$(s);if(el)el.onchange=s==="#fsd"?drawGuests:drawList});
  if($("#emp"))$("#emp").onchange=e=>{showEmpty=e.target.checked;drawGuests()};
- if($("#clr"))$("#clr").onclick=()=>{$("#q").value="";["#fsd","#fct","#fs","#ft"].forEach(s=>{const el=$(s);if(el)el.value="all"});drawGuests()};
+ if($("#clr"))$("#clr").onclick=()=>{$("#q").value="";["#fsd","#fct","#fs","#ft","#fsent"].forEach(s=>{const el=$(s);if(el)el.value="all"});drawGuests()};
  const goCat=r=>{if($("#fsd"))$("#fsd").value=r.dataset.sd;drawGuests();$("#fct").value=r.dataset.c||"none";["#fs","#ft"].forEach(x=>{if($(x))$(x).value="all"});$("#q").value="";drawList();$("#lsec").scrollIntoView({behavior:"smooth"})};
- if($("#cats")&&$("#lsec")){$("#cats").onclick=e=>{const r=e.target.closest(".ctr");if(r)goCat(r)};
+ if($("#cats")){$("#cats").addEventListener("click",async e=>{const b=e.target.closest("button.grp,button.one");if(!b)return;e.stopPropagation();const r=b.closest(".ctr"),sd=r.dataset.sd,c=r.dataset.c,A=guests.filter(g=>g.side===sd&&(g.cat||"")===c);
+  if(b.classList.contains("one")){sendMode(A,c);return}
+  grpModal(sd,c,A)},true)}
+ if($("#cats")&&$("#lsec")){$("#cats").onclick=e=>{if(e.target.closest("button"))return;const r=e.target.closest(".ctr");if(r)goCat(r)};
  $("#cats").onkeydown=e=>{const r=e.target.closest(".ctr");if(r&&(e.key==="Enter"||e.key===" ")){e.preventDefault();goCat(r)}}}
  if($("#exp"))$("#exp").onclick=()=>{const qt=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
   const csv=[["Guest Name","Attending Pax","Pax Limit","RSVP","Side","Category","Table","Link","Check-in Time"].join(",")].concat(guests.map(g=>[g.name,g.status==="yes"?g.pax:"",g.max,SL[g.status],sideName(g.side),g.cat,g.table,linkFor(g),g.arrived?new Date(g.arrived).toLocaleString():""].map(qt).join(","))).join("\n");
