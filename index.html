@@ -512,6 +512,7 @@ body.adm-on .modal .ad-bar{background:rgba(118,118,128,.12);height:.45rem;border
 .fm-add{display:grid;grid-template-columns:minmax(0,1fr) 4.5rem auto;gap:.4rem;align-items:center}
 body.adm-on .modal .fm-add .inp{background:rgba(118,118,128,.12);padding:.5rem .7rem}
 .fm-hint{font-size:.72rem!important;color:rgba(60,60,67,.5)!important}
+.ced-td{white-space:nowrap;text-align:right}.ced-td .ad-link{font-size:.82rem;margin-left:.6rem;background:none;border:0;cursor:pointer;padding:0}.ced-td .cdel{color:#ff3b30!important}
 </style>
 </head>
 <body class="lock">
@@ -896,7 +897,16 @@ const catOpts=(sd,val)=>{const L=catsFor(sd);if(val&&!L.includes(val))L.push(val
 const catSel=(sd,val)=>`<span class="cat-row"><select class="inp cat-s" name="c" data-sd="${sd||""}">${catOpts(sd,val)}</select><button type="button" class="btn ghost sm cat-ed"${val?"":" hidden"} title="Rename this category">✎ Edit</button></span><input class="inp cat-new" name="cnew" placeholder="Type the new category" autocomplete="off" hidden>`;
 const catVal=f=>f.get("c")==="__new"?String(f.get("cnew")||"").trim():String(f.get("c")||"").trim();
 document.addEventListener("change",e=>{const s=e.target;if(!s.classList||!s.classList.contains("cat-s"))return;const box=s.closest(".cat-f"),n=box&&box.querySelector(".cat-new"),ed=box&&box.querySelector(".cat-ed");if(ed)ed.hidden=!s.value||s.value==="__new";if(!n)return;n.hidden=s.value!=="__new";if(!n.hidden){n.value="";n.focus()}});
-/* rename a category: updates the list and every guest on that side who has it */
+/* rename / delete a category: updates the list and every guest on that side who has it */
+async function renameCat(sd,old,nv){nv=String(nv||"").trim();if(!nv||nv===old)return 0;
+ const sides=sd?[sd]:["L","P"];sides.forEach(x=>{const L=catList(x);const i=L.indexOf(old);if(i>=0)L[i]=nv;else if(guests.some(g=>g.side===x&&g.cat===old))L.push(nv);setCatList(x,L)});
+ const M=guests.filter(g=>g.cat===old&&(!sd||g.side===sd));
+ for(const g of M){try{await act("update",{oldName:g.name,name:g.name,pax:g.max,status:g.status,side:g.side||"",cat:nv})}catch(err){toast("Error: "+err.message)}}
+ return M.length}
+async function deleteCat(sd,c){const sides=sd?[sd]:["L","P"];sides.forEach(x=>setCatList(x,catList(x).filter(k=>k!==c)));
+ const M=guests.filter(g=>g.cat===c&&(!sd||g.side===sd));
+ for(const g of M){try{await act("update",{oldName:g.name,name:g.name,pax:g.max,status:g.status,side:g.side||"",cat:""})}catch(err){toast("Error: "+err.message)}}
+ return M.length}
 document.addEventListener("click",async e=>{const b=e.target.closest&&e.target.closest(".cat-ed");if(!b)return;const box=b.closest(".cat-f"),s=box.querySelector(".cat-s"),old=s.value;if(!old||old==="__new")return;
  const sdSel=box.closest("form")&&box.closest("form").querySelector("[name=sd]"),sd=sdSel?sdSel.value:(s.dataset.sd||"");
  const nv=(prompt("Rename category:",old)||"").trim();if(!nv||nv===old)return;
@@ -962,8 +972,8 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    .map(s=>`<div class="ad-stat ${s[4]}"><p>${s[0]}</p><b>${s[1]}<small> ${s[2]}</small></b><span>${s[3]}</span></div>`).join("")};
  const catCard=(sd,head)=>{const G=guests.filter(g=>g.side===sd);const list=catsFor(sd);if(G.some(g=>!g.cat))list.push("");
   const rows=list.map(c=>{const A=G.filter(g=>(g.cat||"")===c);if(!A.length&&(!showEmpty||!catList(sd).includes(c)))return"";const Y=A.filter(g=>g.status==="yes");
-   return `<tr class="ctr${A.length?"":" emp"}" data-sd="${sd}" data-c="${esc(c)}" tabindex="0"><td>${c?esc(c):"<i>No category</i>"}</td><td>${A.length}</td><td>${sumMax(A)}</td><td><b>${sumPax(Y)}</b></td><td>${A.filter(g=>g.status==="pending").length}</td><td class="snt-td">${A.length?`${A.filter(g=>g.sent).length}/${A.length}`:"–"}</td><td class="inv-td">${c&&A.length?`<button type="button" class="btn ghost sm grp" title="Copy one invitation for the whole family WhatsApp group">Group link</button><button type="button" class="btn ghost sm one" title="Send personal invitations one by one">Send 1 by 1</button>`:""}</td></tr>`}).join("");
-  return `<div class="ad-card">${head?`<h3>${sd==="L"?"Groom's":"Bride's"} side</h3>`:""}${rows?`<div class="ad-tw"><table class="ad-t"><thead><tr><th>Category</th><th>Guests</th><th>Invited<br><small>pax</small></th><th>Attending<br><small>pax</small></th><th>No<br><small>reply</small></th><th>Sent</th><th>Invite</th></tr></thead><tbody>${rows}</tbody></table></div>`:`<p class="ad-note" style="margin:.4rem 0 0">No guests on this side yet.</p>`}</div>`};
+   return `<tr class="ctr${A.length?"":" emp"}" data-sd="${sd}" data-c="${esc(c)}" tabindex="0"><td>${c?esc(c):"<i>No category</i>"}</td><td>${A.length}</td><td>${sumMax(A)}</td><td><b>${sumPax(Y)}</b></td><td>${A.filter(g=>g.status==="pending").length}</td><td class="snt-td">${A.length?`${A.filter(g=>g.sent).length}/${A.length}`:"–"}</td><td class="inv-td">${c&&A.length?`<button type="button" class="btn ghost sm grp" title="Copy one invitation for the whole family WhatsApp group">Group link</button><button type="button" class="btn ghost sm one" title="Send personal invitations one by one">Send 1 by 1</button>`:""}</td><td class="ced-td">${c?`<button type="button" class="ad-link cren" title="Rename this category">✎ Rename</button><button type="button" class="ad-link cdel" title="Delete this category">Delete</button>`:""}</td></tr>`}).join("");
+  return `<div class="ad-card">${head?`<h3>${sd==="L"?"Groom's":"Bride's"} side</h3>`:""}${rows?`<div class="ad-tw"><table class="ad-t"><thead><tr><th>Category</th><th>Guests</th><th>Invited<br><small>pax</small></th><th>Attending<br><small>pax</small></th><th>No<br><small>reply</small></th><th>Sent</th><th>Invite</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`:`<p class="ad-note" style="margin:.4rem 0 0">No guests on this side yet.</p>`}</div>`};
  const underOpts=(sd,val,self,none)=>{const bad=new Set();if(self){const add=n=>guests.forEach(x=>{if(same(x.under,n)&&!bad.has(x)){bad.add(x);add(x.name)}});bad.add(self);add(self.name)}
   const L=guests.filter(x=>(!sd||x.side===sd)&&!bad.has(x));return `<option value="">${none||"— None (main invitation) —"}</option>`+famOrder(L,(a,b)=>a.name.localeCompare(b.name)).map(([x,d])=>`<option value="${esc(x.name)}"${same(x.name,val)?" selected":""}>${"\u00a0\u00a0".repeat(d)}${d?"↳ ":""}${esc(x.name)}</option>`).join("")};
  const fillUnder=()=>{const u=$("#af [name=u]");if(!u||document.activeElement===u)return;const v=u.value;u.innerHTML=underOpts(SD,v);u.value=v};
@@ -1218,7 +1228,9 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
  if($("#emp"))$("#emp").onchange=e=>{showEmpty=e.target.checked;drawGuests()};
  if($("#clr"))$("#clr").onclick=()=>{$("#q").value="";["#fsd","#fct","#fs","#ft","#fsent"].forEach(s=>{const el=$(s);if(el)el.value="all"});drawGuests()};
  const goCat=r=>{if($("#fsd"))$("#fsd").value=r.dataset.sd;drawGuests();$("#fct").value=r.dataset.c||"none";["#fs","#ft"].forEach(x=>{if($(x))$(x).value="all"});$("#q").value="";drawList();$("#lsec").scrollIntoView({behavior:"smooth"})};
- if($("#cats")){$("#cats").addEventListener("click",async e=>{const b=e.target.closest("button.grp,button.one");if(!b)return;e.stopPropagation();const r=b.closest(".ctr"),sd=r.dataset.sd,c=r.dataset.c,A=guests.filter(g=>g.side===sd&&(g.cat||"")===c);
+ if($("#cats")){$("#cats").addEventListener("click",async e=>{const b=e.target.closest("button.grp,button.one,button.cren,button.cdel");if(!b)return;e.stopPropagation();const r=b.closest(".ctr"),sd=r.dataset.sd,c=r.dataset.c,A=guests.filter(g=>g.side===sd&&(g.cat||"")===c);
+  if(b.classList.contains("cren")){const nv=(prompt("Rename category:",c)||"").trim();if(!nv||nv===c)return;if(catsFor(sd).some(k=>k!==c&&k.toLowerCase()===nv.toLowerCase())&&!confirm(`"${nv}" already exists. Merge "${c}" into it?`))return;const n=await renameCat(sd,c,nv);toast(`Category renamed to "${nv}"`+(n?` · ${n} guest(s) updated`:""));draw();return}
+  if(b.classList.contains("cdel")){if(!confirm(`Delete the category "${c}"?`+(A.length?`\n\nThe ${A.length} guest(s) in it will stay on the list, with no category. You can give them a new category with Edit.`:"")))return;const n=await deleteCat(sd,c);toast(`Category "${c}" deleted`+(n?` · ${n} guest(s) now have no category`:""));draw();return}
   if(b.classList.contains("one")){sendMode(A,c);return}
   grpModal(sd,c,A)},true)}
  if($("#cats")&&$("#lsec")){$("#cats").onclick=e=>{if(e.target.closest("button"))return;const r=e.target.closest(".ctr");if(r)goCat(r)};
