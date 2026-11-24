@@ -506,6 +506,12 @@ body.adm-on .toast{background:rgba(30,30,30,.88);color:#fff;border:0;border-radi
 body.adm-on .modal .btn.wa{background:#34c759;color:#fff}
 body.adm-on .modal .btn[disabled]{opacity:.4}
 body.adm-on .modal .ad-bar{background:rgba(118,118,128,.12);height:.45rem;border-radius:9px;overflow:hidden}body.adm-on .modal .ad-bar i{display:block;height:100%;background:#34c759}
+.fm-box{background:#fff;border-radius:12px;padding:.7rem .8rem;display:grid;gap:.45rem}.fm-box>small{color:rgba(60,60,67,.6);font-size:.78rem}
+.fm-row{display:flex;justify-content:space-between;gap:.5rem;padding:.35rem 0;border-bottom:1px solid rgba(60,60,67,.12);font-size:.92rem}.fm-row:last-child{border-bottom:0}.fm-row b{font-weight:600;color:rgba(60,60,67,.7);font-size:.85rem}
+.fm-empty{margin:0;font-size:.85rem;color:rgba(60,60,67,.6)}
+.fm-add{display:grid;grid-template-columns:minmax(0,1fr) 4.5rem auto;gap:.4rem;align-items:center}
+body.adm-on .modal .fm-add .inp{background:rgba(118,118,128,.12);padding:.5rem .7rem}
+.fm-hint{font-size:.72rem!important;color:rgba(60,60,67,.5)!important}
 </style>
 </head>
 <body class="lock">
@@ -1173,7 +1179,18 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    <label>Pax limit<input class="inp" type="number" min="1" max="20" name="p" value="${g.max}"></label>
    <label>RSVP status<select class="inp" name="s"><option value="pending">No reply yet</option><option value="yes">Attending</option><option value="no">Not attending</option></select></label>
    <div class="f-name ad-linkbox"><small>Invitation link</small><code>${esc(linkFor(g))}</code></div>
-   <div class="f-act"><button class="btn">Save</button><button type="button" class="btn ghost" id="cx">Cancel</button></div></form>`);
+   <div class="f-name fm-box"><small>Family members of ${esc(g.name)} <i>(each gets their own invitation)</i></small><div id="fml"></div>
+    <div class="fm-add"><input class="inp" id="fmn" placeholder="e.g. Ahmad & Isteri" autocomplete="off" aria-label="Family member name"><input class="inp" id="fmp" type="number" min="1" max="20" aria-label="Pax limit"><button type="button" class="btn sm" id="fma">+ Add</button></div>
+    <small class="fm-hint">Pax starts from the last one you entered; change it if needed. Side and category follow ${esc(g.name)}.</small></div>
+   <div class="f-act"><button class="btn">Save</button><button type="button" class="btn ghost" id="cx">Close</button></div></form>`);
+  {const kids=()=>guests.filter(x=>same(x.under,g.name));
+   const paint=()=>{const K=kids();$("#fml",m).innerHTML=K.length?K.map(x=>`<div class="fm-row"><span>↳ ${esc(x.name)}</span><b>${x.max} pax</b></div>`).join(""):`<p class="fm-empty">No family members added yet.</p>`};
+   $("#fmp",m).value=(kids().slice(-1)[0]||g).max||1;paint();
+   const addKid=async()=>{const n=$("#fmn",m).value.trim(),px=Math.max(1,Math.min(20,+$("#fmp",m).value||1));if(!n){$("#fmn",m).focus();return}
+    if(guests.some(x=>same(x.name,n))){toast("This name is already on the list");return}
+    const sd=$("[name=sd]",m).value||g.side||"",cs=$(".cat-s",m),cat=cs&&cs.value&&cs.value!=="__new"?cs.value:(g.cat||"");
+    try{await act("add",{name:n,pax:px,table:g.table||"",side:sd,cat,under:g.name});$("#fmn",m).value="";$("#fmp",m).value=px;paint();draw();toast("✓ "+n+" added under "+g.name);$("#fmn",m).focus()}catch(err){toast("Error: "+err.message)}};
+   $("#fma",m).onclick=addKid;$("#fmn",m).onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addKid()}};$("#fmp",m).onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addKid()}}}
   $("[name=s]",m).value=g.status;$("[name=sd]",m).value=g.side||"";{const upd=()=>{const c=$(".ad-linkbox code",m);if(c)c.textContent=linkFor({name:$("[name=n]",m).value||g.name,side:$("[name=sd]",m).value,max:+$("[name=p]",m).value||g.max})};["n","sd","p"].forEach(k=>$(`[name=${k}]`,m).addEventListener("input",upd));$("[name=sd]",m).addEventListener("change",upd)}$("[name=sd]",m).onchange=e=>{const cs=$(".cat-s",m),v=cs.value==="__new"?"":cs.value;cs.innerHTML=catOpts(e.target.value,v);cs.value=v};$("#cx",m).onclick=()=>m.remove();
   $("#ef",m).onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),n=f.get("n").trim()||g.name;if(guests.some(x=>x!==g&&same(x.name,n))){toast("This name is already on the list");return}
    try{const nc=catVal(f),ns=f.get("sd")||"";if(nc&&ns&&!catList(ns).includes(nc))setCatList(ns,[...catList(ns),nc]);await act("update",{oldName:g.name,name:n,pax:Math.max(1,+f.get("p")||1),status:f.get("s"),side:ns,cat:nc,under:f.get("u")||""});m.remove();draw();toast(n+" updated")}catch(err){toast("Error: "+err.message)}}}
@@ -1183,7 +1200,7 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   const dup=guests.find(g=>same(g.name,n));if(dup){toast("This name is already on the list"+(dup.side&&dup.side!==SD?" ("+(dup.side==="L"?"groom's":"bride's")+" side)":""));return}
   const max=Math.max(1,Math.min(20,+f.get("p")||1));
   try{const nc=catVal(f);if(nc&&!catList(SD).includes(nc))setCatList(SD,[...catList(SD),nc]);await act("add",{name:n,pax:max,table:f.get("t").trim(),side:SD,cat:nc,under:f.get("u")||""});
-   const msg=waText({name:n,side:SD,max});const keepCat=catVal(f);e.target.n.value="";e.target.p.value=1;e.target.t.value="";draw();{const cs=$("#af .cat-s"),cn=$("#af .cat-new");cs.innerHTML=catOpts(SD,keepCat);cs.value=keepCat;cn.hidden=true;cn.value=""}copy(msg,"✓ "+n+" added. Invitation message & link copied.");e.target.n.focus()}
+   const msg=waText({name:n,side:SD,max});const keepCat=catVal(f);e.target.n.value="";e.target.p.value=max;e.target.t.value="";draw();{const cs=$("#af .cat-s"),cn=$("#af .cat-new");cs.innerHTML=catOpts(SD,keepCat);cs.value=keepCat;cn.hidden=true;cn.value=""}copy(msg,"✓ "+n+" added. Invitation message & link copied.");e.target.n.focus()}
   catch(err){toast("Error: "+err.message)}};
  if($("#fsort")){$("#fsort").value=lsGet("wed_sort")||"name";$("#fsort").onchange=e=>{lsSet("wed_sort",e.target.value);drawList()}}
  if($("#q"))$("#q").oninput=drawList;["#fsd","#fct","#fs","#ft","#fsent"].forEach(s=>{const el=$(s);if(el)el.onchange=s==="#fsd"?drawGuests:drawList});
