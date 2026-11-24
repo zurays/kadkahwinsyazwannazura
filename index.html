@@ -507,7 +507,7 @@ body.adm-on .modal .btn.wa{background:#34c759;color:#fff}
 body.adm-on .modal .btn[disabled]{opacity:.4}
 body.adm-on .modal .ad-bar{background:rgba(118,118,128,.12);height:.45rem;border-radius:9px;overflow:hidden}body.adm-on .modal .ad-bar i{display:block;height:100%;background:#34c759}
 .fm-box{background:#fff;border-radius:12px;padding:.7rem .8rem;display:grid;gap:.45rem}.fm-box>small{color:rgba(60,60,67,.6);font-size:.78rem}
-.fm-row{display:flex;justify-content:space-between;gap:.5rem;padding:.35rem 0;border-bottom:1px solid rgba(60,60,67,.12);font-size:.92rem}.fm-row:last-child{border-bottom:0}.fm-row b{font-weight:600;color:rgba(60,60,67,.7);font-size:.85rem}
+.fm-row{display:flex;justify-content:space-between;gap:.5rem;padding:.35rem 0;border-bottom:1px solid rgba(60,60,67,.12);font-size:.92rem}.fm-row:last-child{border-bottom:0}.fm-r{display:flex;gap:.7rem;align-items:center}.fm-un{font-size:.8rem;color:#ff3b30!important}.fm-row b{font-weight:600;color:rgba(60,60,67,.7);font-size:.85rem}
 .fm-empty{margin:0;font-size:.85rem;color:rgba(60,60,67,.6)}
 .fm-add{display:grid;grid-template-columns:minmax(0,1fr) 4.5rem auto;gap:.4rem;align-items:center}
 body.adm-on .modal .fm-add .inp{background:rgba(118,118,128,.12);padding:.5rem .7rem}
@@ -964,8 +964,8 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
   const rows=list.map(c=>{const A=G.filter(g=>(g.cat||"")===c);if(!A.length&&(!showEmpty||!catList(sd).includes(c)))return"";const Y=A.filter(g=>g.status==="yes");
    return `<tr class="ctr${A.length?"":" emp"}" data-sd="${sd}" data-c="${esc(c)}" tabindex="0"><td>${c?esc(c):"<i>No category</i>"}</td><td>${A.length}</td><td>${sumMax(A)}</td><td><b>${sumPax(Y)}</b></td><td>${A.filter(g=>g.status==="pending").length}</td><td class="snt-td">${A.length?`${A.filter(g=>g.sent).length}/${A.length}`:"–"}</td><td class="inv-td">${c&&A.length?`<button type="button" class="btn ghost sm grp" title="Copy one invitation for the whole family WhatsApp group">Group link</button><button type="button" class="btn ghost sm one" title="Send personal invitations one by one">Send 1 by 1</button>`:""}</td></tr>`}).join("");
   return `<div class="ad-card">${head?`<h3>${sd==="L"?"Groom's":"Bride's"} side</h3>`:""}${rows?`<div class="ad-tw"><table class="ad-t"><thead><tr><th>Category</th><th>Guests</th><th>Invited<br><small>pax</small></th><th>Attending<br><small>pax</small></th><th>No<br><small>reply</small></th><th>Sent</th><th>Invite</th></tr></thead><tbody>${rows}</tbody></table></div>`:`<p class="ad-note" style="margin:.4rem 0 0">No guests on this side yet.</p>`}</div>`};
- const underOpts=(sd,val,self)=>{const bad=new Set();if(self){const add=n=>guests.forEach(x=>{if(same(x.under,n)&&!bad.has(x)){bad.add(x);add(x.name)}});bad.add(self);add(self.name)}
-  const L=guests.filter(x=>(!sd||x.side===sd)&&!bad.has(x));return `<option value="">— Not part of another family —</option>`+famOrder(L,(a,b)=>a.name.localeCompare(b.name)).map(([x,d])=>`<option value="${esc(x.name)}"${same(x.name,val)?" selected":""}>${"\u00a0\u00a0".repeat(d)}${d?"↳ ":""}${esc(x.name)}</option>`).join("")};
+ const underOpts=(sd,val,self,none)=>{const bad=new Set();if(self){const add=n=>guests.forEach(x=>{if(same(x.under,n)&&!bad.has(x)){bad.add(x);add(x.name)}});bad.add(self);add(self.name)}
+  const L=guests.filter(x=>(!sd||x.side===sd)&&!bad.has(x));return `<option value="">${none||"— None (main invitation) —"}</option>`+famOrder(L,(a,b)=>a.name.localeCompare(b.name)).map(([x,d])=>`<option value="${esc(x.name)}"${same(x.name,val)?" selected":""}>${"\u00a0\u00a0".repeat(d)}${d?"↳ ":""}${esc(x.name)}</option>`).join("")};
  const fillUnder=()=>{const u=$("#af [name=u]");if(!u||document.activeElement===u)return;const v=u.value;u.innerHTML=underOpts(SD,v);u.value=v};
  const guestCard=(g,d=0)=>`<article class="ad-card ad-g st-${g.status}${d?" sub":""}" data-id="${esc(g.id)}" style="--d:${Math.min(d,3)}">
    <div class="ad-g-main"><label class="snt${g.sent?" on":""}" title="Tick when the invitation has been sent"><input type="checkbox" class="sentcb"${g.sent?" checked":""}><span>${g.sent?"Sent "+fmtD(g.sent):"Not sent"}</span></label><h3>${d?`<span class="fam-ar">↳</span>`:""}${esc(g.name)}</h3>${g.under&&!d?`<p class="fam-of">Family of ${esc(g.under)}</p>`:""}
@@ -1175,19 +1175,27 @@ function admin(){const T=$("#tool"),tab=tabNow(),SD=tab==="lelaki"?"L":tab==="pe
    <label class="f-name">Name<input class="inp" name="n" value="${esc(g.name)}"></label>
    <label>Side<select class="inp" name="sd"><option value="">Not set</option><option value="L">Groom's side</option><option value="P">Bride's side</option></select></label>
    <label class="cat-f f-name">Category${catSel(g.side,g.cat||"")}</label>
-   <label class="f-name">Family of<select class="inp" name="u">${underOpts(g.side,g.under||"",g)}</select></label>
+   <label class="f-name">This guest is a family member of<select class="inp" name="u">${underOpts(g.side,g.under||"",g)}</select><small style="font-weight:400">Leave as "None" if this is a main invitation (e.g. the parents)</small></label>
    <label>Pax limit<input class="inp" type="number" min="1" max="20" name="p" value="${g.max}"></label>
    <label>RSVP status<select class="inp" name="s"><option value="pending">No reply yet</option><option value="yes">Attending</option><option value="no">Not attending</option></select></label>
    <div class="f-name ad-linkbox"><small>Invitation link</small><code>${esc(linkFor(g))}</code></div>
    <div class="f-name fm-box"><small>Family members of ${esc(g.name)} <i>(each gets their own invitation)</i></small><div id="fml"></div>
-    <div class="fm-add"><input class="inp" id="fmn" placeholder="e.g. Ahmad & Isteri" autocomplete="off" aria-label="Family member name"><input class="inp" id="fmp" type="number" min="1" max="20" aria-label="Pax limit"><button type="button" class="btn sm" id="fma">+ Add</button></div>
-    <small class="fm-hint">Pax starts from the last one you entered; change it if needed. Side and category follow ${esc(g.name)}.</small></div>
+    <div class="fm-add"><input class="inp" id="fmn" list="fmdl" placeholder="Type a new name, or pick someone already on the list" autocomplete="off" aria-label="Family member name"><datalist id="fmdl"></datalist><input class="inp" id="fmp" type="number" min="1" max="20" aria-label="Pax limit"><button type="button" class="btn sm" id="fma">+ Add</button></div>
+    <small class="fm-hint">New names get the pax shown (it follows the last one you entered; change it if needed) and the same side and category as ${esc(g.name)}. Names already on the list are simply moved under ${esc(g.name)}.</small></div>
    <div class="f-act"><button class="btn">Save</button><button type="button" class="btn ghost" id="cx">Close</button></div></form>`);
   {const kids=()=>guests.filter(x=>same(x.under,g.name));
-   const paint=()=>{const K=kids();$("#fml",m).innerHTML=K.length?K.map(x=>`<div class="fm-row"><span>↳ ${esc(x.name)}</span><b>${x.max} pax</b></div>`).join(""):`<p class="fm-empty">No family members added yet.</p>`};
+   const paint=()=>{const K=kids();$("#fml",m).innerHTML=K.length?K.map(x=>`<div class="fm-row" data-n="${esc(x.name)}"><span>↳ ${esc(x.name)}</span><span class="fm-r"><b>${x.max} pax</b><button type="button" class="ad-link fm-un" title="Remove from this family (the guest stays on the list)">Remove</button></span></div>`).join(""):`<p class="fm-empty">No family members added yet.</p>`;
+    $("#fmdl",m).innerHTML=guests.filter(x=>x!==g&&!same(x.under,g.name)).sort((a,b)=>(a.side!==(g.side||a.side))-(b.side!==(g.side||b.side))||a.name.localeCompare(b.name)).map(x=>`<option value="${esc(x.name)}">`).join("");
+    $$(".fm-un",m).forEach(b=>b.onclick=async()=>{const x=guests.find(y=>same(y.name,b.closest(".fm-row").dataset.n));if(!x)return;try{await act("update",{oldName:x.name,name:x.name,pax:x.max,status:x.status,side:x.side||"",cat:x.cat||"",under:""});paint();draw();toast(x.name+" removed from this family")}catch(err){toast("Error: "+err.message)}})};
    $("#fmp",m).value=(kids().slice(-1)[0]||g).max||1;paint();
    const addKid=async()=>{const n=$("#fmn",m).value.trim(),px=Math.max(1,Math.min(20,+$("#fmp",m).value||1));if(!n){$("#fmn",m).focus();return}
-    if(guests.some(x=>same(x.name,n))){toast("This name is already on the list");return}
+    const ex=guests.find(x=>same(x.name,n));
+    if(ex){if(ex===g){toast("A guest cannot be their own family member");return}
+     /* moving an existing guest under this one; if this guest was under them (or their family), undo that so the tree stays correct */
+     let up=g,loop=false;const seen=new Set();while(up&&up.under&&!seen.has(up)){seen.add(up);if(same(up.under,ex.name)){loop=true;break}up=guests.find(y=>same(y.name,up.under))}
+     try{if(loop){await act("update",{oldName:g.name,name:g.name,pax:g.max,status:g.status,side:g.side||"",cat:g.cat||"",under:""});$("[name=u]",m).value=""}
+      await act("update",{oldName:ex.name,name:ex.name,pax:ex.max,status:ex.status,side:ex.side||"",cat:ex.cat||"",under:g.name});
+      $("#fmn",m).value="";paint();draw();toast("✓ "+ex.name+" is now under "+g.name);$("#fmn",m).focus()}catch(err){toast("Error: "+err.message)}return}
     const sd=$("[name=sd]",m).value||g.side||"",cs=$(".cat-s",m),cat=cs&&cs.value&&cs.value!=="__new"?cs.value:(g.cat||"");
     try{await act("add",{name:n,pax:px,table:g.table||"",side:sd,cat,under:g.name});$("#fmn",m).value="";$("#fmp",m).value=px;paint();draw();toast("✓ "+n+" added under "+g.name);$("#fmn",m).focus()}catch(err){toast("Error: "+err.message)}};
    $("#fma",m).onclick=addKid;$("#fmn",m).onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addKid()}};$("#fmp",m).onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addKid()}}}
